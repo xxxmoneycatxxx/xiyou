@@ -61,9 +61,9 @@ RUN { \
 COPY docker/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY docker/gzip.ini /usr/local/etc/php/conf.d/gzip.ini
 
-# 容器初始化脚本
+# 容器初始化脚本（sed 修复 Windows CRLF）
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN sed -i 's/\r$//' /usr/local/bin/entrypoint.sh && chmod +x /usr/local/bin/entrypoint.sh
 
 WORKDIR /var/www/html
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
