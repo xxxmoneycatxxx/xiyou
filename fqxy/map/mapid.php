@@ -33,6 +33,7 @@ if ($dty=="") {
     $iniFile->addCategory('地图坐标', ['x' => '0', 'y' => '0']);
 }
 
+$mapdx ??= 0;
 
 if ($dtx==0) {
     //跳转至新手村地图
