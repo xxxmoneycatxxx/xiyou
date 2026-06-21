@@ -211,7 +211,7 @@ foreach ($cmd in $allCmds) {
 
         # ── 扫描响应体中的 PHP 错误 ──────────
         if ($statusCode -eq '200' -and (Test-Path $TempBody)) {
-            $body = Get-Content $TempBody -Raw -ErrorAction SilentlyContinue
+            $body = Get-Content $TempBody -Raw -Encoding UTF8 -ErrorAction SilentlyContinue
             if ($body -match 'Warning|Notice|Deprecated|Fatal error|Parse error') {
                 # 提取所有匹配行
                 $warnLines = ([regex]::Matches($body, '<b>(Warning|Notice|Deprecated|Fatal|Parse)[^<]*</b>[^<]*'))

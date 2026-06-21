@@ -64,7 +64,7 @@ if (file_exists($file)) {
             $bpzw2 = "成员";
         }
     } else {
-
+        $bpzw2 = "无";
     }
 
     $inina = "zt.ini";
