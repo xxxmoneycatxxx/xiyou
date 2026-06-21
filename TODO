@@ -261,9 +261,77 @@ MyISAM 表级锁下这个模式勉强可用（请求串行化），InnoDB 行级
 
 | 风险 | 文件 | 改造要点 |
 |:----:|------|------|
-| 🔴 | `xxsql.php` | 先 ALTER AUTO_INCREMENT，确保 `mysql_insert_id()` 走 Medoo |
-| 🔴 | `jlbp.php` | 确认 `all_bp.bpid` 是 AUTO_INCREMENT，重排写入顺序 |
-| 🔴 | `gmfz.php` | 3 处购买住宅，id 同时做 fzid，重排写入顺序 |
-| 🔴 | `gmgz.php` | 顺带修复重复 `$maxid+1` 的已有 bug |
-| 🟢 | register.php 等 15 个 | 删除 MAX 查询 + 移除显式传 ID 即可
+| 🔴 | `xxsql.php` | `o_user_list.uid` 已有 AUTO_INCREMENT ✓，无需 ALTER |
+| 🔴 | `jlbp.php` | `all_bp.bpid` **没有** AUTO_INCREMENT ❌，需先 ALTER 再加 |
+| 🔴 | `gmfz.php` | `all_houres.id` **没有** AUTO_INCREMENT ❌，需先 ALTER 再加（3处） |
+| 🔴 | `gmgz.php` | `all_gzhoures.id` **没有** AUTO_INCREMENT ❌，需先 ALTER 再加；顺带修复重复 `$maxid+1` bug |
+| 🟢 | register.php 等 15 个 | 删除 MAX 查询 + 移除显式传 ID 即可 |
+
+### 进一步检查结果
+
+#### 关键发现 #1：`mysql_insert_id()` 完全不存在！
+
+`wrappers.php` 仅定义了 `mysql_query` / `mysql_fetch_array` / `mysql_num_rows` / `mysql_error`。
+**整个项目中没有任何地方调用 `mysql_insert_id()`**——当前代码完全绕过了数据库自增机制。
+
+**必须在 `wrappers.php` 中新增**：
+```php
+if (!function_exists('mysql_insert_id')) {
+    function mysql_insert_id() {
+        return get_mysql_conn()->id();  // Medoo::id() 包装了 PDO::lastInsertId()
+    }
+}
+```
+`Medoo::id()` 调用 `$this->pdo->lastInsertId()`，连接级安全，无并发问题 ✓
+
+#### 关键发现 #2：大量表根本没有 AUTO_INCREMENT
+
+| 表 | 需要 AUTO_INCREMENT 的列 | 使用文件 |
+|------|------|------|
+| `all_bp` | `bpid` | `jlbp.php` 创建帮派 |
+| `all_houres` | `id` | `gmfz.php` 购买住宅（3处） |
+| `all_gzhoures` | `id` | `gmgz.php` 购买官宅 |
+| `all_user` | `id` | `gm09~gm19.php` 封号操作 |
+| `zem` (xxjyuser) | `id` | `gm02.php` 后台操作 |
+| `all_sdk` | `sdkid` | `gm58~gm61.php` 兑换码 |
+| `all_qggz` | `id` | `qggz.php` 抢购规则 |
+| `all_pay` | `id` | `dd.php` 充值订单 |
+| `all_hdph01/02/03` | `id` | 活动排行 |
+| `all_yd01~04` | `id` | 活动记录 |
+| `all_xjhb` | `id` | 现金红包 |
+| `all_moneyjc` | `id` | 金豆奖池 |
+| `all_hbmoneyjc` | `id` | 红包奖池 |
+| `all_cz` | `id` | 充值记录 |
+| `all_qd` | `id` | 签到记录 |
+| `all_jc` | `id` | 竞技场 |
+
+**合计至少 16 张表需要先 `ALTER ... ADD AUTO_INCREMENT`** 才能切换。
+
+**已有 AUTO_INCREMENT 可立即切换**：
+| 表 | 列 | 使用文件 |
+|------|------|------|
+| `o_user_list` (两个库) | `uid` ✅ | `xxsql.php`, `register.php` |
+| `all_phb` | `id` ✅ | `gm37.php` 排行榜刷新 |
+| `gmuser` (xxjyuser) | `uid` ✅ | 管理员注册 |
+
+#### 关键发现 #3：双数据库连接安全
+
+- `xxjyuser`（家园）和 `xyy`（游戏）在同一 MySQL 服务器，通过**不同请求入口**隔离
+- `DB` 类是进程级单例，同一请求内只有一个连接，不会跨库混淆
+- `wrappers.php` 中 `mysql_query($sql, $conn)` 忽略 `$conn` 参数 → 当前恰好无影响（单连接场景）
+
+#### 更新后的实施依赖
+
+```
+第〇层
+  #4 索引  ←→  #4.5 MAX修复（可并行）
+    │             │
+    │         ┌────┴────┐
+    │      先 ALTER 16张表   wrappers.php 加 mysql_insert_id()
+    │      再加 AUTO_INCREMENT  业务代码删 MAX 查询 + 用 lastInsertId()
+    │             │
+    └─────┬───────┘
+          ▼
+      #5 InnoDB 迁移
+```
 
