@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.2-apache
 
 # 安装 PHP 扩展 + mysql 客户端（用于 entrypoint 等待/导表）
 RUN apt-get update && apt-get install -y --no-install-recommends \

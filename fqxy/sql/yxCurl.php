@@ -1,5 +1,5 @@
 <?php
-ini_set("error_reporting", "E_ALL & ~E_NOTICE");//防止报错代码
+error_reporting(E_ALL & ~E_NOTICE);//防止报错代码
 //打印获得的数据
 $arguments = file_get_contents('php://input');
 $arguments_arr = explode("|", $arguments);
