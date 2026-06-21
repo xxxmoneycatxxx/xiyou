@@ -3,7 +3,7 @@ include("./sql/mysql.php");//调用数据库连接
 $q2="o_user_list";
 $sql1=mysql_query("select MAX(uid) from $q2");
 $abc=mysql_fetch_array($sql1);
-$maxuid=$abc[0];
+$maxuid=$abc['MAX(uid)'];
 
 
 $czid=821;
