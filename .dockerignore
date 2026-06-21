@@ -1,0 +1,33 @@
+# IDE / 编辑器
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Docker（容器内无需这些）
+.dockerignore
+docker_deploy.ps1
+
+# 运行时数据
+mysql_data/
+
+# 玩家缓存（运行时生成）
+fqxy/ache/*/
+!fqxy/ache/.gitkeep
+fqxy/acher/*/
+!fqxy/acher/.gitkeep
+bin/data/*
+!bin/data/.gitkeep
+
+# Windows
+*.bat
+
+# 文档
+images/
+*.md
