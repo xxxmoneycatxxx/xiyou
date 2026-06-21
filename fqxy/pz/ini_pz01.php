@@ -81,4 +81,5 @@ $ininame = $path."/".$inina;
 # 实例化ini文件操作类，并载入 .ini文件
 $iniFile = new iniFile($ininame);
 # 获取一个分类下所有数据$
+$npccc ??= '';
 $npcc=$npccc;
