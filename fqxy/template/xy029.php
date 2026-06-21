@@ -241,6 +241,7 @@ $keyzbxq5[]=$zbxq5[$key];
 
 
 
+$i=-1;
 for($d=0;$d<=$m;$d++){
 $i=$i+1;
 
