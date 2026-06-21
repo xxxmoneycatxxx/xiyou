@@ -190,6 +190,7 @@ Write-Host " OK (code=$pCode size=$pSize bytes)" -ForegroundColor Green
 Write-Host ""
 
 $startTime = Get-Date
+$TempBody = "$env:TEMP\_explore_body.tmp"
 
 # ── 主循环 ─────────────────────────────────
 foreach ($cmd in $allCmds) {
@@ -198,7 +199,8 @@ foreach ($cmd in $allCmds) {
 
     try {
         $sw = [Diagnostics.Stopwatch]::StartNew()
-        $resp = curl.exe -s -o NUL -w "%{http_code};%{size_download}" -b "PHPSESSID=$Cookie" --max-time 10 "$url" 2>&1
+        # 下载到临时文件并拿到 HTTP 状态码
+        $resp = curl.exe -s -o "$TempBody" -w "%{http_code};%{size_download}" -b "PHPSESSID=$Cookie" --max-time 10 "$url" 2>&1
         $elapsed = $sw.ElapsedMilliseconds
         $sw.Stop()
 
@@ -207,18 +209,33 @@ foreach ($cmd in $allCmds) {
         $bodySize = if ($parts.Count -gt 1) { ($parts[1] -replace '\s+', '') } else { '?' }
         if (-not $statusCode) { $statusCode = 'err' }
 
-        if ($statusCode -eq '200') {
-            # OK — 检查是否真的成功 (body size 过大或过小都是异常)
-        } elseif ($statusCode -match '^[345]') {
+        # ── 扫描响应体中的 PHP 错误 ──────────
+        if ($statusCode -eq '200' -and (Test-Path $TempBody)) {
+            $body = Get-Content $TempBody -Raw -ErrorAction SilentlyContinue
+            if ($body -match 'Warning|Notice|Deprecated|Fatal error|Parse error') {
+                # 提取所有匹配行
+                $warnLines = ([regex]::Matches($body, '<b>(Warning|Notice|Deprecated|Fatal|Parse)[^<]*</b>[^<]*'))
+                foreach ($m in $warnLines) {
+                    $Warned++
+                    $msg = $m.Value -replace '<[^>]+>', '' -replace '\s+', ' '
+                    $msg = if ($msg.Length -gt 100) { $msg.Substring(0,97) + '...' } else { $msg }
+                    $Results += [PSCustomObject]@{ cmd=$cmd; type='PHP_WARN'; msg=$msg; status=$statusCode; ms=$elapsed }
+                    # 换行打印（不盖掉进度条）
+                    Write-Host "`r  ⚠ $(if($Warned -le 999){' '})$Warned | cmd=$cmd $msg" -ForegroundColor Yellow
+                }
+            }
+        }
+
+        if ($statusCode -match '^[345]') {
             $Errored++
-            $Results += [PSCustomObject]@{ cmd=$cmd; status=$statusCode; ms=$elapsed }
-        } else {
+            $Results += [PSCustomObject]@{ cmd=$cmd; type='HTTP_ERR'; msg=$statusCode; status=$statusCode; ms=$elapsed }
+        } elseif ($statusCode -ne '200') {
             $Errored++
-            $Results += [PSCustomObject]@{ cmd=$cmd; status=$statusCode; ms=$elapsed }
+            $Results += [PSCustomObject]@{ cmd=$cmd; type='UNKNOWN'; msg=$statusCode; status=$statusCode; ms=$elapsed }
         }
     } catch {
         $Errored++
-        $Results += [PSCustomObject]@{ cmd=$cmd; status='exception'; ms=0 }
+        $Results += [PSCustomObject]@{ cmd=$cmd; type='EXCEPTION'; msg=$_.Exception.Message; status='err'; ms=0 }
     }
 
     # ── 内联进度条 ──────────────────────────
@@ -241,11 +258,14 @@ foreach ($cmd in $allCmds) {
         $rps = ($Tested / ([DateTime]::Now - $startTime).TotalSeconds).ToString('0.0')
         $rpsStr = " ${rps}/s"
     }
-    Write-Host -NoNewline "`r  [$bar] ${Tested}/${Total} (${pct}%)${rpsStr} err:${Errored}${eta}    "
+    Write-Host -NoNewline "`r  [$bar] ${Tested}/${Total} (${pct}%)${rpsStr} err:${Errored} warn:${Warned}${eta}    "
     Write-Progress -Activity "Auto-Explorer" -Status "cmd $cmd / $Total" -PercentComplete $pct
 
     Start-Sleep -Milliseconds ([int]($Delay * 1000))
 }
+
+# 清理临时文件
+Remove-Item $TempBody -Force -ErrorAction SilentlyContinue
 
 Write-Progress -Completed
 
@@ -258,10 +278,23 @@ Write-Host "  Explore Complete" -ForegroundColor Green
 Write-Host ("=" * 60)
 Write-Host "  Duration : $($duration.TotalSeconds.ToString('0.0'))s"
 Write-Host "  Tested   : $Tested / $Total"
+Write-Host "  Warn     : $Warned" -ForegroundColor $(if($Warned -gt 0){'Yellow'}else{'DarkGray'})
 Write-Host "  HTTP Err : $Errored"
 Write-Host ""
-Write-Host "  Monitor output above this line ---^" -ForegroundColor DarkGray
-Write-Host "  Run '.\tests\warn_monitor.ps1 -Report' for summary" -ForegroundColor Yellow
+
+# ── 输出 Warning 汇总 ──────────────────────
+if ($Results.Count -gt 0) {
+    Write-Host "  --- PHP Warnings Found ---" -ForegroundColor Yellow
+    $Results | Where-Object { $_.type -eq 'PHP_WARN' } | Format-Table cmd, msg -AutoSize -Wrap | Out-String | Write-Host
+    # 导出到文件
+    $reportFile = "$Cwd\.warn_report_$(Get-Date -Format 'yyyyMMdd_HHmmss').txt"
+    $Results | Export-Csv -Path ($reportFile -replace '\.txt$','.csv') -NoTypeInformation -Encoding UTF8
+    Write-Host "  Report saved to: $reportFile" -ForegroundColor Cyan
+} else {
+    Write-Host "  No PHP warnings detected across all $Tested pages." -ForegroundColor DarkGray
+}
+Write-Host ""
 
 # 清理
 Remove-Item $PidFile -Force -ErrorAction SilentlyContinue
+Remove-Item $TempBody -Force -ErrorAction SilentlyContinue
