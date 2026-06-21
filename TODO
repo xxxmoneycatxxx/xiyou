@@ -86,11 +86,11 @@
   2. 全局检查 `wrappers.php` 覆盖完整性
   3. 修复 deprecation 警告
   4. 完整回归测试核心流程
-- [ ] 完成
+- [x] 完成
 
 ### 7. OPcache revalidate 调优（配合 PHP 8.x）
 - 同 P0#1，PHP 8.x 默认配置更激进，合并配置
-- [ ] 完成
+- [x] 完成
 
 ---
 
@@ -127,8 +127,8 @@
 | 4 | 关键索引 | ✅ | SQL 已就绪，待执行 |
 | 4.5 | MAX(id)+1→AUTO | ✅ | 2026-06-21 |
 | 5 | MyISAM→InnoDB | ✅ | 2026-06-21 |
-| 6 | PHP 8.2 升级 | ⬜ | |
-| 7 | OPcache (PHP8) | ⬜ | |
+| 6 | PHP 8.2 升级 | ✅ | 2026-06-21 |
+| 7 | OPcache (PHP8) | ✅ | 2026-06-21 |
 | 8 | INI→Redis | ⬜ | |
 | 9 | Session→Redis | ⬜ | |
 
