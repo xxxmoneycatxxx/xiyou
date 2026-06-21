@@ -1,4 +1,5 @@
 <?php
+$iii ??= 0;
 $iii=$iii+1;
 if($iii ==1){//回城卷
 	$npccc=$npcc;
