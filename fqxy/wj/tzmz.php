@@ -2,22 +2,30 @@
 
 
 //装备套装显示
+$strr3 ??= '';
 $tzidd3 = explode("_",$strr3);
 $arr1[]=$tzidd3[0];
+$strr4 ??= '';
 $tzidd4 = explode("_",$strr4);
 $arr1[]=$tzidd4[0];
+$strr5 ??= '';
 $tzidd5 = explode("_",$strr5);
 $arr1[]=$tzidd5[0];
+$strr6 ??= '';
 $tzidd6 = explode("_",$strr6);
 $arr1[]=$tzidd6[0];
+$strr7 ??= '';
 $tzidd7 = explode("_",$strr7);
 $arr1[]=$tzidd7[0];
+$strr8 ??= '';
 $tzidd8 = explode("_",$strr8);
 $arr1[]=$tzidd8[0];
 //装备套装显示
 //婚饰套装显示
+$strr9 ??= '';
 $tzidd9 = explode("_",$strr9);
 $arr1[]=$tzidd9[0];
+$strr10 ??= '';
 $tzidd10 = explode("_",$strr10);
 $arr1[]=$tzidd10[0];
 

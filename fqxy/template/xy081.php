@@ -57,8 +57,7 @@ $m=count($zbid,0)-1;
 $ym=$zbid['初始'];
 
 
-$km=0;
-$i=0;
+$i=-1;
 
 
 
@@ -150,6 +149,8 @@ $xxbs[]=$xbs;
 
 
 $i=-1;
+$czbmz1=$czbmz2=$czbmz3=$czbmz4=$czbmz5=$czbmz6=$czbmz7=$czbmz8=$czbmz9=$czbmz10=$czbmz11='';
+$strr1=$strr2=$strr3=$strr4=$strr5=$strr6=$strr7=$strr8=$strr9=$strr10=$strr11='';
 for($d=0;$d<=$m;$d++){
 $i=$i+1;
 $clname= $mz[$i];
