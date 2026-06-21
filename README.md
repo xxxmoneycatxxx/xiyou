@@ -1,13 +1,13 @@
 # 幻想西游
 
-基于 PHP + MySQL 的文字 MUD 网游，仿《梦幻西游》玩法深度改编。源码源自《小轩西游》，已全面兼容 PHP 7.4。
+基于 PHP + MySQL 的文字 MUD 网游，仿《梦幻西游》玩法深度改编。源码源自《小轩西游》，已全面兼容 PHP 8.2。
 
 ---
 
 ## 运行环境
 
-- PHP 7.4（需 `pdo_mysql` `curl` `bcmath` `mbstring` 扩展）
-- MySQL 5.7+（MariaDB 亦可，默认 InnoDB）
+- PHP 8.2（需 `pdo_mysql` `curl` `bcmath` `mbstring` `opcache` 扩展）
+- MariaDB 11.8（MySQL 8.0+ 亦可，默认 InnoDB）
 - Apache（需 `mod_rewrite`）
 - 无需 Composer
 
@@ -1055,17 +1055,22 @@ xiyou/
 
 ## 修改记录（相对原版《小轩西游》）
 
-- 兼容 PHP 7.4（原版仅支持 5.6）
+- PHP 5.6 → 7.4 → 8.2 全链路升级（原版仅支持 5.6，现已兼容 8.2）
 - 引入 Medoo ORM + PDO 预处理
-- `wrappers.php` 兼容层使旧代码平滑迁移
+- `wrappers.php` 兼容层使旧 `mysql_*` 代码平滑迁移，`FETCH_BOTH→FETCH_ASSOC` 消除数字索引依赖
 - 合并 `o_user_list` 表（原版数据表过多）
 - 修复多项影响正常游玩的 Bug
 - 删除原家园冗余页面
-- **新增 Docker 部署支持**（一键部署，含 MySQL 5.7 + php:7.4-apache）
+- **新增 Docker 部署支持**（一键部署，含 MariaDB 11.8 + php:8.2-apache）
 - **安装 bcmath / mbstring 扩展**（原版依赖的函数需这两个扩展）
 - **修复 INI 缓存目录权限问题**（`acher/` 目录需 www-data 可写）
-- **消除 MAX(id)+1 并发竞态**：uid 等主键改为 AUTO_INCREMENT，容器启动自动对齐计数器
+- **消除 MAX(id)+1 并发竞态**：uid 等主键改为 AUTO_INCREMENT，容器启动自动对齐计数器（#4.5）
 - **MyISAM → InnoDB 全量迁移**：行级锁替代表级锁，支持事务，崩溃自动恢复（#5）
+- **OPcache 缓存加速**：内存 256M + JIT tracing 50M buffer，1700+ PHP 文件免重复编译（#1 + #7）
+- **静态资源 30 天浏览器缓存**：jpg/css/js 免重复下载（#2）
+- **数据库连接复用**：Medoo `ATTR_PERSISTENT`（#3）
+- **47 张表关键索引添加**：排行榜/装备/拍卖高频查询降低 50~80%（#4）
+- **适配 MariaDB 11.8 TLS 客户端**：`--ssl-verify-server-cert=0`（#6 配套）
 - 更多详见 [Commits](https://github.com/zither/xiyou/commits/master)
 
 ---
