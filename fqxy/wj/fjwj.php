@@ -123,7 +123,7 @@ if($zsspd==1){
 	$dt=($iniFile->getCategory('玩家时间值'.$dtx.'x'.$dty));
 
 
-	if($dt['初始']==""){
+	if(($dt['初始'] ?? '')==""){
 # 添加一个分类并直接添加子项
 		$iniFile->addCategory('玩家时间值'.$dtx.'x'.$dty, ['初始' => 888]);
 # 添加一个分类并直接添加子项
@@ -170,7 +170,7 @@ if($zsspd==1){
     $dt=($iniFile->getCategory('玩家国家名字值'.$dtx.'x'.$dty));
 
 
-        if($dt['初始']==""){
+        if(($dt['初始'] ?? '')==""){
     # 添加一个分类并直接添加子项
     $iniFile->addCategory('玩家国家名字值'.$dtx.'x'.$dty, ['初始' => 888]);
     # 添加一个分类并直接添加子项
