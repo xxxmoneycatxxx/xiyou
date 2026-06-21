@@ -16,14 +16,14 @@
   - `revalidate_freq=60`（2→60）
   - `validate_timestamps=0`（生产关闭）
   - `enable_file_override=1`
-- [ ] 完成
+- [x] 完成
 
 ### 2. 静态资源浏览器缓存
 - **收益**: 728 个图片/CSS 免重复下载，用户体验↑
 - **风险**: 极低
 - **工时**: 30 分钟
 - **做法**: Apache 配置 `mod_expires` 对 jpg/css/js 加 30 天缓存头
-- [ ] 完成
+- [x] 完成
 
 ### 3. 数据库连接复用
 - **收益**: 减少每次请求的 MySQL 握手开销
