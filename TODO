@@ -30,7 +30,7 @@
 - **风险**: 低
 - **工时**: 10 分钟
 - **做法**: `includes/db.php` 中 Medoo 连接添加 `PDO::ATTR_PERSISTENT => true`
-- [ ] 完成
+- [x] 完成
 
 ---
 
@@ -40,14 +40,16 @@
 - **收益**: 排行榜/装备查询/拍卖行等高频页面响应降低 50~80%
 - **风险**: 极低（仅添加索引，不改代码）
 - **工时**: 半天~1 天
-- **做法**: 开 slow log → EXPLAIN 高频查询 → 建索引
+- **做法**: 索引脚本 `data/add_indexes.sql`，涵盖 35 张表，wjid 为主
   - `all_zt`: `(wjid)` 单列索引（玩家状态查询，最高频）
-  - `all_zt`: `(level)`, `(yl)` 单列索引（排行榜）
-  - `all_phb`: `(type, value)` 复合索引
-  - `zb`/`wp`/`cw`: `(fquid)` 索引（装备查询）
-  - `all_pm`: `(type, price)` 复合索引（拍卖行）
-  - `wp`/`zb`/`ckwp`/`ckzb`/`jnn`/`hy`/`cw`/`xl`/`hd`/`fb`: `(wjid)` 索引
-- [ ] 完成
+  - `zb`/`wp`/`cw`/`ckwp`/`ckzb`: `(wjid)` 索引（装备/物品/宠物/仓库）
+  - `jnn`/`hy`/`xl`/`hd`/`fb`: `(wjid)` 索引（技能/好友/修炼/活动/副本）
+  - `all_pm`: `(wjid)`, `(pmwpfl)` 索引（拍卖行）
+  - `all_phb`/`all_bp`/`all_user`/`all_houres`/`all_gzhoures`/`yxrw`: `(wjid)` 索引
+  - `sw`/`tx`/`zp`/`zbb`/`cwzbb`/`jfdj`/`jj`/`dyxx`/`wpp`/`zgvip`: `(wjid)` 索引
+  - `all_yl`/`all_ylck`/`all_money`/`all_hbmoney`: `(wjid)` 索引
+  - 活动记录: `all_yd01~04`/`all_hdph01~03`: `(wjid)` 索引
+- [x] 完成（SQL 已就绪，待低峰期在服务器执行 `data/add_indexes.sql`）
 
 ### 4.5. 修复 MAX(id)+1 手动自增 → AUTO_INCREMENT（切 InnoDB 前置）
 - **收益**: 消除并发竞态，为 InnoDB 迁移铺路
@@ -119,8 +121,8 @@
 |------|------|:----:|------|
 | 1 | OPcache 调优 | ✅ | 2026-06-21 |
 | 2 | 静态资源缓存 | ✅ | 2026-06-21 |
-| 3 | DB 连接复用 | ⬜ | |
-| 4 | 关键索引 | ⬜ | |
+| 3 | DB 连接复用 | ✅ | |
+| 4 | 关键索引 | ✅ | SQL 已就绪，待执行 |
 | 4.5 | MAX(id)+1→AUTO | ⬜ | |
 | 5 | MyISAM→InnoDB | ⬜ | |
 | 6 | PHP 8.2 升级 | ⬜ | |
