@@ -40,15 +40,17 @@
 - **收益**: 排行榜/装备查询/拍卖行等高频页面响应降低 50~80%
 - **风险**: 极低（仅添加索引，不改代码）
 - **工时**: 半天~1 天
-- **做法**: 索引脚本 `data/add_indexes.sql`，涵盖 35 张表，wjid 为主
-  - `all_zt`: `(wjid)` 单列索引（玩家状态查询，最高频）
-  - `zb`/`wp`/`cw`/`ckwp`/`ckzb`: `(wjid)` 索引（装备/物品/宠物/仓库）
-  - `jnn`/`hy`/`xl`/`hd`/`fb`: `(wjid)` 索引（技能/好友/修炼/活动/副本）
-  - `all_pm`: `(wjid)`, `(pmwpfl)` 索引（拍卖行）
-  - `all_phb`/`all_bp`/`all_user`/`all_houres`/`all_gzhoures`/`yxrw`: `(wjid)` 索引
-  - `sw`/`tx`/`zp`/`zbb`/`cwzbb`/`jfdj`/`jj`/`dyxx`/`wpp`/`zgvip`: `(wjid)` 索引
-  - `all_yl`/`all_ylck`/`all_money`/`all_hbmoney`: `(wjid)` 索引
-  - 活动记录: `all_yd01~04`/`all_hdph01~03`: `(wjid)` 索引
+- **做法**: 索引脚本 `data/add_indexes.sql`，涵盖 47 张表，wjid 为主
+  - `all_zt`: `(wjid)` + `(dj)` 等级排行索引
+  - `all_pm`: `(wjid)` + `(pmwpfl)` 拍卖分类索引
+  - 装备/武器/宠物/仓库/挂售: `zb` `wp` `cw` `zbb` `cwzbb` `ckwp` `ckzb` `ckqt` `qt` `zzck` `gswp` `gszb` `gsqt`
+  - 技能/好友/修炼/副本/活动: `jnn` `hy` `xl` `fb` `hd`
+  - 头衔/声望/星盘/家具/VIP/丹药: `tx` `sw` `xp` `jj` `jfdj` `zgvip` `dyxx` `wpp` `zf`
+  - 银两/金豆/红包: `all_yl` `all_ylck` `all_money` `all_hbmoney`
+  - 排行/帮派/用户/住宅: `all_phb` `all_user` `all_houres` `all_gzhoures` `bp`
+  - 任务/签到/公告: `yxrw` `all_qd` `all_qggz` `all_xjhb`
+  - 运营活动/活动排行: `all_yd01~04` `all_hdph01~03`
+  - 擂台/竞猜/在线/战场: `all_ltbw` `all_jdjc` `all_qtjc` `user` `gz04`
 - [x] 完成（SQL 已就绪，待低峰期在服务器执行 `data/add_indexes.sql`）
 
 ### 4.5. 修复 MAX(id)+1 手动自增 → AUTO_INCREMENT（切 InnoDB 前置）
@@ -189,8 +191,8 @@
 ```
 #1   ████████░░  就绪（无阻塞）  ✅ 已完成
 #2   ████████░░  就绪（无阻塞）  ✅ 已完成
-#3   ████████░░  就绪（无阻塞）
-#4   ████████░░  就绪（无阻塞）
+#3   ████████░░  就绪（无阻塞）  ✅ 已完成
+#4   ████████░░  就绪（无阻塞）  ✅ 已完成
 #4.5 ████████░░  就绪（无阻塞）
 #5   ██████░░░░  硬阻塞于 #4.5（当前阻塞级）
 #6   ██████░░░░  软阻塞于 #5
