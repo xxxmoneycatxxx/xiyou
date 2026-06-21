@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libonig-dev \
     && docker-php-ext-install pdo_mysql curl bcmath mbstring opcache \
     && docker-php-ext-enable curl \
-    && a2enmod rewrite deflate \
+    && a2enmod rewrite deflate expires \
     && rm -rf /var/lib/apt/lists/*
 
 # Apache 双端口监听（容器内 CURL 走 8080，外部映射走 80）
@@ -26,6 +26,14 @@ RUN { \
     echo '  </Files>'; \
     echo '  # Gzip 压缩'; \
     echo '  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml'; \
+    echo '  # 静态资源浏览器缓存（30天）'; \
+    echo '  ExpiresActive On'; \
+    echo '  ExpiresByType image/jpeg "access plus 30 days"'; \
+    echo '  ExpiresByType image/png "access plus 30 days"'; \
+    echo '  ExpiresByType image/gif "access plus 30 days"'; \
+    echo '  ExpiresByType image/webp "access plus 30 days"'; \
+    echo '  ExpiresByType text/css "access plus 30 days"'; \
+    echo '  ExpiresByType application/javascript "access plus 30 days"'; \
     echo '</VirtualHost>'; \
     echo '<VirtualHost *:8080>'; \
     echo '  DocumentRoot /var/www/html'; \
@@ -38,6 +46,14 @@ RUN { \
     echo '  </Files>'; \
     echo '  # Gzip 压缩'; \
     echo '  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml'; \
+    echo '  # 静态资源浏览器缓存（30天）'; \
+    echo '  ExpiresActive On'; \
+    echo '  ExpiresByType image/jpeg "access plus 30 days"'; \
+    echo '  ExpiresByType image/png "access plus 30 days"'; \
+    echo '  ExpiresByType image/gif "access plus 30 days"'; \
+    echo '  ExpiresByType image/webp "access plus 30 days"'; \
+    echo '  ExpiresByType text/css "access plus 30 days"'; \
+    echo '  ExpiresByType application/javascript "access plus 30 days"'; \
     echo '</VirtualHost>'; \
     } > /etc/apache2/sites-available/000-default.conf
 
