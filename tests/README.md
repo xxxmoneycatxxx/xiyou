@@ -7,6 +7,7 @@
 | 静态扫描器 | `warn_scanner.php` | 扫源码查潜在 Warning 模式 | Docker 容器内 |
 | 运行时监控 (PS) | `warn_monitor.ps1` | 抓 Docker 日志实时 Warning | Windows PowerShell |
 | 运行时监控 (SH) | `warn_monitor.sh` | 同上，Linux/macOS 用 | Bash |
+| 🆕 自动探索器 | `auto_explore.ps1` | 遍历游戏所有页面，自动触发 Warning | Windows PowerShell |
 
 ---
 
@@ -215,6 +216,51 @@ $ip = $_SERVER['REMOTE_ADDR'];  // Bot: M001 报缺守卫
 $user = getUserById($uid);      // 函数保证返回数组
 echo $user['name'];             // Bot: M002 报缺守卫
 // → 如果 getUserById 永远返回数组，安全
+```
+
+---
+
+## 四.五、自动探索器 (auto_explore.ps1)
+
+自动遍历游戏所有 cmd 页面，结合 `warn_monitor.ps1 -Watch` 捕获 Warning，**无需手动点击**。
+
+### 使用方法
+
+```powershell
+# 1. 终端1: 启动监控
+.	ests\warn_monitor.ps1 -Watch
+
+# 2. 从浏览器地址栏复制 uid 和 sid 参数
+#    例如: xy.php?uid=10000002&cmd=1&sid=mpWnxuxmhTOrHBh1gIOdxLDNNOvwqD
+#    则 uid=10000002, sid=mpWnxuxmhTOrHBh1gIOdxLDNNOvwqD
+
+# 3. 终端2: 启动探索器
+.	ests\auto_explore.ps1 -Uid 10000002 -Sid "mpWnxuxmhTOrHBh1gIOdxLDNNOvwqD"
+```
+
+### 参数说明
+
+| 参数 | 说明 | 默认值 |
+|------|------|:--:|
+| `-Uid` | 游戏玩家ID (必填) | — |
+| `-Sid` | 玩家游戏码 (必填) | — |
+| `-Delay` | 请求间隔(秒) | 0.25 |
+| `-Quick` | 快速模式，只扫上次爆 Warning 的 cmd | off |
+| `-NoSkipSafe` | 不跳过安全 cmd，全量扫描 | off |
+
+### 安全跳过规则
+
+探索器自动跳过：
+- **有副作用**: 丢弃物品、使用物品、银两操作、改名、PK 等 (~80 个 cmd)
+- **需 POST 数据**: 拍卖、赠送、仓库存储等 (~60 个 cmd)
+- 约扫描 **550 个 GET-only 安全 cmd**，范围 1..685
+
+### 快速重扫模式
+
+修完一批 Warning 后，可以只重扫之前报错的 cmd：
+
+```powershell
+.	ests\auto_explore.ps1 -Uid 10000002 -Sid "..." -Quick
 ```
 
 ---
