@@ -3,9 +3,13 @@
 #
 # Usage:
 #   1. 终端1: .\tests\warn_monitor.ps1 -Watch
-#   2. 从浏览器复制 uid 和 sid
-#   3. 终端2: .\tests\auto_explore.ps1 -Uid 10000002 -Sid "your_sid_value"
+#   2. 浏览器打开游戏，F12 → Application → Cookies → 复制 PHPSESSID 值
+#   3. 终端2: .\tests\auto_explore.ps1 -Cookie "PHPSESSID的值"
 #   4. 终端1 会实时捕获 Warning
+#
+# 获取 PHPSESSID 方法:
+#   Chrome/Edge: F12 → Application → Cookies → http://localhost:8080 → PHPSESSID
+#   Firefox:     F12 → Storage → Cookies → http://localhost:8080 → PHPSESSID
 #
 # 模式:
 #   -Range         扫描 cmd 范围 (默认: 1..685)
@@ -14,11 +18,7 @@
 #   -SkipSafe      跳过已知安全的 cmd (默认开启)
 
 param(
-    [Parameter(Mandatory=$true)]
-    [string]$Uid,                    # 游戏玩家ID (8位数字)
-
-    [Parameter(Mandatory=$true)]
-    [string]$Sid,                    # 玩家游戏码 (30位字符串)
+    [string]$Cookie,                 # PHPSESSID 值 (从浏览器 F12 → Cookies 获取) ★推荐★
 
     [int]$Delay = 0.25,             # 请求间隔(秒), 最低0.15避免被封
     [switch]$Quick,                  # 快速模式: 只扫历史爆过的cmd
@@ -143,16 +143,50 @@ if ($Quick) {
     }
 }
 
+# ── Cookie 验证 ──────────────────────────
+if (-not $Cookie) {
+    Write-Host "[ERROR] -Cookie is required!" -ForegroundColor Red
+    Write-Host ""
+    Write-Host "  xy.php uses PHP Sessions, not URL params." -ForegroundColor Yellow
+    Write-Host "  To get your PHPSESSID:"
+    Write-Host "    1. Open the game in Chrome/Edge"
+    Write-Host "    2. Press F12 → Application tab → Cookies → localhost:8080"
+    Write-Host "    3. Copy the Value of PHPSESSID"
+    Write-Host ""
+    Write-Host "  Then: .\tests\auto_explore.ps1 -Cookie 'PHPSESSID_value'" -ForegroundColor Cyan
+    Write-Host ""
+    exit 1
+}
+
 $Total = $allCmds.Count
 Write-Host ("=" * 60)
 Write-Host "  TODO #10 Auto-Explorer Bot" -ForegroundColor Cyan
 Write-Host ("=" * 60)
-Write-Host "  UID     : $Uid"
-Write-Host "  SID     : $Sid"
+Write-Host "  Cookie  : PHPSESSID=$($Cookie.Substring(0, [Math]::Min(8,$Cookie.Length)))..."
 Write-Host "  Target  : $Total cmds (range 1..685)"
 Write-Host "  Delay   : ${Delay}s"
 Write-Host "  Skip    : $($dangerCmds.Count)danger + $($postCmds.Count)post"
 Write-Host "  Mode    : $(if ($Quick) {'Quick (replay)'} else {'Full scan'})"
+Write-Host ""
+
+# ── 前置验证: Cookie 是否有效 ─────────────
+Write-Host "  Verifying cookie..." -NoNewline
+$probe = curl.exe -s -o NUL -w "%{http_code};%{size_download}" -b "PHPSESSID=$Cookie" --max-time 10 "$BaseUrl/xy.php?cmd=1" 2>&1
+$pParts = $probe -split ';'
+$pCode = ($pParts[0] -replace '\s+', '')
+$pSize = if ($pParts.Count -gt 1) { ($pParts[1] -replace '\s+', '') } else { '?' }
+if ($pCode -eq '200' -and $pSize -match '^\d+$' -and [int]$pSize -lt 1500) {
+    Write-Host " INVALID (body=$pSize bytes → session expired)" -ForegroundColor Red
+    Write-Host ""
+    Write-Host "  Your PHPSESSID has expired. Please:" -ForegroundColor Yellow
+    Write-Host "    1. Refresh the game page in your browser"
+    Write-Host "    2. Copy the NEW PHPSESSID from F12 → Cookies"
+    Write-Host "    3. Re-run with: .\tests\auto_explore.ps1 -Cookie 'NEW_PHPSESSID'"
+    Write-Host ""
+    Remove-Item $PidFile -Force -ErrorAction SilentlyContinue
+    exit 1
+}
+Write-Host " OK (code=$pCode size=$pSize bytes)" -ForegroundColor Green
 Write-Host ""
 
 $startTime = Get-Date
@@ -160,22 +194,21 @@ $startTime = Get-Date
 # ── 主循环 ─────────────────────────────────
 foreach ($cmd in $allCmds) {
     $Tested++
-    $url = "$BaseUrl/xy.php?uid=$Uid&cmd=$cmd&sid=$Sid"
+    $url = "$BaseUrl/xy.php?cmd=$cmd"
 
     try {
         $sw = [Diagnostics.Stopwatch]::StartNew()
-        # 用 curl 发请求（更轻量）, 只检查 HTTP 状态码和 PHP 错误
-        $resp = curl.exe -s -o NUL -w "%{http_code}" --max-time 10 "$url" 2>&1
+        $resp = curl.exe -s -o NUL -w "%{http_code};%{size_download}" -b "PHPSESSID=$Cookie" --max-time 10 "$url" 2>&1
         $elapsed = $sw.ElapsedMilliseconds
         $sw.Stop()
 
-        $statusCode = $resp -replace '\s+', ''
-
-        # curl 报错但状态码被吞的情况
+        $parts = $resp -split ';'
+        $statusCode = ($parts[0] -replace '\s+', '')
+        $bodySize = if ($parts.Count -gt 1) { ($parts[1] -replace '\s+', '') } else { '?' }
         if (-not $statusCode) { $statusCode = 'err' }
 
         if ($statusCode -eq '200') {
-            # OK — 需要等 monitor 确认是否有 Warning
+            # OK — 检查是否真的成功 (body size 过大或过小都是异常)
         } elseif ($statusCode -match '^[345]') {
             $Errored++
             $Results += [PSCustomObject]@{ cmd=$cmd; status=$statusCode; ms=$elapsed }
