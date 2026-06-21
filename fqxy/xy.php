@@ -11,7 +11,7 @@ $configs = include XY_CONFIG_DIR . '/config.php';
 if ($configs['debug'] ?? false) {
     ini_set('display_errors', '1');
     ini_set('display_startup_errors', '1');
-    error_reporting(E_ALL & ~E_NOTICE);
+    error_reporting(E_ALL);  // E_ALL 含 E_NOTICE: Undefined variable/index 也会触发 Warning
 } else {
     error_reporting(0);
 }

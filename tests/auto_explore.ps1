@@ -221,23 +221,38 @@ foreach ($cmd in $allCmds) {
         $Results += [PSCustomObject]@{ cmd=$cmd; status='exception'; ms=0 }
     }
 
-    # 进度条
+    # ── 内联进度条 ──────────────────────────
     $pct = [math]::Round($Tested / $Total * 100, 1)
     $eta = ''
     if ($Tested -gt 0) {
-        $secs = [int](([DateTime]::Now - $startTime).TotalSeconds / $Tested * ($Total - $Tested))
-        if ($secs -gt 60) { $eta = " ~$([math]::Floor($secs/60))m" }
-        elseif ($secs -gt 0) { $eta = " ~${secs}s" }
+        $elapsed = ([DateTime]::Now - $startTime).TotalSeconds
+        $rate = $elapsed / $Tested                     # 平均每请求秒数
+        $remaining = [int]($rate * ($Total - $Tested))
+        if ($remaining -gt 120) { $eta = " ETA $([math]::Floor($remaining/60))m" }
+        elseif ($remaining -gt 0) { $eta = " ETA ${remaining}s" }
     }
-    Write-Progress -Activity "Exploring cmd..." -Status "${cmd}/${Total} ($pct%) errors:$Errored$eta" -PercentComplete $pct
+    # 绘制进度条 30 格
+    $barW = 30
+    $done = [math]::Floor($Tested / $Total * $barW)
+    $bar  = ("█" * $done) + ("░" * ($barW - $done))
+    # 速率（请求/秒）
+    $rpsStr = ''
+    if ($Tested -gt 5) {
+        $rps = ($Tested / ([DateTime]::Now - $startTime).TotalSeconds).ToString('0.0')
+        $rpsStr = " ${rps}/s"
+    }
+    Write-Host -NoNewline "`r  [$bar] ${Tested}/${Total} (${pct}%)${rpsStr} err:${Errored}${eta}    "
+    Write-Progress -Activity "Auto-Explorer" -Status "cmd $cmd / $Total" -PercentComplete $pct
 
     Start-Sleep -Milliseconds ([int]($Delay * 1000))
 }
 
 Write-Progress -Completed
 
-$duration = [DateTime]::Now - $startTime
+# ── 换行结束进度条 ─────────────────────────
 Write-Host ""
+
+$duration = [DateTime]::Now - $startTime
 Write-Host ("=" * 60)
 Write-Host "  Explore Complete" -ForegroundColor Green
 Write-Host ("=" * 60)
