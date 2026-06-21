@@ -32,15 +32,15 @@ if (file_exists($file)) {
     //把有值的数据存入一个数组
     $m = 0;
     while (!!$row = mysql_fetch_array($result)) {
-        if ($row['wpsl'] > 0) {
+        if ($row['wpsl'] ?? '' > 0) {
             $m = $m + 1;
-            $bsid = $row['wpid'];
-            $npcc1 = $row['id'];
+            $bsid = $row['wpid'] ?? '';
+            $npcc1 = $row['id'] ?? '';
             $zbidd = $bsid . "_" . $npcc1;
             $iniFile->addCategory('序列', [$zbidd => $m]);
             $iniFile->addCategory('其他id', [$zbidd => $zbidd]);
-            $iniFile->addCategory('其他数量', [$zbidd => $row['wpsl']]);
-            $iniFile->addCategory('其他价格', [$zbidd => $row['gsjg']]);
+            $iniFile->addCategory('其他数量', [$zbidd => $row['wpsl'] ?? '']);
+            $iniFile->addCategory('其他价格', [$zbidd => $row['gsjg'] ?? '']);
             //调用物品信息
             include("./wp/zbbs.php");
             $wpmz = $bsmz;

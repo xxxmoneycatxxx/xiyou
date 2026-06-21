@@ -27,9 +27,9 @@ $q2="all_money";
 mysql_query("set names utf8");
 $sql1=mysql_query("select * from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$mwjid=$info1['wjid'];
-$mwjmz=$info1['wjmz'];
-$mwjmoney=$info1['money'];
+$mwjid=$info1['wjid'] ?? '';
+$mwjmz=$info1['wjmz'] ?? '';
+$mwjmoney=$info1['money'] ?? '';
 
 
 

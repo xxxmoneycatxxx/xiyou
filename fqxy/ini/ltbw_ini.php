@@ -74,7 +74,7 @@ $ltid=$ltid+1;
 $q2="all_ltbw";
 $sql1=mysql_query("select id from $q2 where id=$ltid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$xlpd=$info1['id'];
+$xlpd=$info1['id'] ?? '';
 
 if($xlpd ==""){
 $ltid01=123;
@@ -105,17 +105,17 @@ $m=0;
 
 
  while(!!$row=mysql_fetch_array($result)){
-$iniFile->addCategory('玩家擂台排名', [$row['id']=> $row['wjid']]);
-$iniFile->addCategory('占领玩家id', [$row['id']=> $row['wjid']]);
-$iniFile->addCategory('占领玩家', [$row['id']=> $row['wjmz']]);
-$iniFile->addCategory('占领时间', [$row['id']=> $row['zltime']]);
-$iniFile->addCategory('占领膜拜', [$row['id']=> $row['zlmb']]);
+$iniFile->addCategory('玩家擂台排名', [$row['id'] ?? ''=> $row['wjid']]);
+$iniFile->addCategory('占领玩家id', [$row['id'] ?? ''=> $row['wjid']]);
+$iniFile->addCategory('占领玩家', [$row['id'] ?? ''=> $row['wjmz']]);
+$iniFile->addCategory('占领时间', [$row['id'] ?? ''=> $row['zltime']]);
+$iniFile->addCategory('占领膜拜', [$row['id'] ?? ''=> $row['zlmb']]);
 
-$iniFile->addCategory('比武hp', [$row['id']=> $row['lthp']]);
-$iniFile->addCategory('比武攻击', [$row['id']=> $row['ltgj']]);
-$iniFile->addCategory('比武魔攻', [$row['id']=> $row['ltmg']]);
-$iniFile->addCategory('比武防御', [$row['id']=> $row['ltfy']]);
-$iniFile->addCategory('比武门派', [$row['id']=> $row['ltmp']]);
+$iniFile->addCategory('比武hp', [$row['id'] ?? ''=> $row['lthp']]);
+$iniFile->addCategory('比武攻击', [$row['id'] ?? ''=> $row['ltgj']]);
+$iniFile->addCategory('比武魔攻', [$row['id'] ?? ''=> $row['ltmg']]);
+$iniFile->addCategory('比武防御', [$row['id'] ?? ''=> $row['ltfy']]);
+$iniFile->addCategory('比武门派', [$row['id'] ?? ''=> $row['ltmp']]);
 
 
 

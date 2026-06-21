@@ -33,15 +33,15 @@ if(file_exists($file)){
     $m=0;
     while(!!$row=mysql_fetch_array($result)){
         $m=$m+1;
-        $npcc=$row['wpid'];
-        $iniFile->addCategory('序列', [$row['wpid']=>$m ]);
-        $iniFile->addCategory('物品id', [$m=> $row['wpid']]);
-        $iniFile->addCategory('物品时间年', [$row['wpid']=> $row['n']]);
-        $iniFile->addCategory('物品时间月', [$row['wpid']=> $row['y']]);
-        $iniFile->addCategory('物品时间日', [$row['wpid']=> $row['r']]);
-        $iniFile->addCategory('物品时间时', [$row['wpid']=> $row['s']]);
-        $iniFile->addCategory('物品时间分', [$row['wpid']=> $row['f']]);
-        $iniFile->addCategory('物品时间秒', [$row['wpid']=> $row['m']]);
+        $npcc=$row['wpid'] ?? '';
+        $iniFile->addCategory('序列', [$row['wpid'] ?? ''=>$m ]);
+        $iniFile->addCategory('物品id', [$m=> $row['wpid'] ?? '']);
+        $iniFile->addCategory('物品时间年', [$row['wpid'] ?? ''=> $row['n']]);
+        $iniFile->addCategory('物品时间月', [$row['wpid'] ?? ''=> $row['y']]);
+        $iniFile->addCategory('物品时间日', [$row['wpid'] ?? ''=> $row['r']]);
+        $iniFile->addCategory('物品时间时', [$row['wpid'] ?? ''=> $row['s']]);
+        $iniFile->addCategory('物品时间分', [$row['wpid'] ?? ''=> $row['f']]);
+        $iniFile->addCategory('物品时间秒', [$row['wpid'] ?? ''=> $row['m']]);
     }
 }
 

@@ -24,7 +24,7 @@ include("./sql/mysql.php");//调用数据库连接
 $q2="all_yd04";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ydid=$info1['wjid'];
+$ydid=$info1['wjid'] ?? '';
 if($ydid ==""){
 $q2="all_yd04";
 $nowtime=date('Y-m-d H:i:s');
@@ -45,11 +45,11 @@ $q2="all_yd04";
 mysql_query("set names utf8");
 $sql1=mysql_query("select * from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ds01=$info1['ds01'];
-$ds02=$info1['ds02'];
-$dy01_time=$info1['dy01_time'];
-$yd01=$info1['yd01'];
-$yd02=$info1['yd02'];
+$ds01=$info1['ds01'] ?? '';
+$ds02=$info1['ds02'] ?? '';
+$dy01_time=$info1['dy01_time'] ?? '';
+$yd01=$info1['yd01'] ?? '';
+$yd02=$info1['yd02'] ?? '';
 
 
 $inina="yd04.ini";

@@ -25,7 +25,7 @@ if(file_exists($file)){
     $q2="xl";
     $sql1=mysql_query("select xlid from $q2 where wjid=$wjid and xlid=$xlidd",$conn);
     $info1=@mysql_fetch_array($sql1) ?: [];
-    $xlpd=$info1['xlid'];
+    $xlpd=$info1['xlid'] ?? '';
     if($xlpd ==""){
         $q2="xl";
         $sql = "insert into $q2 (wjid,xlid,xldj)  values('$wjid','$xlidd','0')";
@@ -39,7 +39,7 @@ if(file_exists($file)){
     $q2="xl";
     $sql1=mysql_query("select xlid from $q2 where wjid=$wjid and xlid=$xlidd",$conn);
     $info1=@mysql_fetch_array($sql1) ?: [];
-    $xlpd=$info1['xlid'];
+    $xlpd=$info1['xlid'] ?? '';
     if($xlpd ==""){
         $q2="xl";
         $sql = "insert into $q2 (wjid,xlid,xldj)  values('$wjid','$xlidd','0')";
@@ -52,7 +52,7 @@ if(file_exists($file)){
     $q2="xl";
     $sql1=mysql_query("select xlid from $q2 where wjid=$wjid and xlid=$xlidd",$conn);
     $info1=@mysql_fetch_array($sql1) ?: [];
-    $xlpd=$info1['xlid'];
+    $xlpd=$info1['xlid'] ?? '';
     if($xlpd ==""){
         $q2="xl";
         $sql = "insert into $q2 (wjid,xlid,xldj)  values('$wjid','$xlidd','0')";
@@ -66,7 +66,7 @@ if(file_exists($file)){
     $q2="xl";
     $sql1=mysql_query("select xlid from $q2 where wjid=$wjid and xlid=$xlidd",$conn);
     $info1=@mysql_fetch_array($sql1) ?: [];
-    $xlpd=$info1['xlid'];
+    $xlpd=$info1['xlid'] ?? '';
     if($xlpd ==""){
         $q2="xl";
         $sql = "insert into $q2 (wjid,xlid,xldj)  values('$wjid','$xlidd','0')";
@@ -82,7 +82,7 @@ if(file_exists($file)){
     //把有值的数据存入一个数组
     $m=0;
     while(!!$row=mysql_fetch_array($result)){
-        $iniFile->addCategory('修炼等级', [$row['xlid']=> $row['xldj']]);
+        $iniFile->addCategory('修炼等级', [$row['xlid'] ?? ''=> $row['xldj']]);
     }
 }
 

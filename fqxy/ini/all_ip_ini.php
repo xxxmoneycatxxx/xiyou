@@ -27,10 +27,10 @@ if(file_exists($file)){
     //把有值的数据存入一个数组
     $m=0;
     while(!!$row=mysql_fetch_array($result)){
-        $iniFile->addCategory('ip地址', [$row['wjid']=>$row['ip'] ]);
-        $iniFile->addCategory('ip时间', [$row['wjid']=>$row['iptime']]);
-        $iniFile->addCategory('玩家名字', [$row['wjid']=> $row['wjname']]);
-        $iniFile->addCategory('玩家id', [$row['ip']=> $row['wjid']]);
+        $iniFile->addCategory('ip地址', [$row['wjid'] ?? ''=>$row['ip'] ]);
+        $iniFile->addCategory('ip时间', [$row['wjid'] ?? ''=>$row['iptime']]);
+        $iniFile->addCategory('玩家名字', [$row['wjid'] ?? ''=> $row['wjname']]);
+        $iniFile->addCategory('玩家id', [$row['ip'] ?? ''=> $row['wjid']]);
     }
 }
 

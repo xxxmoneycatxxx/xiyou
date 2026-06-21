@@ -4,8 +4,8 @@ $q2="all_zt";
 mysql_query("set names utf8");
 $sql1=mysql_query("select wjid,username from $q2 where lh=$lh",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$lhid=$info1['wjid'];
-$lhname=$info1['username'];
+$lhid=$info1['wjid'] ?? '';
+$lhname=$info1['username'] ?? '';
 if($lhid>=10000000){
     echo "<font color=red>对不起！此靓号ID[".$lh."]已被".$lhname."占用，无法使用</font>"."<br>";
     $wpsy=1;//使用失败

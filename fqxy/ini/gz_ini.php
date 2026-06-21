@@ -47,13 +47,13 @@ $result=mysql_query($str) or die('SQL语句有误');
 $m=0;
   while(!!$row=mysql_fetch_array($result)){
  
- $iniFile->addItem('官宅id',[$row['fzid'] => $row['fzid']]);
+ $iniFile->addItem('官宅id',[$row['fzid'] ?? ''=> $row['fzid']]);
  
- $iniFile->addItem('官宅持有人id',[$row['fzid'] => $row['wjid']]);
- $iniFile->addItem('官宅持有人名字',[$row['fzid'] => $row['wjmz']]);
-  $iniFile->addItem('官宅名字',[$row['fzid'] => $row['fzmz']]);
-   $iniFile->addItem('官宅分类',[$row['fzid'] => $row['fzfl']]);
-    $iniFile->addItem('官宅改名',[$row['fzid'] => $row['fzgm']]);
+ $iniFile->addItem('官宅持有人id',[$row['fzid'] ?? ''=> $row['wjid']]);
+ $iniFile->addItem('官宅持有人名字',[$row['fzid'] ?? ''=> $row['wjmz']]);
+  $iniFile->addItem('官宅名字',[$row['fzid'] ?? '' => $row['fzmz']]);
+   $iniFile->addItem('官宅分类',[$row['fzid'] ?? '' => $row['fzfl']]);
+    $iniFile->addItem('官宅改名',[$row['fzid'] ?? '' => $row['fzgm']]);
  
 
 

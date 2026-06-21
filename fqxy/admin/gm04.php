@@ -10,7 +10,7 @@ include("./sql/mysql.php");//调用数据库连接
 $q2="all_zt";
 $sql1=mysql_query("select wjid from $q2 where lh=$id",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];	
-$lhid=$info1['wjid'];
+$lhid=$info1['wjid'] ?? '';
 
 if($lhid>=10000000){
 	$id=$lhid;

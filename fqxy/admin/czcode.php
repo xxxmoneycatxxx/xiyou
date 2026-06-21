@@ -8,8 +8,8 @@ $wpfl=4;
 $q2="zzck";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$czid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ckwpid=$info1['wpid'];
-$ckwpsl=$info1['wpsl'];
+$ckwpid=$info1['wpid'] ?? '';
+$ckwpsl=$info1['wpsl'] ?? '';
 if ($ckwpid == "") {
     //$q2="zzck".$wjid;
     //} else{
@@ -47,8 +47,8 @@ $wpfl=4;
 $q2="zzck";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$czid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ckwpid=$info1['wpid'];
-$ckwpsl=$info1['wpsl'];
+$ckwpid=$info1['wpid'] ?? '';
+$ckwpsl=$info1['wpsl'] ?? '';
 
 if($ckwpid==""){
 
@@ -84,8 +84,8 @@ $wpfl=4;
 $q2="zzck";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$czid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ckwpid=$info1['wpid'];
-$ckwpsl=$info1['wpsl'];
+$ckwpid=$info1['wpid'] ?? '';
+$ckwpsl=$info1['wpsl'] ?? '';
 
 if($ckwpid==""){
     $ckwpsl=$ppwpsl2;
@@ -190,7 +190,7 @@ $xysw1=$vipjf;
 $q2="all_hdph02";
 $sql1=mysql_query("select ds01 from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ds01=$info1['ds01'];
+$ds01=$info1['ds01'] ?? '';
 if($ds01 ==""){
     $q2="all_hdph02";
     mysql_query("set names utf8");

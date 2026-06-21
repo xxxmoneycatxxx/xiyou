@@ -44,9 +44,9 @@ $fbid=1;
 $q2="fb";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and fbid=$fbid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$fbsj=$info1['fb'];
-$fb01=$info1['wc'];
-$fb02=$info1['cs'];
+$fbsj=$info1['fb'] ?? '';
+$fb01=$info1['wc'] ?? '';
+$fb02=$info1['cs'] ?? '';
 $fbsj1=1;
 if($fbsj==""){	
 $fbsj1=2;

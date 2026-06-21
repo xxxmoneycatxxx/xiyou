@@ -42,14 +42,14 @@ $m=0;
 
  
 $m=$m+1;
-$jjid=$row['jjid'];
-$iniFile->addCategory('序列', [$row['jjid']=>$m ]);
-$iniFile->addCategory('家具id', [$m=> $row['jjid']]);
-$iniFile->addCategory('家具等级', [$row['jjid']=> $row['jjdj']]);
-$iniFile->addCategory('家具摆放', [$row['jjid']=> $row['jjbf']]);
+$jjid=$row['jjid'] ?? '';
+$iniFile->addCategory('序列', [$row['jjid'] ?? ''=>$m ]);
+$iniFile->addCategory('家具id', [$m=> $row['jjid'] ?? '']);
+$iniFile->addCategory('家具等级', [$row['jjid'] ?? ''=> $row['jjdj']]);
+$iniFile->addCategory('家具摆放', [$row['jjid'] ?? ''=> $row['jjbf']]);
 //调用物品信息
 include("./wp/jjxx.php");
-$iniFile->addCategory('家具名字', [$row['jjid']=> $jjmz]);
+$iniFile->addCategory('家具名字', [$row['jjid'] ?? ''=> $jjmz]);
 
 
 

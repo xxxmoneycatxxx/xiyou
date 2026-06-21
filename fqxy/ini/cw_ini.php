@@ -48,17 +48,17 @@ if(file_exists($file)){
     $m=0;
     while(!!$row=mysql_fetch_array($result)) {
         $m=$m+1;
-        $npcc0=$row['cwid'];
-        $npcc1=$row['id'];
+        $npcc0=$row['cwid'] ?? '';
+        $npcc1=$row['id'] ?? '';
         $cwidd=$npcc0."_".$npcc1;
         $iniFile->addCategory('序列', [$cwidd=>$m ]);
         $iniFile->addCategory('宠物id', [$cwidd=> $cwidd]);
-        $iniFile->addCategory('宠物名字', [$cwidd=> $row['cwmz']]);
-        $iniFile->addCategory('宠物等级', [$cwidd=> $row['cwdj']]);
-        $iniFile->addCategory('宠物星级', [$cwidd=> $row['cwxj']]);
-        $iniFile->addCategory('宠物变异', [$cwidd=> $row['cwby']]);
-        $iniFile->addCategory('宠物品质', [$cwidd=> $row['cwxb']]);
-        $iniFile->addCategory('宠物出战状态', [$cwidd=> $row['cwcz']]);
+        $iniFile->addCategory('宠物名字', [$cwidd=> $row['cwmz'] ?? '']);
+        $iniFile->addCategory('宠物等级', [$cwidd=> $row['cwdj'] ?? '']);
+        $iniFile->addCategory('宠物星级', [$cwidd=> $row['cwxj'] ?? '']);
+        $iniFile->addCategory('宠物变异', [$cwidd=> $row['cwby'] ?? '']);
+        $iniFile->addCategory('宠物品质', [$cwidd=> $row['cwxb'] ?? '']);
+        $iniFile->addCategory('宠物出战状态', [$cwidd=> $row['cwcz'] ?? '']);
         $cwid=$npcc0;
 //调用宠物基础信息
         include("./cw/cwxx.php");

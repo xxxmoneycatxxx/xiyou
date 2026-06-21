@@ -12,8 +12,8 @@ if(file_exists($file)) {
     $q2="all_yl";
     $sql1=mysql_query("select * from $q2 where wjid=$wjid",$conn);
     $info1=@mysql_fetch_array($sql1) ?: [];
-    $bbyl=$info1['bbyl'];
-    $ckyl=$info1['ckyl'];
+    $bbyl=$info1['bbyl'] ?? '';
+    $ckyl=$info1['ckyl'] ?? '';
 
     if($bbyl==""){
         $bbyl=0;

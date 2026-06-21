@@ -23,7 +23,7 @@ if(file_exists($file)){
     $q2="xp";
     $sql1=mysql_query("select count(*) as c from $q2 where wjid=$wjid",$conn);
     $info1=@mysql_fetch_array($sql1) ?: [];
-    $xlpd=$info1['c'];
+    $xlpd=$info1['c'] ?? '';
     if ($xlpd < $m) {
         for($d = $xlpd + 1; $d <= $m; $d++){
             $q2 = "xp";
@@ -41,8 +41,8 @@ if(file_exists($file)){
     //把有值的数据存入一个数组
     $m=0;
     while(!!$row=mysql_fetch_array($result)){
-        $iniFile->addCategory('星盘id', [$row['seq']=> $row['xpid']]);
-        $iniFile->addCategory('星盘开启', [$row['seq']=> $row['xpkq']]);
+        $iniFile->addCategory('星盘id', [$row['seq'] ?? ''=> $row['xpid']]);
+        $iniFile->addCategory('星盘开启', [$row['seq'] ?? ''=> $row['xpkq']]);
     }
 }
 

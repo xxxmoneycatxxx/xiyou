@@ -130,8 +130,8 @@ $q2="all_ylck";
 mysql_query("set names utf8");
 $sql1=mysql_query("select wjid,yl01 from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjidpd=$info1['wjid'];
-$yl01=$info1['yl01'];
+$wjidpd=$info1['wjid'] ?? '';
+$yl01=$info1['yl01'] ?? '';
 $xcyl=$yl01+$qc03;
 if($wjidpd>10000000){
 $strsql = "update $q2 set yl01=$xcyl where wjid=$wjid";//物品id号必改值
@@ -259,8 +259,8 @@ $q2="all_ylck";
 mysql_query("set names utf8");
 $sql1=mysql_query("select wjid,yl01 from $q2 where wjid=$qc02",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjidpd=$info1['wjid'];
-$yl01=$info1['yl01'];
+$wjidpd=$info1['wjid'] ?? '';
+$yl01=$info1['yl01'] ?? '';
 $xcyl=$yl01+$qc03*2;
 if($wjidpd>10000000){
 $strsql = "update $q2 set yl01=$xcyl where wjid=$qc02";//物品id号必改值

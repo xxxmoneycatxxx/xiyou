@@ -19,8 +19,8 @@ $ppwpsl=$wpsl;
 $q2="zzck";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$czid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ckwpid=$info1['wpid'];
-$ckwpsl=$info1['wpsl'];
+$ckwpid=$info1['wpid'] ?? '';
+$ckwpsl=$info1['wpsl'] ?? '';
 if($ckwpid==""){
     //Fixed
 ////获取最大值

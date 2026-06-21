@@ -20,7 +20,7 @@ if($zsspd==1){
                     $q2="all_zt";
                     $sql1=mysql_query("select username from $q2 where username='$wjtake'",$conn);
                     $info1=@mysql_fetch_array($sql1) ?: [];
-                    $pdbp2=$info1['username'];
+                    $pdbp2=$info1['username'] ?? '';
                     if($pdbp2==""){
                         $q2="all_zt";
                         $strsql = "update $q2 set username='$wjtake' where wjid=$wjid";//物品id号必改值

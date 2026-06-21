@@ -87,20 +87,20 @@ $result=mysql_query($str) or die('SQL语句有误');
 
  while(!!$row=mysql_fetch_array($result)){
 
-if($row['pmwpfl']==5){
-if($row['pmwpsl']>0){
+if($row['pmwpfl'] ?? ''==5){
+if($row['pmwpsl'] ?? ''>0){
 
 
 
-$iniFile->addCategory('排序', [$row['id']=> $row['id']]);
-$iniFile->addCategory('玩家id', [$row['id']=> $row['wjid']]);
-$iniFile->addCategory('玩家名字', [$row['id']=> $row['wjmz']]);
-$iniFile->addCategory('拍卖时间', [$row['id']=> $row['pmtime']]);
-$iniFile->addCategory('拍卖物品id', [$row['id']=> $row['pmwpid']]);
-$iniFile->addCategory('拍卖数量', [$row['id']=> $row['pmwpsl']]);
-$iniFile->addCategory('拍卖名字', [$row['id']=> $row['pmwpmz']]);
-$iniFile->addCategory('拍卖价格', [$row['id']=> $row['pmwpjg']]);
-$iniFile->addCategory('拍卖时间搓', [$row['id']=> $row['pmsjc']]);
+$iniFile->addCategory('排序', [$row['id'] ?? ''=> $row['id']]);
+$iniFile->addCategory('玩家id', [$row['id'] ?? ''=> $row['wjid']]);
+$iniFile->addCategory('玩家名字', [$row['id'] ?? ''=> $row['wjmz']]);
+$iniFile->addCategory('拍卖时间', [$row['id'] ?? ''=> $row['pmtime']]);
+$iniFile->addCategory('拍卖物品id', [$row['id'] ?? ''=> $row['pmwpid']]);
+$iniFile->addCategory('拍卖数量', [$row['id'] ?? ''=> $row['pmwpsl']]);
+$iniFile->addCategory('拍卖名字', [$row['id'] ?? ''=> $row['pmwpmz']]);
+$iniFile->addCategory('拍卖价格', [$row['id'] ?? ''=> $row['pmwpjg']]);
+$iniFile->addCategory('拍卖时间搓', [$row['id'] ?? ''=> $row['pmsjc']]);
 }
 }
    

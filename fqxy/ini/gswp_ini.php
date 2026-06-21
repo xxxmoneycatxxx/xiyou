@@ -30,16 +30,16 @@ if(file_exists($file)){
 //把有值的数据存入一个数组
     $m=0;
     while(!!$row=mysql_fetch_array($result)){
-        if($row['wpsl']>0){
+        if($row['wpsl'] ?? ''>0){
             $m=$m+1;
-            $npcc=$row['wpid'];
-            $npcc1=$row['id'];
+            $npcc=$row['wpid'] ?? '';
+            $npcc1=$row['id'] ?? '';
             $zbidd=$npcc."_".$npcc1;
             $iniFile->addCategory('序列', [$zbidd=>$m ]);
             $iniFile->addCategory('物品id', [$zbidd=> $zbidd]);
 
-            $iniFile->addCategory('物品数量', [$zbidd=> $row['wpsl']]);
-            $iniFile->addCategory('物品价格', [$zbidd=> $row['gsjg']]);
+            $iniFile->addCategory('物品数量', [$zbidd=> $row['wpsl'] ?? '']);
+            $iniFile->addCategory('物品价格', [$zbidd=> $row['gsjg'] ?? '']);
 //调用物品信息
             include("./wp/wpxx.php");
             $iniFile->addCategory('物品名字', [$zbidd=> $wpmz]);

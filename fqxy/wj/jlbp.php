@@ -15,7 +15,7 @@ if($bpid==""||$bpid==0){
         $q2="all_bp";
         $sql1=mysql_query("select bpid from $q2 where bpmz='$wjtake'");
         $info1=mysql_fetch_array($sql1) ?: [];
-        $pdbp2=$info1['bpid'];
+        $pdbp2=$info1['bpid'] ?? '';
         if($pdbp2==""){
             $q2="all_bp";
             $sql = "insert into $q2 (bpdj,bpmz,cbpmz,cwjid,xbpmz,xwjid,ccmz01,ccid01,ccmz02,ccid02,

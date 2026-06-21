@@ -28,10 +28,10 @@ if(file_exists($file)){
     $m=0;
     while(!!$row=mysql_fetch_array($result)){
         $m=$m+1;
-        //$npcc=$row['wpid'];
-        $iniFile->addCategory('序列', [$row['wpid']=>$m ]);
-        $iniFile->addCategory('物品id', [$m=> $row['wpid']]);
-        $iniFile->addCategory('物品使用次数', [$row['wpid']=> $row['sycs']]);
+        //$npcc=$row['wpid'] ?? '';
+        $iniFile->addCategory('序列', [$row['wpid'] ?? ''=>$m ]);
+        $iniFile->addCategory('物品id', [$m=> $row['wpid'] ?? '']);
+        $iniFile->addCategory('物品使用次数', [$row['wpid'] ?? ''=> $row['sycs']]);
     }
 }
 $iniFile = new iniFile($file);

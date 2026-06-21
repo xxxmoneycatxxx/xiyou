@@ -19,9 +19,9 @@ $result=mysql_query($str) or die('SQL语句有误');
 $hm=0;
 while(!!$row=mysql_fetch_array($result)){
 
-if ($row['wpsl']>0){
-$wpidd[]=$row['wpid'];
-$wpsll[]=$row['wpsl'];
+if ($row['wpsl'] ?? ''>0){
+$wpidd[]=$row['wpid'] ?? '';
+$wpsll[]=$row['wpsl'] ?? '';
 $hm=$hm+1;
 }
 
@@ -62,9 +62,9 @@ $result=mysql_query($str) or die('SQL语句有误');
 $hm=0;
 while(!!$row=mysql_fetch_array($result)){
 
-if ($row['wpsl']>0){
-$wpidd1[]=$row['wpid'];
-$wpsll1[]=$row['wpsl'];
+if ($row['wpsl'] ?? ''>0){
+$wpidd1[]=$row['wpid'] ?? '';
+$wpsll1[]=$row['wpsl'] ?? '';
 $hm=$hm+1;
 }
 
@@ -105,7 +105,7 @@ $hm=0;
 while(!!$row=mysql_fetch_array($result)){
 
 
-$wpidd[]=$row['zbid'];
+$wpidd[]=$row['zbid'] ?? '';
 $hm=$hm+1;
 
 

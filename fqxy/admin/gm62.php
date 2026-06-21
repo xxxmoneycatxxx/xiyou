@@ -20,7 +20,7 @@ $wjid=$i+10000000;
 $q2="wp";
 $sql1=mysql_query("select wpsl from $q2 where wjid=$wjid and wpid=$czid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ckwpsl=$info1['wpsl'];
+$ckwpsl=$info1['wpsl'] ?? '';
 if($ckwpsl ==""){
 $ckwpsl=0;
 } else{
@@ -28,7 +28,7 @@ $ckwpsl=0;
 $q2="ckwp";
 $sql1=mysql_query("select wpsl from $q2 where wjid=$wjid and wpid=$czid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ckwpsl1=$info1['wpsl'];
+$ckwpsl1=$info1['wpsl'] ?? '';
 if($ckwpsl1 ==""){
 $ckwpsl1=0;
 } else{

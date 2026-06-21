@@ -39,12 +39,12 @@ $result=mysql_query($str) or die('SQL语句有误');
 $m=0;
   while(!!$row=mysql_fetch_array($result)){
 
- $iniFile->addItem('排序id',[$row['wjid'] => $row['id']]);
+ $iniFile->addItem('排序id',[$row['wjid'] ?? ''=> $row['id']]);
  
- $iniFile->addItem('求购信息',[$row['wjid'] => $row['qgxx']]);
- $iniFile->addItem('求购人',[$row['wjid'] => $row['qgmz']]);
-  $iniFile->addItem('求购人id',[$row['wjid'] => $row['wjid']]);
-   $iniFile->addItem('求购价格',[$row['wjid'] => $row['qgjg']]);
+ $iniFile->addItem('求购信息',[$row['wjid'] ?? ''=> $row['qgxx']]);
+ $iniFile->addItem('求购人',[$row['wjid'] ?? ''=> $row['qgmz']]);
+  $iniFile->addItem('求购人id',[$row['wjid'] ?? '' => $row['wjid']]);
+   $iniFile->addItem('求购价格',[$row['wjid'] ?? '' => $row['qgjg']]);
 
  
 

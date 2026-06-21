@@ -10,7 +10,7 @@ $result=mysql_query($str) or die('SQL语句有误');
 $xxcc=0;
 
 while(!!$row=mysql_fetch_array($result)){
-    $sxwjid[]=$row['wjid'];
+    $sxwjid[]=$row['wjid'] ?? '';
     $xxcc=$xxcc+1;
 
 }

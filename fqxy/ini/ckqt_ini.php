@@ -30,16 +30,16 @@ if(file_exists($file)){
     //把有值的数据存入一个数组
     $m=0;
     while(!!$row=mysql_fetch_array($result)){
-        if($row['wpsl']>0){
+        if($row['wpsl'] ?? ''>0){
             $m=$m+1;
-            $bsid=$row['wpid'];
-            $iniFile->addCategory('序列', [$row['wpid']=>$m ]);
-            $iniFile->addCategory('其他id', [$m=> $row['wpid']]);
-            $iniFile->addCategory('其他数量', [$row['wpid']=> $row['wpsl']]);
+            $bsid=$row['wpid'] ?? '';
+            $iniFile->addCategory('序列', [$row['wpid'] ?? ''=>$m ]);
+            $iniFile->addCategory('其他id', [$m=> $row['wpid'] ?? '']);
+            $iniFile->addCategory('其他数量', [$row['wpid'] ?? ''=> $row['wpsl']]);
             //调用物品信息
             include("./wp/zbbs.php");
             $wpmz=$bsmz;
-            $iniFile->addCategory('其他名字', [$row['wpid']=> $wpmz]);
+            $iniFile->addCategory('其他名字', [$row['wpid'] ?? ''=> $wpmz]);
         }
     }
 }

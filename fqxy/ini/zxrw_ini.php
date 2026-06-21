@@ -29,18 +29,18 @@ if (file_exists($file)) {
     //把有值的数据存入一个数组
     $m = 0;
     while (!!$row = mysql_fetch_array($result)) {
-        if ($row['rwfl'] == 1 || $row['rwfl'] == 2 || $row['rwfl'] == 4 || $row['rwfl'] == 5) {
+        if ($row['rwfl'] ?? ''== 1 || $row['rwfl'] ?? ''== 2 || $row['rwfl'] ?? ''== 4 || $row['rwfl'] ?? ''== 5) {
             //过滤新任务系统已完成的任务
-            if ($row['rwid'] > 1000 && $row['rwbl'] > 3) {
+            if ($row['rwid'] ?? '' > 1000 && $row['rwbl'] > 3) {
                 continue;
             }
-            $rw_str = $row['rwid'] . "_" . $row['rwfl'];
-            $iniFile->addCategory('任务id', [$rw_str => $row['rwid']]);
-            $iniFile->addCategory('任务变量', [$rw_str => $row['rwbl']]);
-            $iniFile->addCategory('已杀怪', [$rw_str => $row['yisg']]);
-            $iniFile->addCategory('要杀怪', [$rw_str => $row['ysg']]);
-            $iniFile->addCategory('任务分类', [$rw_str => $row['rwfl']]);
-            $iniFile->addCategory('任务名字', [$rw_str => $row['rwmz']]);
+            $rw_str = $row['rwid'] ?? '' . "_" . $row['rwfl'];
+            $iniFile->addCategory('任务id', [$rw_str => $row['rwid'] ?? '']);
+            $iniFile->addCategory('任务变量', [$rw_str => $row['rwbl'] ?? '']);
+            $iniFile->addCategory('已杀怪', [$rw_str => $row['yisg'] ?? '']);
+            $iniFile->addCategory('要杀怪', [$rw_str => $row['ysg'] ?? '']);
+            $iniFile->addCategory('任务分类', [$rw_str => $row['rwfl'] ?? '']);
+            $iniFile->addCategory('任务名字', [$rw_str => $row['rwmz'] ?? '']);
         }
     }
 }

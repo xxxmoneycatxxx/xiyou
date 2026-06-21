@@ -38,17 +38,17 @@ $m=0;
 
  while(!!$row=mysql_fetch_array($result)){
 
-if($row['wpfl']==4){
-if($row['wpsl']>0){  
+if($row['wpfl'] ?? ''==4){
+if($row['wpsl'] ?? ''>0){  
 $m=$m+1;
-$npcc=$row['wpid'];
-$row['wpid'];
-$iniFile->addCategory('序列', [$row['wpid']=>$m ]);
-$iniFile->addCategory('商城id', [$m=> $row['wpid']]);
-$iniFile->addCategory('商城数量', [$row['wpid']=> $row['wpsl']]);
+$npcc=$row['wpid'] ?? '';
+$row['wpid'] ?? '';
+$iniFile->addCategory('序列', [$row['wpid'] ?? ''=>$m ]);
+$iniFile->addCategory('商城id', [$m=> $row['wpid'] ?? '']);
+$iniFile->addCategory('商城数量', [$row['wpid'] ?? ''=> $row['wpsl']]);
 //调用物品信息
 include("./wp/wpxx.php");
-$iniFile->addCategory('商城名字', [$row['wpid']=> $wpmz]);  
+$iniFile->addCategory('商城名字', [$row['wpid'] ?? ''=> $wpmz]);  
 
    
    }

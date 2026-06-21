@@ -82,7 +82,7 @@ $result = mysql_query($strsql);
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjyl=$info1['bbyl'];
+$wjyl=$info1['bbyl'] ?? '';
 $wjyll=$wjyl+$sl*$wpjgg;
 if($wjyll>=99999999999){
 $wjyll=99999999999;
@@ -103,8 +103,8 @@ $wjid=$wjid1;//自己
 $q2="wp";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$npcc",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ckwpid=$info1['wpid'];
-$ckwpsl=$info1['wpsl'];
+$ckwpid=$info1['wpid'] ?? '';
+$ckwpsl=$info1['wpsl'] ?? '';
 if($ckwpid==""){
 $ckwpsl=$ckwpsl+$sl;
 //调用物品信息
@@ -131,7 +131,7 @@ $result = mysql_query($strsql);
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjyl=$info1['bbyl'];
+$wjyl=$info1['bbyl'] ?? '';
 $wjyll=$wjyl-($sl*$wpjgg+$ylsxf);
 if($wjyll<=0){
 $wjyll=0;
@@ -371,7 +371,7 @@ $result = mysql_query($strsql);
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjyl=$info1['bbyl'];
+$wjyl=$info1['bbyl'] ?? '';
 $wjyll=$wjyl+$sl*$wpjgg;
 if($wjyll>=99999999999){
 $wjyll=99999999999;
@@ -401,8 +401,8 @@ $wjid=$wjid1;//自己
 $q2="wp";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$npcc",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ckwpid=$info1['wpid'];
-$ckwpsl=$info1['wpsl'];
+$ckwpid=$info1['wpid'] ?? '';
+$ckwpsl=$info1['wpsl'] ?? '';
 if($ckwpid==""){
 $ckwpsl=$ckwpsl+$sl;
 //调用物品信息
@@ -428,7 +428,7 @@ $result = mysql_query($strsql);
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjyl=$info1['bbyl'];
+$wjyl=$info1['bbyl'] ?? '';
 $wjyll=$wjyl-($sl*$wpjgg+$ylsxf);
 
 if($wjyll<=0){

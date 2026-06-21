@@ -22,7 +22,7 @@ if($zsspd==1){
                     $q2="all_zt";
                     $sql1=mysql_query("select wjid from $q2 where lh=$wjjdqg",$conn);
                     $info1=@mysql_fetch_array($sql1) ?: [];
-                    $lhid=$info1['wjid'];
+                    $lhid=$info1['wjid'] ?? '';
                     if($lhid>=10000000){
                         $wjjdqg=$lhid;
 
@@ -37,7 +37,7 @@ if($zsspd==1){
                             $q2="o_user_list";
                             $sql1=mysql_query("select uid from $q2 where uid=$wjjdqgp",$conn);
                             $info1=@mysql_fetch_array($sql1) ?: [];
-                            $uid=$info1['uid'];
+                            $uid=$info1['uid'] ?? '';
                             if($uid!=""){
                                 include("./ini/zt_ini.php");
                                 $jh01=($iniFile->getItem('玩家信息','性别'));

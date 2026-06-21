@@ -40,7 +40,7 @@ $q2="all_pm";
 mysql_query("set names utf8");
 $sql1=mysql_query("select pmsjc from $q2 where id=$pxid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$pmsjc=$info1['pmsjc'];
+$pmsjc=$info1['pmsjc'] ?? '';
 if($wpsjc==$pmsjc){
 	
 /////////////////////////////操作对方银子////////////////////	
@@ -49,7 +49,7 @@ if($wpsjc==$pmsjc){
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$pmmwjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjyl=$info1['bbyl'];
+$wjyl=$info1['bbyl'] ?? '';
 $wjyll=$wjyl+$sl*$wpjgg;
 if($wjyll>=99999999999){
 $wjyll=99999999999;
@@ -80,7 +80,7 @@ _unlink($ininame); //删除文件
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjyl=$info1['bbyl'];
+$wjyl=$info1['bbyl'] ?? '';
 $wjyll=$wjyl-($sl*$wpjgg+$ylsxf);
 if($wjyll<=0){
 $wjyll=0;
@@ -120,8 +120,8 @@ $result = mysql_query($strsql);
 $q2="wp";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$pmmwpid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ckwpid=$info1['wpid'];
-$ckwpsl=$info1['wpsl'];
+$ckwpid=$info1['wpid'] ?? '';
+$ckwpsl=$info1['wpsl'] ?? '';
 if($ckwpid==""){
 $ckwpsl=$ckwpsl+$sl;
 //调用物品信息
@@ -380,7 +380,7 @@ $q2="all_pm";
 mysql_query("set names utf8");
 $sql1=mysql_query("select pmsjc from $q2 where id=$pxid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$pmsjc=$info1['pmsjc'];
+$pmsjc=$info1['pmsjc'] ?? '';
 if($wpsjc==$pmsjc){
 
 
@@ -391,7 +391,7 @@ if($wpsjc==$pmsjc){
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$pmmwjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjyl=$info1['bbyl'];
+$wjyl=$info1['bbyl'] ?? '';
 $wjyll=$wjyl+$sl*$wpjgg;
 if($wjyll>=99999999999){
 $wjyll=99999999999;
@@ -420,7 +420,7 @@ _unlink($ininame); //删除文件
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjyl=$info1['bbyl'];
+$wjyl=$info1['bbyl'] ?? '';
 $wjyll=$wjyl-($sl*$wpjgg+$ylsxf);
 if($wjyll<=0){
 $wjyll=0;
@@ -461,8 +461,8 @@ $result = mysql_query($strsql);
 $q2="wp";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$pmmwpid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ckwpid=$info1['wpid'];
-$ckwpsl=$info1['wpsl'];
+$ckwpid=$info1['wpid'] ?? '';
+$ckwpsl=$info1['wpsl'] ?? '';
 if($ckwpid==""){
 $ckwpsl=$ckwpsl+$sl;
 $npcc=$pmmwpid;

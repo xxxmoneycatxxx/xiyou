@@ -37,8 +37,8 @@ if($sll!=0){
                     $q2="wp";
                     $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$npcc");
                     $info1=@mysql_fetch_array($sql1) ?: [];
-                    $ckwpid=$info1['wpid'];
-                    $ckwpsl=$info1['wpsl'];
+                    $ckwpid=$info1['wpid'] ?? '';
+                    $ckwpsl=$info1['wpsl'] ?? '';
                     if($ckwpid==""){
                         $ckwpsl=$ckwpsl+$sl;
                         include("./wp/wpxx.php");
@@ -222,8 +222,8 @@ if($sll!=0){
                     $q2="wp";
                     $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$npcc",$conn);
                     $info1=@mysql_fetch_array($sql1) ?: [];
-                    $ckwpid=$info1['wpid'];
-                    $ckwpsl=$info1['wpsl'];
+                    $ckwpid=$info1['wpid'] ?? '';
+                    $ckwpsl=$info1['wpsl'] ?? '';
                     if($ckwpid==""){
                         $ckwpsl=$ckwpsl+$sl;
                         include("./wp/wpxx.php");

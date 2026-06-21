@@ -38,13 +38,13 @@ $str="select * from $q2";
 $result=mysql_query($str) or die('SQL语句有误');
  while(!!$row=mysql_fetch_array($result)){
 
-$iniFile->addCategory('id', [$row['id']=>$row['id']]);
- $iniFile->addCategory('idd', [$row['gjid']=>$row['id']]);
-$iniFile->addCategory('国家名字', [$row['id']=>$row['gjmz']]);
-$iniFile->addCategory('国家id', [$row['id']=>$row['gjid']]);
-$iniFile->addCategory('君主名字', [$row['id']=>$row['jzmz']]);
-$iniFile->addCategory('君主id', [$row['id']=>$row['jzid']]);
-$iniFile->addCategory('国家积分', [$row['id']=>$row['gjjf']]);
+$iniFile->addCategory('id', [$row['id'] ?? ''=>$row['id']]);
+ $iniFile->addCategory('idd', [$row['gjid'] ?? ''=>$row['id']]);
+$iniFile->addCategory('国家名字', [$row['id'] ?? ''=>$row['gjmz']]);
+$iniFile->addCategory('国家id', [$row['id'] ?? ''=>$row['gjid']]);
+$iniFile->addCategory('君主名字', [$row['id'] ?? ''=>$row['jzmz']]);
+$iniFile->addCategory('君主id', [$row['id'] ?? ''=>$row['jzid']]);
+$iniFile->addCategory('国家积分', [$row['id'] ?? ''=>$row['gjjf']]);
 
 
 }

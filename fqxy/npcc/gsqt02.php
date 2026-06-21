@@ -42,7 +42,7 @@ include("./sql/mysql.php");//调用数据库连接
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjyl=$info1['bbyl'];
+$wjyl=$info1['bbyl'] ?? '';
 $wjyll=$wjyl-$ylsxf;
 $strsql = "update $q2 set bbyl=$wjyll where wjid=$wjid";//物品id号必改值
 $result = mysql_query($strsql);

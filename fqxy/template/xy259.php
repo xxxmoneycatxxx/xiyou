@@ -44,8 +44,8 @@ $q2="all_yl";
 mysql_query("set names utf8");
 $sql1=mysql_query("select * from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$bbyl=$info1['bbyl'];
-$ckyl=$info1['ckyl'];
+$bbyl=$info1['bbyl'] ?? '';
+$ckyl=$info1['ckyl'] ?? '';
 if($ckyl>=$sl){
 
 //存钱仓库减身上加

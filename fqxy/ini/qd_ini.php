@@ -22,7 +22,7 @@ else
     $q2="all_qd";
     $sql1=mysql_query("select * from $q2 where wjid=$wjid");
     $info1=mysql_fetch_array($sql1) ?: [];
-    $id=$info1['id'];
+    $id=$info1['id'] ?? '';
     if($id ==""){
         $qdy= date('m')*1;
         $qdsj=date('Y-m-d h:i:s');
@@ -36,22 +36,22 @@ else
         $sql1=mysql_query("select * from $q2 where wjid=$wjid");
         $info1=mysql_fetch_array($sql1) ?: [];
 
-        $qdcs=$info1['qdcs'];
-        $qdy=$info1['qdy'];
-        $qd1=$info1['qd1'];
-        $qd2=$info1['qd2'];
-        $qd3=$info1['qd3'];
-        $qd4=$info1['qd4'];
-        $qd5=$info1['qd5'];
+        $qdcs=$info1['qdcs'] ?? '';
+        $qdy=$info1['qdy'] ?? '';
+        $qd1=$info1['qd1'] ?? '';
+        $qd2=$info1['qd2'] ?? '';
+        $qd3=$info1['qd3'] ?? '';
+        $qd4=$info1['qd4'] ?? '';
+        $qd5=$info1['qd5'] ?? '';
 
     } else{
-        $qdcs=$info1['qdcs'];
-        $qdy=$info1['qdy'];
-        $qd1=$info1['qd1'];
-        $qd2=$info1['qd2'];
-        $qd3=$info1['qd3'];
-        $qd4=$info1['qd4'];
-        $qd5=$info1['qd5'];
+        $qdcs=$info1['qdcs'] ?? '';
+        $qdy=$info1['qdy'] ?? '';
+        $qd1=$info1['qd1'] ?? '';
+        $qd2=$info1['qd2'] ?? '';
+        $qd3=$info1['qd3'] ?? '';
+        $qd4=$info1['qd4'] ?? '';
+        $qd5=$info1['qd5'] ?? '';
     }
 
     $inina="qd.ini";

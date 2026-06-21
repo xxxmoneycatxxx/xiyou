@@ -10,7 +10,7 @@ if(!file_exists($file)) {
     $q2="all_yd01";
     $sql1=mysql_query("select * from $q2 where wjid=$wjid");
     $info1=@mysql_fetch_array($sql1) ?: [];
-    $ydid=$info1['wjid'];
+    $ydid=$info1['wjid'] ?? '';
     if($ydid ==""){
         $q2="all_yd01";
         $nowtime=date('Y-m-d H:i:s');
@@ -25,11 +25,11 @@ if(!file_exists($file)) {
     $q2="all_yd01";
     $sql1=mysql_query("select * from $q2 where wjid=$wjid");
     $info1=@mysql_fetch_array($sql1) ?: [];
-    $ds01=$info1['ds01'];
-    $ds02=$info1['ds02'];
-    $dy01_time=$info1['dy01_time'];
-    $yd01=$info1['yd01'];
-    $yd02=$info1['yd02'];
+    $ds01=$info1['ds01'] ?? '';
+    $ds02=$info1['ds02'] ?? '';
+    $dy01_time=$info1['dy01_time'] ?? '';
+    $yd01=$info1['yd01'] ?? '';
+    $yd02=$info1['yd02'] ?? '';
 
     $inina="yd01.ini";
     $path='ache/'.$wjid;

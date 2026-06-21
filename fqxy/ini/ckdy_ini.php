@@ -37,16 +37,16 @@ $m=0;
 
  while(!!$row=mysql_fetch_array($result)){
 
-if($row['wpfl']==5){
-if($row['wpsl']>0){
+if($row['wpfl'] ?? ''==5){
+if($row['wpsl'] ?? ''>0){
 $m=$m+1;
-$npcc=$row['wpid'];
-$iniFile->addCategory('序列', [$row['wpid']=>$m ]);
-$iniFile->addCategory('丹药id', [$m=> $row['wpid']]);
-$iniFile->addCategory('丹药数量', [$row['wpid']=> $row['wpsl']]);
+$npcc=$row['wpid'] ?? '';
+$iniFile->addCategory('序列', [$row['wpid'] ?? ''=>$m ]);
+$iniFile->addCategory('丹药id', [$m=> $row['wpid'] ?? '']);
+$iniFile->addCategory('丹药数量', [$row['wpid'] ?? ''=> $row['wpsl']]);
 //调用物品信息
 include("./wp/wpxx.php");
-$iniFile->addCategory('丹药名字', [$row['wpid']=> $wpmz]);  
+$iniFile->addCategory('丹药名字', [$row['wpid'] ?? ''=> $wpmz]);  
 
    
    }

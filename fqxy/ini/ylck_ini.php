@@ -33,9 +33,9 @@ $q2="all_ylck";
 mysql_query("set names utf8");
 $sql1=mysql_query("select * from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$yl01=$info1['yl01'];
-$yl02=$info1['yl02'];
-$yl03=$info1['yl03'];
+$yl01=$info1['yl01'] ?? '';
+$yl02=$info1['yl02'] ?? '';
+$yl03=$info1['yl03'] ?? '';
 
 if($yl01>=1){
 } else {

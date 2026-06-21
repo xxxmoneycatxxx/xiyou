@@ -27,7 +27,7 @@ $q2="zgvip";
 //Fixed xlid 为无效字段，修改为
 $sql1=mysql_query("select zgvipid from $q2 where wjid=$wjid and zgvipid=$xlidd",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$id=is_array($info1) ? $info1['zgvipid'] : '';
+$id=is_array($info1) ? $info1['zgvipid'] ?? '' : '';
 if($id ==""){
 $nowtime=date('Y-m-d H:i:s');	
 $sql = "insert into $q2 (wjid, zgvipid,zgviptime,xs)  values('$wjid','$xlidd','$nowtime','1')";
@@ -47,8 +47,8 @@ $result=mysql_query($str) or die('SQL语句有误');
 //把有值的数据存入一个数组
 $m=0;
  while(!!$row=mysql_fetch_array($result)){
-$iniFile->addCategory('尊贵vip', [$row['zgvipid']=> $row['zgviptime']]);
-$iniFile->addCategory('尊贵vip开关', [$row['zgvipid']=> $row['xs']]);
+$iniFile->addCategory('尊贵vip', [$row['zgvipid'] ?? ''=> $row['zgviptime']]);
+$iniFile->addCategory('尊贵vip开关', [$row['zgvipid'] ?? ''=> $row['xs']]);
 
 
 

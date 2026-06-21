@@ -17,9 +17,9 @@ if(file_exists($file)){
     $str="select * from $q2 where wjid=$wjid";
     $result=mysql_query($str) or die('SQL语句有误');
     while(!!$row=mysql_fetch_array($result)){
-        $iniFile->addCategory('活动id', [$row['hdid']=>$row['hdid']]);
-        $iniFile->addCategory('活动时间', [$row['hdid']=>$row['hdtime']]);
-        $iniFile->addCategory('活动次数', [$row['hdid']=>$row['hdcs']]);
+        $iniFile->addCategory('活动id', [$row['hdid'] ?? ''=>$row['hdid']]);
+        $iniFile->addCategory('活动时间', [$row['hdid'] ?? ''=>$row['hdtime']]);
+        $iniFile->addCategory('活动次数', [$row['hdid'] ?? ''=>$row['hdcs']]);
     }
 }
 

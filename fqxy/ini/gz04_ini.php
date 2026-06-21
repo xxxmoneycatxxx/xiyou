@@ -17,9 +17,9 @@ $q2="gz04";
 $str="select * from $q2";
 $result=mysql_query($str) or die('SQL语句有误');
 while(!!$row=mysql_fetch_array($result)){
-    $iniFile->addCategory('id', [$row['id']=>$row['id']]);
-    $iniFile->addCategory('玩家名字', [$row['wjid']=>$row['wjname']]);
-    $iniFile->addCategory('玩家id', [$row['wjid']=>$row['wjid']]);
-    $iniFile->addCategory('个人积分', [$row['wjid']=>$row['wjgzjf']]);
-    $iniFile->addCategory('领取情况', [$row['wjid']=>$row['wjlq']]);
+    $iniFile->addCategory('id', [$row['id'] ?? ''=>$row['id']]);
+    $iniFile->addCategory('玩家名字', [$row['wjid'] ?? ''=>$row['wjname']]);
+    $iniFile->addCategory('玩家id', [$row['wjid'] ?? ''=>$row['wjid']]);
+    $iniFile->addCategory('个人积分', [$row['wjid'] ?? ''=>$row['wjgzjf']]);
+    $iniFile->addCategory('领取情况', [$row['wjid'] ?? ''=>$row['wjlq']]);
 }

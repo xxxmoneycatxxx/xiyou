@@ -21,10 +21,10 @@ $q2="all_sdk";
 mysql_query("set names utf8");
 $sql1=mysql_query("select * from $q2 where sdk='$wjtake10'",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$sdk1=$info1['sdkid'];
-$sdk2=$info1['sdktime'];
-$sdk3=$info1['sdkfl'];
-$sdk4=$info1['sdksy'];
+$sdk1=$info1['sdkid'] ?? '';
+$sdk2=$info1['sdktime'] ?? '';
+$sdk3=$info1['sdkfl'] ?? '';
+$sdk4=$info1['sdksy'] ?? '';
 //验证是否存在	
 if($sdk1!=""){
 //验证是否使用		

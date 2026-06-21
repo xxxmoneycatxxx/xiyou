@@ -61,8 +61,8 @@ $m=0;
 
 
 $m=$m+1;
-$npcc=$row['zbid'];
-$npcc1=$row['id'];
+$npcc=$row['zbid'] ?? '';
+$npcc1=$row['id'] ?? '';
 $zbidd=$npcc."_".$npcc1;
 $iniFile->addCategory('序列', [$zbidd=>$m ]);
 
@@ -71,20 +71,20 @@ $iniFile->addCategory('序列', [$zbidd=>$m ]);
 include("./wp/zbxx.php");
 $iniFile->addCategory('装备名字', [$zbidd=> $wp1]);
 
-$iniFile->addCategory('装备星级', [$zbidd=> $row['zbxj']]);
-$iniFile->addCategory('装备孔1', [$zbidd=> $row['zbk1']]);
-$iniFile->addCategory('装备孔2', [$zbidd=> $row['zbk2']]);
-$iniFile->addCategory('装备孔3', [$zbidd=> $row['zbk3']]);
-$iniFile->addCategory('装备孔4', [$zbidd=> $row['zbk4']]);
-$iniFile->addCategory('装备孔5', [$zbidd=> $row['zbk5']]);
+$iniFile->addCategory('装备星级', [$zbidd=> $row['zbxj'] ?? '']);
+$iniFile->addCategory('装备孔1', [$zbidd=> $row['zbk1'] ?? '']);
+$iniFile->addCategory('装备孔2', [$zbidd=> $row['zbk2'] ?? '']);
+$iniFile->addCategory('装备孔3', [$zbidd=> $row['zbk3'] ?? '']);
+$iniFile->addCategory('装备孔4', [$zbidd=> $row['zbk4'] ?? '']);
+$iniFile->addCategory('装备孔5', [$zbidd=> $row['zbk5'] ?? '']);
 
-$iniFile->addCategory('装备镶嵌1', [$zbidd=> $row['zbxq1']]);
-$iniFile->addCategory('装备镶嵌2', [$zbidd=> $row['zbxq2']]);
-$iniFile->addCategory('装备镶嵌3', [$zbidd=> $row['zbxq3']]);
-$iniFile->addCategory('装备镶嵌4', [$zbidd=> $row['zbxq4']]);
-$iniFile->addCategory('装备镶嵌5', [$zbidd=> $row['zbxq5']]);
-$iniFile->addCategory('装备分类', [$zbidd=> $row['zbfl']]);
-$iniFile->addCategory('装备分类id', [$row['zbfl']=> $zbidd]);
+$iniFile->addCategory('装备镶嵌1', [$zbidd=> $row['zbxq1'] ?? '']);
+$iniFile->addCategory('装备镶嵌2', [$zbidd=> $row['zbxq2'] ?? '']);
+$iniFile->addCategory('装备镶嵌3', [$zbidd=> $row['zbxq3'] ?? '']);
+$iniFile->addCategory('装备镶嵌4', [$zbidd=> $row['zbxq4'] ?? '']);
+$iniFile->addCategory('装备镶嵌5', [$zbidd=> $row['zbxq5'] ?? '']);
+$iniFile->addCategory('装备分类', [$zbidd=> $row['zbfl'] ?? '']);
+$iniFile->addCategory('装备分类id', [$row['zbfl'] ?? ''=> $zbidd]);
 
 $iniFile->addCategory('装备id', [$zbidd=> $zbidd]);
 

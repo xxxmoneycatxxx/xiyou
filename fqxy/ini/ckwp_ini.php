@@ -39,16 +39,16 @@ $m=0;
 
  while(!!$row=mysql_fetch_array($result)){
 
-if($row['wpfl']==1){
-if($row['wpsl']>0){
+if($row['wpfl'] ?? ''==1){
+if($row['wpsl'] ?? ''>0){
 $m=$m+1;
-$npcc=$row['wpid'];
-$iniFile->addCategory('序列', [$row['wpid']=>$m ]);
-$iniFile->addCategory('书卷id', [$m=> $row['wpid']]);
-$iniFile->addCategory('书卷数量', [$row['wpid']=> $row['wpsl']]);
+$npcc=$row['wpid'] ?? '';
+$iniFile->addCategory('序列', [$row['wpid'] ?? ''=>$m ]);
+$iniFile->addCategory('书卷id', [$m=> $row['wpid'] ?? '']);
+$iniFile->addCategory('书卷数量', [$row['wpid'] ?? ''=> $row['wpsl']]);
 //调用物品信息
 include("./wp/wpxx.php");
-$iniFile->addCategory('书卷名字', [$row['wpid']=> $wpmz]);
+$iniFile->addCategory('书卷名字', [$row['wpid'] ?? ''=> $wpmz]);
 
    
    }

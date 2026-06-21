@@ -89,11 +89,11 @@ $q2="all_pm";
 mysql_query("set names utf8");
 $sql1=mysql_query("select * from $q2 where id=$npcc",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$pmsjc=$info1['pmsjc'];
-$pmwjid=$info1['wjid'];
-$pmwpidd=$info1['pmwpid'];
+$pmsjc=$info1['pmsjc'] ?? '';
+$pmwjid=$info1['wjid'] ?? '';
+$pmwpidd=$info1['pmwpid'] ?? '';
 
-$pmwpsll=$info1['pmwpsl'];
+$pmwpsll=$info1['pmwpsl'] ?? '';
 
 
 
@@ -120,8 +120,8 @@ $result = mysql_query($strsql);
 $q2="wp";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$pmmwpid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$ckwpid=$info1['wpid'];
-$ckwpsl=$info1['wpsl'];
+$ckwpid=$info1['wpid'] ?? '';
+$ckwpsl=$info1['wpsl'] ?? '';
 if($ckwpid==""){
 $ckwpsl=$ckwpsl+$wpsl;
 $npcc=$pmmwpid;

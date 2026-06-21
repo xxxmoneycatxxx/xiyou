@@ -3,8 +3,8 @@
 $sqid = ($uid + 10000000) . "_" . $xxjy_qy;
 $info1 = DB::instance()->get('o_user_list', ['uid', 'password'], ['sqid' => $sqid]);
 
-$uid = $info1['uid'];
-$pass1 = $info1['password'];
+$uid = $info1['uid'] ?? '';
+$pass1 = $info1['password'] ?? '';
 
 //游戏服id
 if ($xxjy_qy == 1) {

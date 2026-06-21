@@ -29,7 +29,7 @@ $str="select id from $q2";
 $result=mysql_query($str) or die('SQL语句有误');
 
  while(!!$row=mysql_fetch_array($result)){
-$id[]=$row['id'];
+$id[]=$row['id'] ?? '';
 $m=$m+1;
 }
 if($m >=1){
@@ -40,11 +40,11 @@ $ii=$ii+1;
 $i=$i+1;
 $sql1=mysql_query("select * from $q2 where id=$id[$i]",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$cz01=$info1['wjid'];
-$cz02=$info1['wjmz'];
-$cz03=$info1['wjje'];
-$cz04=$info1['zh1'];
-$cz05=$info1['zh2'];
+$cz01=$info1['wjid'] ?? '';
+$cz02=$info1['wjmz'] ?? '';
+$cz03=$info1['wjje'] ?? '';
+$cz04=$info1['zh1'] ?? '';
+$cz05=$info1['zh2'] ?? '';
 echo $ii;
 echo ".";
 echo "（".$cz02."--".$cz01."）";

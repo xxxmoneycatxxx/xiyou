@@ -31,13 +31,13 @@ if(file_exists($file)){
     $mm=0;
     while(!!$row=mysql_fetch_array($result)){
         $mm=$mm+1;
-        $iniFile->addCategory('序列', [$row['userid']=>$mm]);
-        $iniFile->addCategory('名字', [$mm=> $row['usermz']]);
-        $iniFile->addCategory('名字id', [$mm=> $row['userid']]);
-        $iniFile->addCategory('贡献', [$mm=> $row['gx']]);
-        $iniFile->addCategory('历史贡献', [$mm=> $row['lsgx']]);
-        $iniFile->addCategory('国战死亡次数', [$mm=> $row['bpswcs']]);
-        $iniFile->addCategory('国战积分', [$mm=> $row['bpjf']]);
+        $iniFile->addCategory('序列', [$row['userid'] ?? ''=>$mm]);
+        $iniFile->addCategory('名字', [$mm=> $row['usermz'] ?? '']);
+        $iniFile->addCategory('名字id', [$mm=> $row['userid'] ?? '']);
+        $iniFile->addCategory('贡献', [$mm=> $row['gx'] ?? '']);
+        $iniFile->addCategory('历史贡献', [$mm=> $row['lsgx'] ?? '']);
+        $iniFile->addCategory('国战死亡次数', [$mm=> $row['bpswcs'] ?? '']);
+        $iniFile->addCategory('国战积分', [$mm=> $row['bpjf'] ?? '']);
     }
 }
 $iniFile = new iniFile($file);

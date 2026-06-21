@@ -60,7 +60,7 @@ $wjid=$ckid;//对方
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjyl=$info1['bbyl'];
+$wjyl=$info1['bbyl'] ?? '';
 $wjyll=$wjyl+$zssl;
 if($wjyll>=99999999999){
 $wjyll=99999999999;
@@ -82,7 +82,7 @@ $wjid=$wjid1;//自己
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$wjyl=$info1['bbyl'];
+$wjyl=$info1['bbyl'] ?? '';
 $wjyll=$wjyl-($zssl+$ylsxf);
 if($wjyll<=0){
 $wjyll=0;

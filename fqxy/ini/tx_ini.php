@@ -30,13 +30,13 @@ $result=mysql_query($str) or die('SQL语句有误');
 $m=0;
 while(!!$row=mysql_fetch_array($result)){
 $m=$m+1;
-$npcc=$row['txid'];
-$iniFile->addCategory('序列', [$row['txid']=>$m ]);
-$iniFile->addCategory('头衔id', [$m=> $row['txid']]);
-$iniFile->addCategory('头衔显示', [$row['txid']=> $row['txxs']]);
+$npcc=$row['txid'] ?? '';
+$iniFile->addCategory('序列', [$row['txid'] ?? ''=>$m ]);
+$iniFile->addCategory('头衔id', [$m=> $row['txid'] ?? '']);
+$iniFile->addCategory('头衔显示', [$row['txid'] ?? ''=> $row['txxs']]);
 //调用物品信息
 include("./wp/txxx.php");
-$iniFile->addCategory('头衔名字', [$row['txid']=> $wpmz]);  
+$iniFile->addCategory('头衔名字', [$row['txid'] ?? ''=> $wpmz]);  
 
 }
 	

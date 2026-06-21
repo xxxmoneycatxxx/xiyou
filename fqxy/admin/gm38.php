@@ -16,8 +16,8 @@ include("./sql/mysql.php");//调用数据库连接
 $q2="all_zt";	
 $sql1=mysql_query("select * from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1) ?: [];
-$dj=$info1['dj'];
-$bbrl=$info1['bbrl'];
+$dj=$info1['dj'] ?? '';
+$bbrl=$info1['bbrl'] ?? '';
 
 $bbrlb=$dj*50+$bbrl;
 $strsql = "update $q2 set bbrl=$bbrlb where wjid=$wjid";//物品id号必改值

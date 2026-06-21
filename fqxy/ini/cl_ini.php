@@ -19,15 +19,15 @@ if(!file_exists($file)){
     $result=mysql_query($str) or die('SQL语句有误');
     $m=0;
     while(!!$row=mysql_fetch_array($result)){
-        if($row['wpfl']==2){
-            if($row['wpsl']>0){
+        if($row['wpfl'] ?? ''==2){
+            if($row['wpsl'] ?? ''>0){
                 $m=$m+1;
-                $npcc=$row['wpid'];
-                $iniFile->addCategory('序列', [$row['wpid']=>$m ]);
-                $iniFile->addCategory('材料id', [$m=> $row['wpid']]);
-                $iniFile->addCategory('材料数量', [$row['wpid']=> $row['wpsl']]);
+                $npcc=$row['wpid'] ?? '';
+                $iniFile->addCategory('序列', [$row['wpid'] ?? ''=>$m ]);
+                $iniFile->addCategory('材料id', [$m=> $row['wpid'] ?? '']);
+                $iniFile->addCategory('材料数量', [$row['wpid'] ?? ''=> $row['wpsl']]);
                 include("./wp/wpxx.php");
-                $iniFile->addCategory('材料名字', [$row['wpid']=> $wpmz]);
+                $iniFile->addCategory('材料名字', [$row['wpid'] ?? ''=> $wpmz]);
             }
         }
     }
