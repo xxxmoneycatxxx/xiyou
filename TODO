@@ -33,10 +33,10 @@
 ## ✅ 已完成（P3，2026-06-21）
 
 ### 8. INI 文件缓存 → Redis
-- **状态**: ✅ 完成并验证
-- **验证结果**: 27/27 集成测试通过，19/19 API 兼容通过，168 个 Redis Key 承载玩家 10000002 全量数据
-- **改造文件**: 仅 `iniclass.php`（+新增 `tests/ini_redis_verify.php`）
-- **方案**: Redis Hash 优先，文件回退；`parse_ini_file`/Redis 类型归一化
+- **状态**: ✅ 完成并部署验证
+- **验证结果**: Docker 重建零介入，端到端 9/9 通过（文件→Redis 迁移、纯 Redis 加载、类型归一化、key 生成正确）
+- **改造文件**: 仅 `iniclass.php`（v2.0，Redis Hash 优先 + 文件回退）
+- **方案**: Redis Hash 优先，文件回退；`parse_ini_file`/Redis 类型归一化；正则加固防 `acher/` 误匹配
 
 ---
 
@@ -48,17 +48,23 @@
 - **模式**: `$var ??= default` / `$_POST['key'] ?? ''` / `$arr['key'] ?? default`
 - **探测 Bot**: `tests/warn_scanner.php` (静态扫描) + `tests/warn_monitor.ps1` (运行时监控)
 - **扫描结果**: 剩余约 9,794 处潜在警告（M001:102 / M002:2,591 / M003:6,394 / M004:9 / M005:698）
+- **运行时修复**: 6/21 批次 (17处)
+  - xy001.php:200-203 `wjxx1[血/max攻击/max魔攻/max防御] ?? 0`
+  - xy010.php:161/163/166 `wjxx1[血/蓝] ?? 0`
+  - sh01.php:32-37 `wjxx1[冰防/火防/雷防/冰攻/火攻/雷攻] ?? 0` + `guaiwu` 同类加固
+  - sh06.php:41 `wjxx1[max攻击] ?? 0`
+  - sh03.php:14 `wjxx1[max防御] ?? 0`
+  - npc.php:3326 `$tpbl ?? 0`
 
 ---
 
 ## ⬜ P3 第四波 ◆ 缓存层升级
 
 ### 9. Session 存储改用 Redis
-- **收益**: 多进程无锁竞争，容器重建不丢失
-- **风险**: 低（依赖 #8 引入 Redis）
-- **工时**: 半小时
-- **做法**: `session.save_handler=redis`
-- **阻塞**: 硬阻塞于 #8
+- **状态**: ✅ 完成并部署验证
+- **验证结果**: 端到端 5/5 通过（Redis Key 正确、序列化正确、TTL=24h、无 /tmp 文件残留）
+- **做法**: `redis_session.ini`（`session.save_handler=redis` + `gc_maxlifetime=86400`），0 行代码改动
+- **阻塞**: ~~硬阻塞于 #8~~
 
 ---
 
@@ -68,7 +74,7 @@
 |------|------|:--:|
 | 1~7 | P0~P2 全部 | ✅ |
 | 8 | INI→Redis | ✅ |
-| 9 | Session→Redis | ⬜ |
+| 9 | Session→Redis | ✅ |
 | 10 | PHP 8.2 Warning 清理 | 🔧 |
 
 ---
@@ -79,4 +85,4 @@
 #9 Session→Redis 无阻塞依赖（Redis 环境已由 #8 就绪）
 ```
 
-- **#9 无前置阻塞**，可随时开始
+- **无阻塞项**，#10 可继续推进

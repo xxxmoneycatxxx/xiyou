@@ -61,6 +61,7 @@ RUN { \
 # PHP 性能配置
 COPY docker/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY docker/gzip.ini /usr/local/etc/php/conf.d/gzip.ini
+COPY docker/redis_session.ini /usr/local/etc/php/conf.d/redis_session.ini
 # TODO #10: Warning 调试（生产环境注释掉此行）
 COPY docker/warn_debug.ini /usr/local/etc/php/conf.d/warn_debug.ini
 

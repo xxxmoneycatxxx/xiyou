@@ -3,6 +3,7 @@
 *.ini
 !docker/opcache.ini
 !docker/gzip.ini
+!docker/warn_debug.ini
 *.txt
 **/all_ip
 **/map/cwd77x?
