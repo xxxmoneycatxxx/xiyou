@@ -212,19 +212,9 @@ if ($zsspd == 1) {
         $info1 = @mysql_fetch_array($sql1);
         $phwjid = $info1['wjid'];
         if ($phwjid == "") {
-            //获取最大值
             $q2 = "all_phb";
-            $sql1 = mysql_query("select MAX(id) from $q2");
-            $abc = mysql_fetch_array($sql1);
-            $maxid = $abc[0];
-            if ($maxid == "") {
-                $maxid = 0;
-                $maxidd = $maxid + 1;
-            } else {
-                $maxidd = $maxid + 1;
-            }
             $q2 = "all_phb";
-            $sql = "insert into $q2 (id,wjid,wjmz,vip,phb1,phb2,phb3,phb4,phb5,phb6,phb7,phb8)  values('$maxidd','$wjid','$wjmz','$vip','$phb1','$phb2','$phb3','$phb4','$phb5','$phb6','$phb7','$phb8')";
+            $sql = "insert into $q2 (wjid,wjmz,vip,phb1,phb2,phb3,phb4,phb5,phb6,phb7,phb8)  values('$wjid','$wjmz','$vip','$phb1','$phb2','$phb3','$phb4','$phb5','$phb6','$phb7','$phb8')";
             if (!mysql_query($sql, $conn)) {
                 die('Error: ' . mysql_error());
             }

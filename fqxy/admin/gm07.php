@@ -25,9 +25,6 @@ if($ckwpid==""){
     //Fixed
 ////获取最大值
 //$q2="zzck";
-//$sql1=mysql_query("select MAX(id) from $q2 where");
-//$abc=mysql_fetch_array($sql1);
-//$maxid=$abc[0];
 //
 //if($maxid ==""){
 //$maxid=0;

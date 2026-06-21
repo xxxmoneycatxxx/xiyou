@@ -11,14 +11,7 @@ $info1=@mysql_fetch_array($sql1);
 $ckwpid=$info1['wpid'];
 $ckwpsl=$info1['wpsl'];
 if ($ckwpid == "") {
-//获取最大值
     //$q2="zzck".$wjid;
-    //$sql1=mysql_query("select MAX(id) from $q2");
-    //$abc=mysql_fetch_array($sql1);
-    //$maxid=$abc[0];
-    //if($maxid ==""){
-    //    $maxid=0;
-    //    $maxidd=$maxid+1;
     //} else{
     //    $maxidd=$maxid+1;
     //}
@@ -59,7 +52,6 @@ $ckwpsl=$info1['wpsl'];
 
 if($ckwpid==""){
 
-    //获取最大值
     $ckwpsl=$ppwpsl1;
 //$npcc=$czid;
 //调用物品信息
@@ -200,18 +192,9 @@ $sql1=mysql_query("select ds01 from $q2 where wjid=$wjid",$conn);
 $info1=@mysql_fetch_array($sql1);
 $ds01=$info1['ds01'];
 if($ds01 ==""){
-//获取最大值
     $q2="all_hdph02";
-    $sql1=mysql_query("select MAX(id) from $q2");
-    $abc=mysql_fetch_array($sql1);
-    $maxid=$abc[0];
-    if($maxid ==""){
-        $maxidd=$maxid+1;
-    } else{
-        $maxidd=$maxid+1;
-    }
     mysql_query("set names utf8");
-    $sql = "insert into $q2 (id,wjid,wjmz,vip,ds01)  values('$maxidd','$wjid','$usermzxx','$vip','$xysw1')";
+    $sql = "insert into $q2 (wjid,wjmz,vip,ds01)  values('$wjid','$usermzxx','$vip','$xysw1')";
     if (!mysql_query($sql,$conn)){
         die('Error: ' . mysql_error());
     }

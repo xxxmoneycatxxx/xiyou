@@ -36,6 +36,12 @@ if [ "$(mysql -h"$MYSQL_HOST" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD
     echo "  添加关键索引..."
     mysql -h"$MYSQL_HOST" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" xyy < /var/www/html/data/add_indexes.sql
 fi
+
+# AUTO_INCREMENT 计数器对齐（每次启动执行，幂等安全）
+if [ -f /var/www/html/data/auto_increment.sql ]; then
+    echo "  对齐 AUTO_INCREMENT 计数器..."
+    mysql -h"$MYSQL_HOST" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" < /var/www/html/data/auto_increment.sql
+fi
 echo "  数据库完成"
 
 # 3. 权限

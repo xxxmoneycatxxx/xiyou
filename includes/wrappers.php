@@ -60,6 +60,19 @@ if (!function_exists('mysql_error')) {
     }
 }
 
+if (!function_exists('mysql_insert_id')) {
+    /**
+     * 获取最后插入的AUTO_INCREMENT ID
+     * 使用 Medoo::id() 包装 PDO::lastInsertId()，连接级安全，无并发问题
+     *
+     * @return int 最后插入的自增ID
+     */
+    function mysql_insert_id()
+    {
+        return (int) get_mysql_conn()->id();  // Medoo::id() → PDO::lastInsertId()
+    }
+}
+
 function get_mysql_conn()
 {
     if (!class_exists('DB')) {

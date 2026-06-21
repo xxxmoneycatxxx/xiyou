@@ -95,14 +95,7 @@ if($week==6){
                         if (empty($gz03)) {
                             ////////////////////将报名的国家写入国战2表内////////////////////////
                             $q2 = "gz03";
-                            $sql1 = mysql_query("select MAX(id) from $q2");
-                            $abc = mysql_fetch_array($sql1);
-                            $maxid = $abc[0];
-                            if ($maxid == "") {
-                                $maxid = 0;
-                            }
-                            $maxidd = $maxid + 1;
-                            $sql = "insert into $q2 (id,gjmz,gjid,jzmz,jzid,zjf,rjf,cjsj, zlq, rlq)  values('$maxidd','$bpmzr','$bpid','$xbzmz','$xwjid','0', '0', '$jt', 0, 0)";
+                            $sql = "insert into $q2 (gjmz,gjid,jzmz,jzid,zjf,rjf,cjsj, zlq, rlq)  values('$bpmzr','$bpid','$xbzmz','$xwjid','0', '0', '$jt', 0, 0)";
                             if (!mysql_query($sql)) {
                                 die('Error: ' . mysql_error());
                             }

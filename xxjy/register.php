@@ -49,13 +49,6 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
             throw new InvalidArgumentException('对不起！这个昵称太火了换一个吧');
         }
 
-        //获取最大值
-        $q2 = "o_user_list";
-        $sql1 = mysql_query("select MAX(uid) as i from $q2");
-        $abc = mysql_fetch_array($sql1);
-        $maxid = empty($abc) ? 0 : $abc['i'];
-        $maxidd = $maxid + 1;
-
         // 默认token
         $ma = str_rand();
         $aqm = md5($zczh4 . 'ALL_PS');
@@ -68,7 +61,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
         $s = date('s') * 1;
 
         $q2 = "o_user_list";
-        $sql = "insert into $q2 (uid,m_id,name,username,password,n,y,r,s,f,m,ma,aqm)  values('$maxidd','0','$zczh6','$zczh1','$zczh2','$y','$m','$d','$h','$i','$s','$ma','$aqm')";
+        $sql = "insert into $q2 (m_id,name,username,password,n,y,r,s,f,m,ma,aqm)  values('0','$zczh6','$zczh1','$zczh2','$y','$m','$d','$h','$i','$s','$ma','$aqm')";
         if (!mysql_query($sql)) {
             throw new InvalidArgumentException('帐号创建失败，请联系管理员！');
         }

@@ -75,17 +75,7 @@ $result = mysql_query($strsql);
 
 
 
-//获取最大值
 $q2="all_pm";
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];
-if($maxid ==""){
-$maxid=0;
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
 //调用物品信息
 include("./wp/wpxx.php");
 include("./ini/zt_ini.php");
@@ -93,7 +83,7 @@ $wjmz=($iniFile->getItem('玩家信息','玩家名字'));
 $timex=time();
 $nowtime=date('Y-m-d H:i:s');
 $q2="all_pm";
-$sql = "insert into $q2 (id,wjid,wjmz,pmtime,pmwpid,pmwpmz,pmwpsl,pmwpjg,pmsjc,pmwpfl)  values('$maxidd','$wjid','$wjmz','$nowtime','$npcc','$wpmz','$sl','$gsjg','$timex','$wpfl')";
+$sql = "insert into $q2 (wjid,wjmz,pmtime,pmwpid,pmwpmz,pmwpsl,pmwpjg,pmsjc,pmwpfl)  values('$wjid','$wjmz','$nowtime','$npcc','$wpmz','$sl','$gsjg','$timex','$wpfl')";
  if (!mysql_query($sql,$conn)){
    die('Error: ' . mysql_error());
  }
@@ -385,17 +375,7 @@ $result = mysql_query($strsql);
 
 
 
-//获取最大值
 $q2="all_pm";
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];
-if($maxid ==""){
-$maxid=0;
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
 //调用物品信息
 include("./wp/wpxx.php");
 include("./ini/zt_ini.php");
@@ -404,7 +384,7 @@ $timex=time(true);
 $nowtime=date('Y-m-d H:i:s');
 $q2="all_pm";
 mysql_query("set names utf8");
-$sql = "insert into $q2 (id,wjid,wjmz,pmtime,pmwpid,pmwpmz,pmwpsl,pmwpjg,pmsjc,pmwpfl)  values('$maxidd','$wjid','$wjmz','$nowtime','$npcc','$wpmz','$sl','$gsjg','$timex','$wpfl')";
+$sql = "insert into $q2 (wjid,wjmz,pmtime,pmwpid,pmwpmz,pmwpsl,pmwpjg,pmsjc,pmwpfl)  values('$wjid','$wjmz','$nowtime','$npcc','$wpmz','$sl','$gsjg','$timex','$wpfl')";
  if (!mysql_query($sql,$conn)){
    die('Error: ' . mysql_error());
  }

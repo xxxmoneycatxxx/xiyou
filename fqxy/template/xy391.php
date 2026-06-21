@@ -156,19 +156,12 @@ $iniFile->updItem('个人积分', [$wjid => $gjjf]);
 include("./sql/mysql.php");//调用数据库连接 
 $q2="gz04";	
 mysql_query("set names utf8");
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];
-if($maxid ==""){
-$maxid=0;
-} else{
-}
 include("./ini/zt_ini.php");
 $uname=($iniFile->getItem('玩家信息','玩家名字'));
 $q2="gz04";	
 mysql_query("set names utf8");
 $maxidd=$maxid+1;
-$sql = "insert into $q2 (id,wjid,wjname,wjgzjf,wjlq)  values('$maxidd','$wjid','$uname','$gjjf','1')";
+$sql = "insert into $q2 (wjid,wjname,wjgzjf,wjlq)  values('$wjid','$uname','$gjjf','1')";
  if (!mysql_query($sql,$conn))
  {
    die('Error: ' . mysql_error());

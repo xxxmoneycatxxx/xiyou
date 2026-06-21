@@ -24,19 +24,11 @@ else
     $info1=mysql_fetch_array($sql1);
     $id=$info1['id'];
     if($id ==""){
-        $sql1=mysql_query("select MAX(id) from $q2");
-        $abc=mysql_fetch_array($sql1);
-        $maxid=$abc[0];
-        if($maxid ==""){
-            $maxidd=$maxid+1;
-        } else{
-            $maxidd=$maxid+1;
-        }
         $qdy= date('m')*1;
         $qdsj=date('Y-m-d h:i:s');
         $qdcs=0;
 
-        $sql = "insert into $q2 (id,wjid,qdsj,qdcs,qdy,qd1,qd2,qd3,qd4,qd5)  values('$maxidd','$wjid','$qdsj','$qdcs','$qdy','1','1','1','1','1')";
+        $sql = "insert into $q2 (wjid,qdsj,qdcs,qdy,qd1,qd2,qd3,qd4,qd5)  values('$wjid','$qdsj','$qdcs','$qdy','1','1','1','1','1')";
         if (!mysql_query($sql,$conn)){
             die('Error: ' . mysql_error());
         }

@@ -92,21 +92,11 @@ if($jy03==""){
    //连接数据库提取数据写入ini 
    
 include("./sql/mysql.php");//调用数据库连接 
-//获取最大值
 $q2="all_user";
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];
-if($maxid ==""){
-$maxid=0;
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
 $time=604800;
 $nowtime=date('Y-m-d H:i:s');
 mysql_query("set names utf8");
-$sql = "insert into $q2 (id,wjid,wjname,wjtime,utime,fl,yj)  values('$maxidd','$wjid','$wjname','$nowtime','$time','2','1')";
+$sql = "insert into $q2 (wjid,wjname,wjtime,utime,fl,yj)  values('$wjid','$wjname','$nowtime','$time','2','1')";
  if (!mysql_query($sql,$conn)){
    die('Error: ' . mysql_error());
  }

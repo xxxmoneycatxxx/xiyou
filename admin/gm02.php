@@ -26,19 +26,9 @@
     //随机产生一个玩家的特征码写入数据库验证网址信息
     $a1=str_rand(35);
     $a2="【幻想西游注册码】[".$a1."]";
-    //获取最大值
     $q2="zem";
-    $sql1=mysql_query("select MAX(id) from $q2");
-    $abc=mysql_fetch_array($sql1);
-    $maxid=$abc[0];
-    if($maxid ==""){
-        $maxid=0;
-        $maxidd=$maxid+1;
-    } else{
-        $maxidd=$maxid+1;
-    }
     $q2="zem";
-    $sql = "insert into $q2 (id,zem,sy)  values('$maxidd','$a2','1')";
+    $sql = "insert into $q2 (zem,sy)  values('$a2','1')";
     if (!mysql_query($sql)) {
         die('Error: ' . mysql_error());
     }

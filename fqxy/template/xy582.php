@@ -106,19 +106,10 @@ $zfzh1=($iniFile->getItem('支付宝','初始'));
 include("./ini/bdwx_ini.php");
 $zfzh2=($iniFile->getItem('微信','初始'));
 
- //获取最大值
 $q2="all_xjhb";
 mysql_query("set names utf8");
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];
- if($maxid ==""){
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
 mysql_query("set names utf8");
-$sql = "insert into $q2 (id,wjid,wjmz,wjje,zh1,zh2)  values('$maxidd','$wjid','$wjmz','$wjje','$zfzh1','$zfzh2')";
+$sql = "insert into $q2 (wjid,wjmz,wjje,zh1,zh2)  values('$wjid','$wjmz','$wjje','$zfzh1','$zfzh2')";
  if (!mysql_query($sql,$conn)){
    die('Error: ' . mysql_error());
  }

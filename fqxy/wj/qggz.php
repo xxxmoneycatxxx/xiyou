@@ -34,23 +34,11 @@ $qgid=($iniFile->getItem('求购人id',$wjid));
 if($qgid==""){
 
 include("./sql/mysql.php");//调用数据库连接 
-//获取最大值
 $q2="all_qggz";
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];	
-
-if($maxid ==""){
-$maxid=0;
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-} 
-
 
 $q2="all_qggz";
 mysql_query("set names utf8");
-$sql = "insert into $q2 (id,qgxx,qgmz,wjid,qgjg)  values('$maxidd','$wjtake10','$wjmz','$wjid','$wjjdqg')";
+$sql = "insert into $q2 (qgxx,qgmz,wjid,qgjg)  values('$wjtake10','$wjmz','$wjid','$wjjdqg')";
  if (!mysql_query($sql,$conn))
  {
    die('Error: ' . mysql_error());

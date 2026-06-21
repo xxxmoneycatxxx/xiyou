@@ -101,18 +101,9 @@ if($ds01 ==""){
 include("./ini/zt_ini.php");
 $wjmz=($iniFile->getItem('玩家信息','玩家名字'));
 $vip=($iniFile->getItem('玩家信息','vip等级'));
-//获取最大值
 $q2="all_hdph03";
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];
-if($maxid ==""){
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
 mysql_query("set names utf8");
-$sql = "insert into $q2 (id,wjid,wjmz,vip,ds01)  values('$maxidd','$wjid','$wjmz','$vip','$xysw1')";
+$sql = "insert into $q2 (wjid,wjmz,vip,ds01)  values('$wjid','$wjmz','$vip','$xysw1')";
  if (!mysql_query($sql,$conn)){
  die('Error: ' . mysql_error());
  }

@@ -174,25 +174,15 @@ $ckwpsl=$info1['wpsl'];
 
 if($ckwpid==""){
 
-//获取最大值
 $q2="zzck".$wjid;
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];
 
-if($maxid ==""){
-$maxid=0;
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
 $ckwpsl=$ppwpsl;
 //$npcc=$czid;
 //调用物品信息
 //include("./wp/wpxx.php");
 
 $q2="zzck".$wjid;
-$sql = "insert into $q2 (id,wpid,wpsl,wpfl)  values('$maxidd','$czid','$ckwpsl','$wpfl')";
+$sql = "insert into $q2 (wpid,wpsl,wpfl)  values('$czid','$ckwpsl','$wpfl')";
 
 
  if (!mysql_query($sql,$conn)){
@@ -224,25 +214,15 @@ $ckwpsl=$info1['wpsl'];
 
 if($ckwpid==""){
 
-//获取最大值
 $q2="zzck".$wjid;
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];
 
-if($maxid ==""){
-$maxid=0;
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
 $ckwpsl=$ppwpsl1;
 //$npcc=$czid;
 //调用物品信息
 //include("./wp/wpxx.php");
 
 $q2="zzck".$wjid;
-$sql = "insert into $q2 (id,wpid,wpsl,wpfl)  values('$maxidd','$czid','$ckwpsl','$wpfl')";
+$sql = "insert into $q2 (wpid,wpsl,wpfl)  values('$czid','$ckwpsl','$wpfl')";
 
 
  if (!mysql_query($sql,$conn)){
@@ -273,25 +253,15 @@ $ckwpsl=$info1['wpsl'];
 
 if($ckwpid==""){
 
-//获取最大值
 $q2="zzck".$wjid;
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];
 
-if($maxid ==""){
-$maxid=0;
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
 $ckwpsl=$ppwpsl2;
 //$npcc=$czid;
 //调用物品信息
 //include("./wp/wpxx.php");
 
 $q2="zzck".$wjid;
-$sql = "insert into $q2 (id,wpid,wpsl,wpfl)  values('$maxidd','$czid','$ckwpsl','$wpfl')";
+$sql = "insert into $q2 (wpid,wpsl,wpfl)  values('$czid','$ckwpsl','$wpfl')";
 
 
  if (!mysql_query($sql,$conn)){

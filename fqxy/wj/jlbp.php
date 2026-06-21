@@ -18,23 +18,13 @@ if($bpid==""||$bpid==0){
         $pdbp2=$info1['bpid'];
         if($pdbp2==""){
             $q2="all_bp";
-            $sql1=mysql_query("select MAX(bpid) as i from $q2");
-            $abc=mysql_fetch_array($sql1);
-            $maxid=$abc['i'];
-            if($maxid ==""){
-                $maxid=0;
-                $maxidd=$maxid+1;
-            } else{
-                $maxidd=$maxid+1;
-            }
-
-            $q2="all_bp";
-            $sql = "insert into $q2 (bpid,bpdj,bpmz,cbpmz,cwjid,xbpmz,xwjid,ccmz01,ccid01,ccmz02,ccid02,
-ccmz03,ccid03,ccmz04,ccid04,ccmz05,ccid05,ccmz06,ccid06,bprsmax,bpjymax,bpyl,bpsw,bprs,bpjy)  values('$maxidd','1','$wjtake',
+            $sql = "insert into $q2 (bpdj,bpmz,cbpmz,cwjid,xbpmz,xwjid,ccmz01,ccid01,ccmz02,ccid02,
+ccmz03,ccid03,ccmz04,ccid04,ccmz05,ccid05,ccmz06,ccid06,bprsmax,bpjymax,bpyl,bpsw,bprs,bpjy)  values('1','$wjtake',
 '$wjmz','$wjid','$wjmz','$wjid','0','0','0','0','0','0','0','0','0','0','0','0','20','5000','0','0', '1', '0')";
             if (!mysql_query($sql)) {
                 die('Error: ' . mysql_error());
             }
+            $maxidd = mysql_insert_id();
             $q2="all_zt";
             $strsql = "update $q2 set bpid=$maxidd,bpmz='$wjtake' where wjid=$wjid";//物品id号必改值
             $result = mysql_query($strsql);

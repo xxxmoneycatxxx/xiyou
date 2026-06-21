@@ -688,22 +688,12 @@ $wjname=($iniFile->getItem('玩家信息','玩家名字'));
 
 $q2="all_gzhoures";
 mysql_query("set names utf8");
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];
-if($maxid ==""){
-$maxid=0;
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
-$maxidd=$maxid+1;
 $fziidd=$gzid;
 $fzname=$fzname;//房子名字
 $fzfl=3;//房子类型
 $fzgm=0;//房子改名
 mysql_query("set names utf8");
-$sql = "insert into $q2 (id,wjid,fzid,wjmz,fzmz,fzfl,fzgm)  values('$maxidd','$wjid','$gzid','$wjname','$fzname','$fzfl','$fzgm')";
+$sql = "insert into $q2 (wjid,fzid,wjmz,fzmz,fzfl,fzgm)  values('$wjid','$gzid','$wjname','$fzname','$fzfl','$fzgm')";
  if (!mysql_query($sql,$conn))
  {
    die('Error: ' . mysql_error());

@@ -33,18 +33,9 @@ $sql1=mysql_query("select xlid from $q2 where xlid=$xlidd",$conn);
 $info1=@mysql_fetch_array($sql1);
 $xlpd=$info1['xlid'];
 if($xlpd ==""){
-//获取最大值
 $q2="all_jc";
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc['0'];
-if($maxid ==""){
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
 
-$sql = "insert into $q2 (id,xlid,jc)  values('$maxidd','$xlidd','500')";
+$sql = "insert into $q2 (xlid,jc)  values('$xlidd','500')";
  if (!mysql_query($sql,$conn)){
    die('Error: ' . mysql_error());
  }
@@ -69,17 +60,8 @@ $sql1=mysql_query("select xlid from $q2 where xlid=$xlidd",$conn);
 $info1=@mysql_fetch_array($sql1);
 $xlpd=$info1['xlid'];
 if($xlpd ==""){
-//获取最大值
 $q2="all_jc";
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc['0'];
-if($maxid ==""){
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
-$sql = "insert into $q2 (id,xlid,jc)  values('$maxidd','$xlidd','1000')";
+$sql = "insert into $q2 (xlid,jc)  values('$xlidd','1000')";
  if (!mysql_query($sql,$conn)){
    die('Error: ' . mysql_error());
  }
@@ -103,17 +85,8 @@ $sql1=mysql_query("select xlid from $q2 where xlid=$xlidd",$conn);
 $info1=@mysql_fetch_array($sql1);
 $xlpd=$info1['xlid'];
 if($xlpd ==""){
-//获取最大值
 $q2="all_jc";
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];
-if($maxid ==""){
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
-$sql = "insert into $q2 (id,xlid,jc)  values('$maxidd','$xlidd','2500000000')";
+$sql = "insert into $q2 (xlid,jc)  values('$xlidd','2500000000')";
  if (!mysql_query($sql,$conn)){
    die('Error: ' . mysql_error());
  }
@@ -126,17 +99,8 @@ $sql1=mysql_query("select xlid from $q2 where xlid=$xlidd",$conn);
 $info1=@mysql_fetch_array($sql1);
 $xlpd=$info1['xlid'];
 if($xlpd ==""){
-//获取最大值
 $q2="all_jc";
-$sql1=mysql_query("select MAX(id) from $q2");
-$abc=mysql_fetch_array($sql1);
-$maxid=$abc[0];
-if($maxid ==""){
-$maxidd=$maxid+1;
-} else{
-$maxidd=$maxid+1;
-}
-$sql = "insert into $q2 (id,xlid,jc)  values('$maxidd','$xlidd','5000000000')";
+$sql = "insert into $q2 (xlid,jc)  values('$xlidd','5000000000')";
  if (!mysql_query($sql,$conn)){
    die('Error: ' . mysql_error());
  }

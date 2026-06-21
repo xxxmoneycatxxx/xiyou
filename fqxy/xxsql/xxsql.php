@@ -1,12 +1,5 @@
 <?php
 
-//获取最大值
-$q2 = "o_user_list";
-$sql1 = mysql_query("select MAX(uid) from $q2");
-$abc = mysql_fetch_array($sql1);
-$maxid = $abc[0] ?? 0;
-$fquid = $maxidd = $maxid + 1;
-
 //现在的时间
 $y = date('Y') * 1;
 $m = date('m') * 1;
@@ -15,14 +8,17 @@ $h = date('H') * 1;
 $i = date('i') * 1;
 $s = date('s') * 1;
 
-//社区id接入游戏平台id
+//社区id接入游戏平台id——uid 由 AUTO_INCREMENT 自动生成
 $q2 = "o_user_list";
-$sql = "insert into $q2 (uid,sqid,m_id,password,n,y,r,s,f,m)  values('$maxidd','$sqid','0','','$y','$m','$d','$h','$i','$s')";
+$sql = "insert into $q2 (sqid,m_id,password,n,y,r,s,f,m)  values('$sqid','0','','$y','$m','$d','$h','$i','$s')";
 if (!mysql_query($sql)) {
     die('Error: ' . mysql_error());
 }
 
-$wjid = $mysql002 = $maxidd + 10000000;
+$uid = mysql_insert_id();
+$fquid = $uid;
+$maxidd = $uid;
+$wjid = $mysql002 = $uid + 10000000;
 
 //状态数据初始化
 $q2 = "all_zt";
