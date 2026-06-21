@@ -40,6 +40,7 @@ $iniFile->updItem('玩家信息', ['刷新过快' => 2]);
 
 
 //cmd及超链接值
+$cmid ??= 0;
 $cmid=$cmid+1;
 $cdid[]=$cmid;
 $clj[]=2;

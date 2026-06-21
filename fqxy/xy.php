@@ -323,7 +323,7 @@ include XY_DIR . '/helper/rwpd.php';
 
     ?>
 </div>
-<?php if ($cljid == 8 || $cljid == 690): ?>
+<?php $cljid ??= 0; if ($cljid == 8 || $cljid == 690): ?>
 <script>
   let wrapper = document.getElementById('map-wrapper');
   let map = document.getElementById('map');

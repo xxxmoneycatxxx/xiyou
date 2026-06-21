@@ -147,7 +147,7 @@ $jybl=1;
 	
 	
 	
-if($_POST['submit']){
+if($_POST['submit'] ?? ''){
 	
 	
 	
@@ -503,6 +503,7 @@ echo "<a href='xy.php?uid=$wjid&&cmd=$cmid&&sid=$a1'><font color=blue>上页</fo
 $f=1;
 
 }
+$f ??= 0;
 $mcc=$m/10;
 if($f>0&&$mcc>$ltymid){
 echo  "<font color=blue>|</font></a>";

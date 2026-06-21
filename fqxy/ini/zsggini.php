@@ -7,6 +7,7 @@ if ($wjid==10000001) {//gm号可看
 
 $zspd1=0;
 $zsspd1=0;
+$fp1 ??= false;
 if ($fp1) {
     flock($fp1, LOCK_NB);
 }

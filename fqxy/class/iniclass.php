@@ -56,7 +56,7 @@ class iniFile
 
     public function getCategory($category_name)
     {
-        return $this->iniFileHandle[$category_name];
+        return $this->iniFileHandle[$category_name] ?? [];
     }
 
     public function getItem($category_name, $item_name)
