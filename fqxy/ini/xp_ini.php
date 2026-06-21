@@ -22,7 +22,7 @@ if(file_exists($file)){
     //Fixed 默认新建27个星盘记录，如果条目不够，直接补齐
     $q2="xp";
     $sql1=mysql_query("select count(*) as c from $q2 where wjid=$wjid",$conn);
-    $info1=@mysql_fetch_array($sql1);
+    $info1=@mysql_fetch_array($sql1) ?: [];
     $xlpd=$info1['c'];
     if ($xlpd < $m) {
         for($d = $xlpd + 1; $d <= $m; $d++){

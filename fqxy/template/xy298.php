@@ -19,7 +19,7 @@ if($zsspd==1){
                     include("./sql/mysql.php");//调用数据库连接
                     $q2="all_zt";
                     $sql1=mysql_query("select username from $q2 where username='$wjtake'",$conn);
-                    $info1=@mysql_fetch_array($sql1);
+                    $info1=@mysql_fetch_array($sql1) ?: [];
                     $pdbp2=$info1['username'];
                     if($pdbp2==""){
                         $q2="all_zt";

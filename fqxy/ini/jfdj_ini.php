@@ -22,7 +22,7 @@ include("./sql/mysql.php");//调用数据库连接
 	
 $q2="jfdj";
 $sql1=mysql_query("select id from $q2 where wjid=$wjid and jfid=1",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $xlpd=$info1['jfid'];
 if($xlpd ==""){
 
@@ -36,7 +36,7 @@ $sql = "insert into $q2 (wjid, jfid,jfdj)  values('$wjid', '1','159')";
 
 $q2="jfdj";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and jfid=1",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $wjjfdj=$info1['jfdj'];
 
 

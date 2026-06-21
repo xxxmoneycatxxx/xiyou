@@ -161,7 +161,7 @@ if($szbmz !=""){
 $q2="zbb";
 include("./sql/mysql.php");//调用数据库连接
 //$sql1=mysql_query("select zbid from $q2 where zbfl=$wp30",$conn);
-//$info1=@mysql_fetch_array($sql1);
+//$info1=@mysql_fetch_array($sql1) ?: [];
 $npcc=$snpcc;
 $strsql = "delete from $q2 where wjid=$wjid and zbfl=$cwp ";//物品id号必改值
 $result = mysql_query($strsql);

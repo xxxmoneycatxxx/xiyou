@@ -2,7 +2,7 @@
 include("./sql/mysql.php");//调用数据库连接 
 $q2="o_user_list";
 $sql1=mysql_query("select MAX(uid) from $q2");
-$abc=mysql_fetch_array($sql1);
+$abc=mysql_fetch_array($sql1) ?: [];
 $maxuid=$abc['MAX(uid)'];
 
 
@@ -19,7 +19,7 @@ $wjid=$i+10000000;
 //查询如果没有则添加
 $q2="wp";
 $sql1=mysql_query("select wpsl from $q2 where wjid=$wjid and wpid=$czid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ckwpsl=$info1['wpsl'];
 if($ckwpsl ==""){
 $ckwpsl=0;
@@ -27,7 +27,7 @@ $ckwpsl=0;
 }
 $q2="ckwp";
 $sql1=mysql_query("select wpsl from $q2 where wjid=$wjid and wpid=$czid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ckwpsl1=$info1['wpsl'];
 if($ckwpsl1 ==""){
 $ckwpsl1=0;

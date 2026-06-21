@@ -140,7 +140,7 @@ include("./sql/mysql.php");//调用数据库连接
 $q2="all_ylck";
 mysql_query("set names utf8");
 $sql1=mysql_query("select wjid,yl02 from $q2 where wjid=$wjid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $wjidpd=$info1['wjid'];
 $yl02=$info1['yl02'];
 $xcyl=$yl02+$qc03;
@@ -275,7 +275,7 @@ include("./sql/mysql.php");//调用数据库连接
 $q2="all_ylck";
 mysql_query("set names utf8");
 $sql1=mysql_query("select wjid,yl02 from $q2 where wjid=$qc02",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $wjidpd=$info1['wjid'];
 $yl02=$info1['yl02'];
 $xcyl=$yl02+$qc03*2;

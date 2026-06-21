@@ -13,7 +13,7 @@ $m=0;
  while(!!$row=mysql_fetch_array($result)){
 $q2="all_user";
 $sql1=mysql_query("select wjid from $q2 where wjid=$row['wjid']",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $fh=$info1['wjid'];
 if($fh >=1){
 echo "<font color=blue>【违规封号】玩家【:".$row['username']."（". $row['wjid']."）】====充值总额：【".$row['vipjy']."】</font></br>";

@@ -103,7 +103,7 @@ $result = mysql_query($strsql);
 
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $wjyl=$info1['bbyl'];
 $wjyll=$wjyl+$wpjg;
 if($wjyll>=99999999999){
@@ -143,7 +143,7 @@ $sql = "insert into $q2 (wjid,zbid,zbxj,zbk1,zbxq1,zbk2,zbxq2,zbk3,zbxq3,zbk4,zb
 
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $wjyl=$info1['bbyl'];
 $wjyll=$wjyl-$wpjg;
 

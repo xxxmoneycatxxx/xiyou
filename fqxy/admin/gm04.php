@@ -9,7 +9,7 @@ if($id >=1&&$id<=9999999){//判断是否属于靓号
 include("./sql/mysql.php");//调用数据库连接 	
 $q2="all_zt";
 $sql1=mysql_query("select wjid from $q2 where lh=$id",$conn);
-$info1=@mysql_fetch_array($sql1);	
+$info1=@mysql_fetch_array($sql1) ?: [];	
 $lhid=$info1['wjid'];
 
 if($lhid>=10000000){

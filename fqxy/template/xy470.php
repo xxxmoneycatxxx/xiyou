@@ -42,7 +42,7 @@ if($zsspd==1){
         include("./ini/ylck_ini.php");
         $q2="all_ylck";
         $sql1=mysql_query("select wjid,yl02 from $q2 where wjid=$wjid");
-        $info1=@mysql_fetch_array($sql1);
+        $info1=@mysql_fetch_array($sql1) ?: [];
         $wjidpd=$info1['wjid'];
         $yl02=$info1['yl02'];
         $xcyl=$yl02+$qc03;

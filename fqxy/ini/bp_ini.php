@@ -9,7 +9,7 @@ if(file_exists($file)) {
     include("./sql/mysql.php");//调用数据库连接
     $q2="all_bp";
     $sql1=mysql_query("select * from $q2 where bpid=$bpid");
-    $info1=@mysql_fetch_array($sql1);
+    $info1=@mysql_fetch_array($sql1) ?: [];
     $bpid=$info1['bpid'];
     $bpdj=$info1['bpdj'];
     $bpmz=$info1['bpmz'];

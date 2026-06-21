@@ -59,7 +59,7 @@ include("./sql/mysql.php");//调用数据库连接
 $wjid=$ckid;//对方
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $wjyl=$info1['bbyl'];
 $wjyll=$wjyl+$zssl;
 if($wjyll>=99999999999){
@@ -81,7 +81,7 @@ $iniFile->updItem('背包仓库银两', ['背包银两' => $wjyll]);
 $wjid=$wjid1;//自己
 $q2="all_yl";
 $sql1=mysql_query("select bbyl from $q2 where wjid=$wjid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $wjyl=$info1['bbyl'];
 $wjyll=$wjyl-($zssl+$ylsxf);
 if($wjyll<=0){

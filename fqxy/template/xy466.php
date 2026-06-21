@@ -43,7 +43,7 @@ if($zsspd==1){
         include("./sql/mysql.php");//调用数据库连接
         $q2="all_ylck";
         $sql1=mysql_query("select wjid,yl01 from $q2 where wjid=$wjid");
-        $info1=@mysql_fetch_array($sql1);
+        $info1=@mysql_fetch_array($sql1) ?: [];
         $wjidpd=$info1['wjid'];
         $yl01=$info1['yl01'];
         $xcyl=$yl01+$qc03;

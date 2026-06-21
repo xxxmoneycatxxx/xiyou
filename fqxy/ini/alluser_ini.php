@@ -13,12 +13,12 @@ if(file_exists($file)) {
     include("./sql/mysql.php");//调用数据库连接
     $q2="all_user";
     $sql1=mysql_query("select * from $q2 where wjid=$wjid and fl=1",$conn);
-    $info1=@mysql_fetch_array($sql1);
-    $uname=$info1['wjname'];
-    $wjuserid=$info1['wjid'];
-    $wjtime=$info1['wjtime'];
-    $time=$info1['utime'];
-    $yj=$info1['yj'];
+    $info1=@mysql_fetch_array($sql1) ?: [];
+    $uname=$info1['wjname'] ?? '';
+    $wjuserid=$info1['wjid'] ?? '';
+    $wjtime=$info1['wjtime'] ?? '';
+    $time=$info1['utime'] ?? '';
+    $yj=$info1['yj'] ?? '';
 
     $inina="all_user.ini";
     $path='ache/'.$wjid;
@@ -39,12 +39,12 @@ if(file_exists($file)) {
     }
     $q2="all_user";
     $sql1=mysql_query("select * from $q2 where wjid=$wjid and fl=2",$conn);
-    $info1=@mysql_fetch_array($sql1);
-    $uname=$info1['wjname'];
-    $wjuserid=$info1['wjid'];
-    $wjtime=$info1['wjtime'];
-    $time=$info1['utime'];
-    $yj=$info1['yj'];
+    $info1=@mysql_fetch_array($sql1) ?: [];
+    $uname=$info1['wjname'] ?? '';
+    $wjuserid=$info1['wjid'] ?? '';
+    $wjtime=$info1['wjtime'] ?? '';
+    $time=$info1['utime'] ?? '';
+    $yj=$info1['yj'] ?? '';
 
     $iniFile->addItem('封号信息',['初始' => 123]);
     if($wjuserid!=""){

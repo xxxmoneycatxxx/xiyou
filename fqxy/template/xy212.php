@@ -21,7 +21,7 @@ if($zsspd==1){
                     include("./sql/mysql.php");//调用数据库连接
                     $q2="all_zt";
                     $sql1=mysql_query("select wjid from $q2 where lh=$wjjdqg",$conn);
-                    $info1=@mysql_fetch_array($sql1);
+                    $info1=@mysql_fetch_array($sql1) ?: [];
                     $lhid=$info1['wjid'];
                     if($lhid>=10000000){
                         $wjjdqg=$lhid;
@@ -36,7 +36,7 @@ if($zsspd==1){
                             $wjjdqgp=$wjjdqg-10000000;
                             $q2="o_user_list";
                             $sql1=mysql_query("select uid from $q2 where uid=$wjjdqgp",$conn);
-                            $info1=@mysql_fetch_array($sql1);
+                            $info1=@mysql_fetch_array($sql1) ?: [];
                             $uid=$info1['uid'];
                             if($uid!=""){
                                 include("./ini/zt_ini.php");

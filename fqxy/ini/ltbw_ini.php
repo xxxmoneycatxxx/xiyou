@@ -73,7 +73,7 @@ $nowtime=date('Y-m-d H:i:s');
 $ltid=$ltid+1;
 $q2="all_ltbw";
 $sql1=mysql_query("select id from $q2 where id=$ltid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $xlpd=$info1['id'];
 
 if($xlpd ==""){

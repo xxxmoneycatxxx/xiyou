@@ -26,7 +26,7 @@ if ($yxhe == 2) {
     //$sqid=$wjid."_".$qy;
     //$q2="o_user_list";
     //$sql=mysql_query("select password from $q2 where sqid='$sqid'",$conn);
-    //$info1=@mysql_fetch_array($sql);
+    //$info1=@mysql_fetch_array($sql) ?: [];
     //$pass=$info1['password'];
 
     //社区验证游戏

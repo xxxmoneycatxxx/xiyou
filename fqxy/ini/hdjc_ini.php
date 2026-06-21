@@ -30,7 +30,7 @@ include("./sql/mysql.php");//调用数据库连接
 $xlidd=1;
 $q2="all_jc";
 $sql1=mysql_query("select xlid from $q2 where xlid=$xlidd",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $xlpd=$info1['xlid'];
 if($xlpd ==""){
 $q2="all_jc";
@@ -57,7 +57,7 @@ $sql = "insert into $q2 (xlid,jc)  values('$xlidd','500')";
 $xlidd=2;
 $q2="all_jc";
 $sql1=mysql_query("select xlid from $q2 where xlid=$xlidd",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $xlpd=$info1['xlid'];
 if($xlpd ==""){
 $q2="all_jc";
@@ -82,7 +82,7 @@ $sql = "insert into $q2 (xlid,jc)  values('$xlidd','1000')";
 $xlidd=3;
 $q2="all_jc";
 $sql1=mysql_query("select xlid from $q2 where xlid=$xlidd",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $xlpd=$info1['xlid'];
 if($xlpd ==""){
 $q2="all_jc";
@@ -96,7 +96,7 @@ $sql = "insert into $q2 (xlid,jc)  values('$xlidd','2500000000')";
 $xlidd=4;
 $q2="all_jc";
 $sql1=mysql_query("select xlid from $q2 where xlid=$xlidd",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $xlpd=$info1['xlid'];
 if($xlpd ==""){
 $q2="all_jc";

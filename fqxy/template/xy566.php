@@ -231,7 +231,7 @@ echo "<font color=black>恭喜你！获得".$xysw1."财神积分</font><br>";
 include("./sql/mysql.php");//调用数据库连接 
 $q2="all_hdph01";
 $sql1=mysql_query("select ds01 from $q2 where wjid=$wjid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ds01=$info1['ds01'];
 if($ds01 ==""){
 include("./ini/zt_ini.php");

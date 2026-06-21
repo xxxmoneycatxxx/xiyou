@@ -7,7 +7,7 @@ $wpfl=4;
 //查询如果没有则添加
 $q2="zzck";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$czid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ckwpid=$info1['wpid'];
 $ckwpsl=$info1['wpsl'];
 if ($ckwpid == "") {
@@ -46,7 +46,7 @@ $wpfl=4;
 //查询如果没有则添加
 $q2="zzck";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$czid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ckwpid=$info1['wpid'];
 $ckwpsl=$info1['wpsl'];
 
@@ -83,7 +83,7 @@ $wpfl=4;
 //查询如果没有则添加
 $q2="zzck";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$czid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ckwpid=$info1['wpid'];
 $ckwpsl=$info1['wpsl'];
 
@@ -189,7 +189,7 @@ $iniFile->updItem('玩家信息', ['vip经验' => $vipjy,'vip等级' => $vip]);
 $xysw1=$vipjf;
 $q2="all_hdph02";
 $sql1=mysql_query("select ds01 from $q2 where wjid=$wjid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ds01=$info1['ds01'];
 if($ds01 ==""){
     $q2="all_hdph02";

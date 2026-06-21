@@ -3,7 +3,7 @@ include("./sql/mysql.php");//调用数据库连接
 $q2="all_zt";
 mysql_query("set names utf8");
 $sql1=mysql_query("select wjid,username from $q2 where lh=$lh",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $lhid=$info1['wjid'];
 $lhname=$info1['username'];
 if($lhid>=10000000){

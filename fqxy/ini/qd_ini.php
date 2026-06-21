@@ -21,7 +21,7 @@ else
 
     $q2="all_qd";
     $sql1=mysql_query("select * from $q2 where wjid=$wjid");
-    $info1=mysql_fetch_array($sql1);
+    $info1=mysql_fetch_array($sql1) ?: [];
     $id=$info1['id'];
     if($id ==""){
         $qdy= date('m')*1;
@@ -34,7 +34,7 @@ else
         }
 
         $sql1=mysql_query("select * from $q2 where wjid=$wjid");
-        $info1=mysql_fetch_array($sql1);
+        $info1=mysql_fetch_array($sql1) ?: [];
 
         $qdcs=$info1['qdcs'];
         $qdy=$info1['qdy'];

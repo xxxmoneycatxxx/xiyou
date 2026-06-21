@@ -24,7 +24,7 @@ if(file_exists($file)){
     $xlidd=1;
     $q2="xl";
     $sql1=mysql_query("select xlid from $q2 where wjid=$wjid and xlid=$xlidd",$conn);
-    $info1=@mysql_fetch_array($sql1);
+    $info1=@mysql_fetch_array($sql1) ?: [];
     $xlpd=$info1['xlid'];
     if($xlpd ==""){
         $q2="xl";
@@ -38,7 +38,7 @@ if(file_exists($file)){
     $xlidd=2;
     $q2="xl";
     $sql1=mysql_query("select xlid from $q2 where wjid=$wjid and xlid=$xlidd",$conn);
-    $info1=@mysql_fetch_array($sql1);
+    $info1=@mysql_fetch_array($sql1) ?: [];
     $xlpd=$info1['xlid'];
     if($xlpd ==""){
         $q2="xl";
@@ -51,7 +51,7 @@ if(file_exists($file)){
     $xlidd=3;
     $q2="xl";
     $sql1=mysql_query("select xlid from $q2 where wjid=$wjid and xlid=$xlidd",$conn);
-    $info1=@mysql_fetch_array($sql1);
+    $info1=@mysql_fetch_array($sql1) ?: [];
     $xlpd=$info1['xlid'];
     if($xlpd ==""){
         $q2="xl";
@@ -65,7 +65,7 @@ if(file_exists($file)){
     $xlidd=4;
     $q2="xl";
     $sql1=mysql_query("select xlid from $q2 where wjid=$wjid and xlid=$xlidd",$conn);
-    $info1=@mysql_fetch_array($sql1);
+    $info1=@mysql_fetch_array($sql1) ?: [];
     $xlpd=$info1['xlid'];
     if($xlpd ==""){
         $q2="xl";

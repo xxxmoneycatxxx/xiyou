@@ -88,7 +88,7 @@ include("./sql/mysql.php");//调用数据库连接
 $q2="all_pm";
 mysql_query("set names utf8");
 $sql1=mysql_query("select * from $q2 where id=$npcc",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $pmsjc=$info1['pmsjc'];
 $pmwjid=$info1['wjid'];
 $pmwpidd=$info1['pmwpid'];
@@ -119,7 +119,7 @@ $result = mysql_query($strsql);
 //查询如果没有则添加
 $q2="wp";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$pmmwpid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ckwpid=$info1['wpid'];
 $ckwpsl=$info1['wpsl'];
 if($ckwpid==""){

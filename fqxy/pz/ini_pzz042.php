@@ -16,7 +16,7 @@ $wpfl=4;
 //查询如果没有则添加
 $q2="zzck";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$czid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ckwpid=$info1['wpid'];
 $ckwpsl=$info1['wpsl'];
 
@@ -52,7 +52,7 @@ $wpfl=4;
 //查询如果没有则添加
 $q2="zzck";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$czid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ckwpid=$info1['wpid'];
 $ckwpsl=$info1['wpsl'];
 
@@ -97,7 +97,7 @@ $wpfl=4;
 //查询如果没有则添加
 $q2="zzck";
 $sql1=mysql_query("select * from $q2 where wjid=$wjid and wpid=$czid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ckwpid=$info1['wpid'];
 $ckwpsl=$info1['wpsl'];
 

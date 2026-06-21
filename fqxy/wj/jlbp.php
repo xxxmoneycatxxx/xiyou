@@ -14,7 +14,7 @@ if($bpid==""||$bpid==0){
         include("./sql/mysql.php");//调用数据库连接
         $q2="all_bp";
         $sql1=mysql_query("select bpid from $q2 where bpmz='$wjtake'");
-        $info1=mysql_fetch_array($sql1);
+        $info1=mysql_fetch_array($sql1) ?: [];
         $pdbp2=$info1['bpid'];
         if($pdbp2==""){
             $q2="all_bp";

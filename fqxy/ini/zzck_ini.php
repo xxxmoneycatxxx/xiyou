@@ -68,7 +68,7 @@ include("./sql/mysql.php");//调用数据库连接
 	
 $q2="all_pay";
 $sql1=mysql_query("select payid from $q2 where paywjid='$wjid'",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $payid1=$info1['payid'];
 
 $str="select payid from $q2";
@@ -90,7 +90,7 @@ $payid=$payid+1;
 
 if($payid!=""&&$payid>=1){
 $sql1=mysql_query("select payzf,price from $q2 where payid='$payid1'",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $payzf=$info1['payzf'];
 $price=$info1['price'];
 
@@ -168,7 +168,7 @@ $wpfl=4;
 //查询如果没有则添加
 $q2="zzck".$wjid;
 $sql1=mysql_query("select * from $q2 where wpid=$czid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ckwpid=$info1['wpid'];
 $ckwpsl=$info1['wpsl'];
 
@@ -208,7 +208,7 @@ $wpfl=4;
 //查询如果没有则添加
 $q2="zzck".$wjid;
 $sql1=mysql_query("select * from $q2 where wpid=$czid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ckwpid=$info1['wpid'];
 $ckwpsl=$info1['wpsl'];
 
@@ -247,7 +247,7 @@ $wpfl=4;
 //查询如果没有则添加
 $q2="zzck".$wjid;
 $sql1=mysql_query("select * from $q2 where wpid=$czid",$conn);
-$info1=@mysql_fetch_array($sql1);
+$info1=@mysql_fetch_array($sql1) ?: [];
 $ckwpid=$info1['wpid'];
 $ckwpsl=$info1['wpsl'];
 
