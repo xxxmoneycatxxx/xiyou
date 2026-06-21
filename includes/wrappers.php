@@ -14,7 +14,18 @@ function _unlink($path)
 
 /**
  * 数据库兼容性代码
+ * 定义 mysql_* 兼容常量（避免 mysqli 扩展未加载时 undefined constant 警告）
  */
+if (!defined('MYSQLI_BOTH')) {
+    define('MYSQLI_BOTH', 3);      // MYSQLI_BOTH = 3
+}
+if (!defined('MYSQLI_ASSOC')) {
+    define('MYSQLI_ASSOC', 1);     // MYSQLI_ASSOC = 1
+}
+if (!defined('MYSQLI_NUM')) {
+    define('MYSQLI_NUM', 2);       // MYSQLI_NUM = 2
+}
+
 if (!function_exists('mysql_query')) {
     function mysql_query($sql, $conn = null)
     {

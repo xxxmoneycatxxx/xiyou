@@ -1,3 +1,38 @@
+<?php
+include __DIR__ . '/../includes/constants.php';
+$configs = include XY_CONFIG_DIR . '/config.php';
+
+session_start();
+
+$auth_error = '';
+if (empty($_SESSION['admin'])) {
+    $uid = $_GET['uid'] ?? null;
+    $password = $_GET['password'] ?? null;
+    $success = 0;
+    if (!empty($uid) && !empty($password)) {
+        $post_data = $uid. '|' . $password;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $configs['jy_url'] . '/admin/validate.php');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        if ($response === "1") {
+            $success = 1;
+        }
+    }
+
+    if (!$success) {
+        $auth_error = "<font color=red>当前验证信息失效,请重新登录</font>" . "<br>";
+        $auth_error .= "<a href='{$configs['jy_url']}/admin/login.php'><font color=blue>返回GM登录</font></a><br>";
+    }
+
+    $_SESSION['admin'] = $uid;
+    $_SESSION['admin_password'] = $password;
+}
+?>
 <!DOCTYPE html >
 <html lang="zh">
 <head>
@@ -8,39 +43,9 @@
 <body>
 <div style='width: device-width;display:block;word-break: break-all;word-wrap: break-word;'>
     <?php
-
-    include __DIR__ . '/../includes/constants.php';
-    $configs = include XY_CONFIG_DIR . '/config.php';
-
-    session_start();
-
-    if (empty($_SESSION['admin'])) {
-        $uid = $_GET['uid'] ?? null;
-        $password = $_GET['password'] ?? null;
-        $success = 0;
-        if (!empty($uid) && !empty($password)) {
-            $post_data = $uid. '|' . $password;
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $configs['jy_url'] . '/admin/validate.php');
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $response = curl_exec($ch);
-            curl_close($ch);
-            if ($response === "1") {
-                $success = 1;
-            }
-        }
-
-        if (!$success) {
-            echo "<font color=red>当前验证信息失效,请重新登录</font>" . "<br>";
-            echo "<a href='{$configs['jy_url']}/admin/login.php'><font color=blue>返回GM登录</font></a><br>";
-            exit;
-        }
-
-        $_SESSION['admin'] = $uid;
-        $_SESSION['admin_password'] = $password;
+    if ($auth_error) {
+        echo $auth_error;
+        exit;
     }
 
     if ($configs['debug'] ?? false) {

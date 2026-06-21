@@ -1,5 +1,6 @@
 <?php
 
+if (!function_exists('calc')) {
 function calc($m,$n,$x){
   $errors=array(
       '被除数不能为零',
@@ -45,6 +46,7 @@ function calc($m,$n,$x){
 
   return $t;
 
+}
 }
 /*用法举例*/
 //echo calc('11111111111111111111111111111111110','10','add');

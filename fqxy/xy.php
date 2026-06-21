@@ -1,3 +1,27 @@
+<?php
+// 必须在任何输出之前启动 session，避免 "headers already sent" 错误
+session_start();
+
+//时间统计开始计时
+$stime = microtime(true);
+
+include_once __DIR__ . '/../includes/constants.php';
+$configs = include XY_CONFIG_DIR . '/config.php';
+
+if ($configs['debug'] ?? false) {
+    ini_set('display_errors', '1');
+    ini_set('display_startup_errors', '1');
+    error_reporting(E_ALL & ~E_NOTICE);
+} else {
+    error_reporting(0);
+}
+
+ini_set("date.timezone", "PRC");//时间效准代码
+
+// 兼容性代码，批量替换后消除报错
+include XY_DIR . '/sql/mysql.php';
+include XY_DIR . '/helper/rwpd.php';
+?>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -19,27 +43,6 @@
 <body>
 <div style='width: device-width;display:block;word-break: break-all;word-wrap: break-word;'>
     <?php
-    //时间统计开始计时
-    $stime = microtime(true);
-
-    include_once __DIR__ . '/../includes/constants.php';
-    $configs = include XY_CONFIG_DIR . '/config.php';
-
-    if ($configs['debug'] ?? false) {
-        ini_set('display_errors', '1');
-        ini_set('display_startup_errors', '1');
-        error_reporting(E_ALL & ~E_NOTICE);
-    } else {
-        error_reporting(0);
-    }
-
-    ini_set("date.timezone", "PRC");//时间效准代码
-
-    // 兼容性代码，批量替换后消除报错
-    include XY_DIR . '/sql/mysql.php';
-    include XY_DIR . '/helper/rwpd.php';
-
-    session_start();
 
     //系统维护10分钟(安全备份)
     //include("aqbf.php");
