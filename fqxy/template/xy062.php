@@ -7,7 +7,7 @@ if($zsspd==1){
 $zbid=$npcc;
 $arr = explode("_",$npcc);
 $npcc=$arr[0];
-$npccid=$arr[1];
+$npccid=$arr[1] ?? 0;
 
 
 
@@ -58,8 +58,8 @@ $clname=$wp1;
 //宝石镶嵌属性
 $xqmg=0;
 $xqfy=0;
-$xgxl=0;
-$xggj=0;
+$xqxl=0;
+$xqgj=0;
 
 
 if($zbkk1>0){
