@@ -30,6 +30,8 @@ $rw4=($iniFile->getCategory('要杀怪'));
 $rw5=($iniFile->getCategory('任务分类'));
 $rw6=($iniFile->getCategory('任务名字'));
 
+$rwstr=$xrwidd."_".$xrwfl;
+$rrw2=$rw2[$rwstr] ?? 0;
 
 include("./rwmap/rwpdd.php");//调用任务判断
 
