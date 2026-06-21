@@ -5,9 +5,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     default-mysql-client \
     libcurl4-openssl-dev \
     libonig-dev \
-    && docker-php-ext-install pdo_mysql curl bcmath mbstring \
+    && docker-php-ext-install pdo_mysql curl bcmath mbstring opcache \
     && docker-php-ext-enable curl \
-    && a2enmod rewrite \
+    && a2enmod rewrite deflate \
     && rm -rf /var/lib/apt/lists/*
 
 # Apache 双端口监听（容器内 CURL 走 8080，外部映射走 80）
@@ -24,6 +24,8 @@ RUN { \
     echo '  <Files ~ "\.ini$">'; \
     echo '    Require all denied'; \
     echo '  </Files>'; \
+    echo '  # Gzip 压缩'; \
+    echo '  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml'; \
     echo '</VirtualHost>'; \
     echo '<VirtualHost *:8080>'; \
     echo '  DocumentRoot /var/www/html'; \
@@ -34,8 +36,14 @@ RUN { \
     echo '  <Files ~ "\.ini$">'; \
     echo '    Require all denied'; \
     echo '  </Files>'; \
+    echo '  # Gzip 压缩'; \
+    echo '  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml'; \
     echo '</VirtualHost>'; \
     } > /etc/apache2/sites-available/000-default.conf
+
+# PHP 性能配置
+COPY docker/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+COPY docker/gzip.ini /usr/local/etc/php/conf.d/gzip.ini
 
 # 容器初始化脚本
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
