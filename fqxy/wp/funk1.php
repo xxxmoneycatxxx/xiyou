@@ -2,6 +2,8 @@
 
 if (!function_exists('calc')) {
 function calc($m,$n,$x){
+  $m ??= '0';
+  $n ??= '0';
   $errors=array(
       '被除数不能为零',
       '负数没有平方根'

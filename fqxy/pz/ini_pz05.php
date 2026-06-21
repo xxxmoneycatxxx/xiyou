@@ -67,6 +67,7 @@ $iniFile->updItem('玩家信息', ['红' => $wjxx1['血'],'蓝' => $wjxx1['蓝']
 
 	} else{
 $iniFile->updItem('玩家信息', ['经验' => $jy2]);	
+$jyts ??= '';
 	if($jyts !=""){
 echo "<font color=red>祝福：".$jyts."</font><br>";	
 	} else{

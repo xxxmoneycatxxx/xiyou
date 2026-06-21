@@ -189,6 +189,7 @@ if ($ztzf==1) {
 $dbpd=8;//掉落x	
 $dbpd1="（八倍掉落中）";	
 } else{
+$dbpd ??= 1;
 }
 //八倍掉宝
 
@@ -264,6 +265,7 @@ $kcrl=$wpkc*$wpzl+$kcrl;
 } else{
 }
 }
+$kcrl ??= '';
 if ($kcrl!="") {
 
 include("./pz/ini_pzz09.php");

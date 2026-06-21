@@ -23,6 +23,7 @@ $jfdj=220;
 } else{
 $wjjfdj=159;		
 }
+$jfdj ??= 0;
 if($wjjfdj1==220){
 $jfdj=300;
 } else{
