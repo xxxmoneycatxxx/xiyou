@@ -7,7 +7,7 @@
 ## 运行环境
 
 - PHP 8.2（需 `pdo_mysql` `curl` `bcmath` `mbstring` `opcache` 扩展）
-- MariaDB 11.8（MySQL 8.0+ 亦可，默认 InnoDB）
+- MySQL 5.7+（MariaDB 亦可，默认 InnoDB）
 - Apache（需 `mod_rewrite`）
 - 无需 Composer
 
@@ -1061,7 +1061,7 @@ xiyou/
 - 合并 `o_user_list` 表（原版数据表过多）
 - 修复多项影响正常游玩的 Bug
 - 删除原家园冗余页面
-- **新增 Docker 部署支持**（一键部署，含 MariaDB 11.8 + php:8.2-apache）
+- **新增 Docker 部署支持**（一键部署，含 MySQL 5.7 + php:8.2-apache）
 - **安装 bcmath / mbstring 扩展**（原版依赖的函数需这两个扩展）
 - **修复 INI 缓存目录权限问题**（`acher/` 目录需 www-data 可写）
 - **消除 MAX(id)+1 并发竞态**：uid 等主键改为 AUTO_INCREMENT，容器启动自动对齐计数器（#4.5）
@@ -1070,7 +1070,7 @@ xiyou/
 - **静态资源 30 天浏览器缓存**：jpg/css/js 免重复下载（#2）
 - **数据库连接复用**：Medoo `ATTR_PERSISTENT`（#3）
 - **47 张表关键索引添加**：排行榜/装备/拍卖高频查询降低 50~80%（#4）
-- **适配 MariaDB 11.8 TLS 客户端**：`--ssl-verify-server-cert=0`（#6 配套）
+- **适配 MySQL 客户端 TLS**：`--ssl-verify-server-cert=0`（防 SSL 握手失败）
 - 更多详见 [Commits](https://github.com/zither/xiyou/commits/master)
 
 ---
