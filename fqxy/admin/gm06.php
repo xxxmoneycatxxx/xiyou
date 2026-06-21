@@ -2,7 +2,7 @@
 
 echo "<font color=red>【发放物品】</font>"."<br>";
 
-if($_POST['submit']){
+if(($_POST['submit'] ?? false)){
 $wpid= $_POST['wp'];	
 $wpsl= $_POST['sl'];	
 //阻塞代码防止出现脏数据

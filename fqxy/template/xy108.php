@@ -67,7 +67,7 @@ $ivdd1=1;
 
 
 
-if($_POST['submit']){
+if(($_POST['submit'] ?? false)){
 	
 	
 	

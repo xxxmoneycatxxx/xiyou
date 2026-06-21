@@ -29,7 +29,7 @@ include("./ini/ozsini.php");
 if($zsspd==1&&$zsspd2==1){	
 	
 	
-if($_POST['submit']){
+if(($_POST['submit'] ?? false)){
 $zssl= $_POST['wjtoke'];
 $sll=preg_match('/^\d+$/i', $zssl);
 if($sll!=0){

@@ -4,7 +4,7 @@
 $ininalock=$wjid."_lock".".txt";
 include("./ini/zsini.php");
 if($zsspd==1){
-    if($_POST['submit']){
+    if(($_POST['submit'] ?? false)){
         $wjtake10= $_POST['wjtoke'];
         $wjtakes2 = mb_strlen($wjtake10);
         $wjtake = $wjtake10;

@@ -9,7 +9,7 @@ if($zsspd==1){
 //调用物品信息
     include("./wp/wpxx.php");
     if($wpbd==1){
-        if($_POST['submit']){
+        if(($_POST['submit'] ?? false)){
             include("./ini/zt_ini.php");
             $vip=($iniFile->getItem('玩家信息','vip等级'));
             if($vip>=3){

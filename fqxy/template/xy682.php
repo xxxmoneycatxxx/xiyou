@@ -47,7 +47,7 @@ if($jccs>=1){
         $hff=1;
         $dqwp=0;
         if($hff==1){
-            if($_POST['submit']){
+            if(($_POST['submit'] ?? false)){
                 include("./ini/jcyx_ini.php");
                 //获取正确数字
                 $sl= $_POST['sl'];

@@ -12,7 +12,7 @@ if($zsspd==1){
     include("./ini/zsgggini.php");
     if($zsspd5==1){
         if($bpid>=1){
-            if($_POST['submit']){
+            if(($_POST['submit'] ?? false)){
                 $sl= $_POST['sl'];
                 $sll=preg_match('/^\d+$/i', $sl);
                 include("wj/gjjx.php");

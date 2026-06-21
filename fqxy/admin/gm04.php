@@ -2,7 +2,7 @@
 
 
 echo "<font color=red>【查询玩家】</font>"."<br>";
-if($_POST['submit']){
+if(($_POST['submit'] ?? false)){
 $id= (int)$_POST['sl'];
 
 if($id >=1&&$id<=9999999){//判断是否属于靓号

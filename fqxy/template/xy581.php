@@ -2,7 +2,7 @@
 
 
 	
-if($_POST['submit']){
+if(($_POST['submit'] ?? false)){
 	
 	
 $wjtake10= $_POST['wjtoke'];

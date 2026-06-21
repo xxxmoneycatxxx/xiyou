@@ -4,7 +4,7 @@ if($wpjd>=1){
     $hff=1;
     $dqwp=0;
     if($hff==1){
-        if($_POST['submit']){
+        if(($_POST['submit'] ?? false)){
             $sl= $_POST['sl'];
             $sll=preg_match('/^\d+$/i', $sl);
             $dqwp=1;

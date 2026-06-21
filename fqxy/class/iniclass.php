@@ -190,8 +190,8 @@ class iniFile
     {
         $path = str_replace('\\', '/', $filePath);
 
-        // 提取 ache/ 之后的部分
-        if (preg_match('#(?:^|/)ache/(.+)$#', $path, $m)) {
+        // 提取 ache/ 之后的部分（仅限 ache/ 后跟数字 wjid，排除 acher/）
+        if (preg_match('#(?:^|/)ache/(\d.+)$#', $path, $m)) {
             $key = $m[1];
         } else {
             // 兜底：仅取文件名

@@ -20,7 +20,7 @@ if($zsspd==1){
             $cwidd=($iniFile->getItem('宠物名字','初始'));
         }
 
-        if($_POST['submit']){
+        if(($_POST['submit'] ?? false)){
             $wjtake10= $_POST['wjtoke'];
             $wjtakes2=mb_strlen($wjtake10);
             $wjtake = $wjtake10;

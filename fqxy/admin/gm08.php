@@ -11,7 +11,7 @@
 
 
 echo "<font color=red>【发布系统消息】</font>"."<br>";
-if($_POST['submit']){
+if(($_POST['submit'] ?? false)){
 $xtxx= $_POST['sl'];
 
 

@@ -10,7 +10,7 @@ include("./ini/zsggini.php");
 
 if($zsspd==1&&$zsspd1==1){
 	
-if($_POST['submit']){
+if(($_POST['submit'] ?? false)){
 $wjtake10= $_POST['wjtoke'];
 $wjtakes2=iconv_strlen($wjtake10,"UTF-8");
 $wjtake = iconv("utf-8","gbk",$wjtake10);  	
