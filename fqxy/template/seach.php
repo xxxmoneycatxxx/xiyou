@@ -1,6 +1,6 @@
 <?php
 
-if($_POST['submit1']){
+if($_POST['submit1'] ?? ''){
     include("./ini/zt_ini.php");
     $vip=($iniFile->getItem('玩家信息','vip等级'));
     if($vip>=3){
