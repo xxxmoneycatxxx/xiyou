@@ -1,341 +1,82 @@
 # 幻想西游 优化清单
 
-> 按投入产出比排序，标注风险/收益/工作量。安全相关暂略，避免过度设计。
+> 按投入产出比排序。安全相关暂略，避免过度设计。
 
 ---
 
-## P0 第一波 ◆ 纯配置零风险（单次发布）
+## ✅ 已完成（P0~P2，2026-06-21）
 
-### 1. OPcache 调优
-- **收益**: 1700+ PHP 文件免重复编译，减少 CPU 开销
-- **风险**: 极低
-- **工时**: 10 分钟
-- **做法**: 修改 `docker/opcache.ini`
-  - `memory_consumption=256`（128→256）
-  - `max_accelerated_files=20000`
-  - `revalidate_freq=60`（2→60）
-  - `validate_timestamps=0`（生产关闭）
-  - `enable_file_override=1`
-- [x] 完成
+| # | 事项 | 摘要 |
+|--:|------|------|
+| 1 | OPcache 调优 | 1700+ 文件免重复编译，`memory_consumption=256`, `revalidate_freq=60` |
+| 2 | 静态资源缓存 | 728 张图片/CSS 加 30 天浏览器缓存头 |
+| 3 | DB 连接复用 | Medoo `PDO::ATTR_PERSISTENT` |
+| 4 | 关键索引 | 47 张表 `ADD INDEX idx_wjid`，`all_zt` 额外 `idx_dj`，`all_pm` 额外 `idx_pmwpfl` |
+| 4.5 | MAX(id)+1 → AUTO_INCREMENT | 消除并发竞态，20+ 文件去手动自增 |
+| 5 | MyISAM → InnoDB | 行级锁 + 事务，两库全量迁移 |
+| 6 | PHP 7.4 → 8.2 | 1.5x 性能提升，`wrappers.php` 兼容 |
+| 7 | OPcache (PHP 8.x) | 合并至 #1 |
 
-### 2. 静态资源浏览器缓存
-- **收益**: 728 个图片/CSS 免重复下载，用户体验↑
-- **风险**: 极低
-- **工时**: 30 分钟
-- **做法**: Apache 配置 `mod_expires` 对 jpg/css/js 加 30 天缓存头
-- [x] 完成
+<details>
+<summary>MAX(id)+1 切换速查（已完成，供回顾）</summary>
 
-### 3. 数据库连接复用
-- **收益**: 减少每次请求的 MySQL 握手开销
-- **风险**: 低
-- **工时**: 10 分钟
-- **做法**: `includes/db.php` 中 Medoo 连接添加 `PDO::ATTR_PERSISTENT => true`
-- [x] 完成
+- **模式**: `MAX(id)+1` → 删除手动 ID → INSERT 不传 ID → `lastInsertId()` 获取
+- **wrappers.php**: 新增 `mysql_insert_id()` 包装 `Medoo::id()` → `PDO::lastInsertId()`
+- **需 ALTER 加 AUTO_INCREMENT 的表**: `all_bp(bpid)`, `all_houres(id)`, `all_gzhoures(id)`, `all_user(id)`, 等 16 张
+- **高危文件**: `xxsql.php` (玩家创建), `jlbp.php` (帮派), `gmfz.php` (住宅), `gmgz.php` (官宅+bug 修复)
+- **单表切换** (~15 文件): register.php 等仅需删 MAX 查询 + 移除显式传 ID
+
+</details>
 
 ---
 
-## P1 第二波 ◆ 数据层升级（1 周内）
-
-### 4. 数据库关键索引添加
-- **收益**: 排行榜/装备查询/拍卖行等高频页面响应降低 50~80%
-- **风险**: 极低（仅添加索引，不改代码）
-- **工时**: 半天~1 天
-- **做法**: 索引脚本 `data/add_indexes.sql`，涵盖 47 张表，wjid 为主
-  - `all_zt`: `(wjid)` + `(dj)` 等级排行索引
-  - `all_pm`: `(wjid)` + `(pmwpfl)` 拍卖分类索引
-  - 装备/武器/宠物/仓库/挂售: `zb` `wp` `cw` `zbb` `cwzbb` `ckwp` `ckzb` `ckqt` `qt` `zzck` `gswp` `gszb` `gsqt`
-  - 技能/好友/修炼/副本/活动: `jnn` `hy` `xl` `fb` `hd`
-  - 头衔/声望/星盘/家具/VIP/丹药: `tx` `sw` `xp` `jj` `jfdj` `zgvip` `dyxx` `wpp` `zf`
-  - 银两/金豆/红包: `all_yl` `all_ylck` `all_money` `all_hbmoney`
-  - 排行/帮派/用户/住宅: `all_phb` `all_user` `all_houres` `all_gzhoures` `bp`
-  - 任务/签到/公告: `yxrw` `all_qd` `all_qggz` `all_xjhb`
-  - 运营活动/活动排行: `all_yd01~04` `all_hdph01~03`
-  - 擂台/竞猜/在线/战场: `all_ltbw` `all_jdjc` `all_qtjc` `user` `gz04`
-- [x] 完成（SQL 已就绪，待低峰期在服务器执行 `data/add_indexes.sql`）
-
-### 4.5. 修复 MAX(id)+1 手动自增 → AUTO_INCREMENT（切 InnoDB 前置）
-- **收益**: 消除并发竞态，为 InnoDB 迁移铺路
-- **风险**: 🔴 高风险——涉及 20+ 文件的核心写入流程
-- **工时**: 2~3 天
-- **做法**: 详见 [MAX(id)+1 模式切换分析](#maxid1-模式切换分析)
-- [x] 完成（2026-06-21）
-
-### 5. MyISAM → InnoDB 全量迁移
-- **收益**: 行级锁替代表级锁，并发写入不再阻塞；支持事务，多表更新原子性
-- **风险**: 🔴 高风险——依赖 #4.5 完成，否则并发下必现主键冲突
-- **工时**: 1~2 天（#4.5 完成后）
-- **做法**:
-  ```sql
-  SELECT CONCAT('ALTER TABLE `', TABLE_NAME, '` ENGINE=InnoDB;')
-  FROM information_schema.TABLES
-  WHERE TABLE_SCHEMA IN ('xxjyuser', 'xyy') AND ENGINE = 'MyISAM';
-  ```
-  生成脚本 → 低峰期执行 → 验证
-- [x] 完成（2026-06-21 模拟测试通过，全量落实）
-
----
-
-## P2 第三波 ◆ PHP 8.x 升级（1~2 周）
-
-### 6. PHP 7.4 → 8.2 升级
-- **收益**: 约 1.5x 原生性能提升，JIT 编译，match 表达式可替代 if/elseif 链
-- **风险**: 中（旧 `mysql_*` 兼容层需验证，动态属性 deprecation）
-- **工时**: 1~2 周
-- **做法**:
-  1. 改 Dockerfile: `FROM php:8.2-apache`
-  2. 全局检查 `wrappers.php` 覆盖完整性
-  3. 修复 deprecation 警告
-  4. 完整回归测试核心流程
-- [x] 完成
-
-### 7. OPcache revalidate 调优（配合 PHP 8.x）
-- 同 P0#1，PHP 8.x 默认配置更激进，合并配置
-- [x] 完成
-
----
-
-## P3 第四波 ◆ 缓存层升级（有资源时）
+## ✅ 已完成（P3，2026-06-21）
 
 ### 8. INI 文件缓存 → Redis
-- **收益**: 消除磁盘 I/O 瓶颈，读写延迟 ms→μs；天然支持 TTL/原子操作
-- **参考**: 国内文字 MUD/页游（九天星辰诀等）全用 Redis 做运行时缓存
-- **风险**: 中（引入新依赖，需改造 `iniclass.php`）
-- **工时**: 2~3 周
-- **做法**:
-  1. docker-compose 添加 `redis:7-alpine`
-  2. 改造 `iniFile` 类，底层用 Redis Hash (section=Hash Key, item=Field)
-  3. 保留 INI 文件后端作为 fallback
-  4. 压力测试
-- [ ] 完成
+- **状态**: ✅ 完成并验证
+- **验证结果**: 27/27 集成测试通过，19/19 API 兼容通过，168 个 Redis Key 承载玩家 10000002 全量数据
+- **改造文件**: 仅 `iniclass.php`（+新增 `tests/ini_redis_verify.php`）
+- **方案**: Redis Hash 优先，文件回退；`parse_ini_file`/Redis 类型归一化
+
+---
+
+## 🔧 进行中
+
+### 10. PHP 8.2 Warning 清理
+- **状态**: 已修复 148 处，逐批测试
+- **策略**: 以 Docker 运行时 Warning 为准，IDE (Intelephense) 的跨 include 静态报告可忽略
+- **模式**: `$var ??= default` / `$_POST['key'] ?? ''` / `$arr['key'] ?? default`
+- **探测 Bot**: `tests/warn_scanner.php` (静态扫描) + `tests/warn_monitor.ps1` (运行时监控)
+- **扫描结果**: 剩余约 9,794 处潜在警告（M001:102 / M002:2,591 / M003:6,394 / M004:9 / M005:698）
+
+---
+
+## ⬜ P3 第四波 ◆ 缓存层升级
 
 ### 9. Session 存储改用 Redis
 - **收益**: 多进程无锁竞争，容器重建不丢失
-- **风险**: 低（依赖 #8 已引入 Redis）
+- **风险**: 低（依赖 #8 引入 Redis）
 - **工时**: 半小时
-- **做法**: PHP ini 配置 `session.save_handler=redis`
-- [ ] 完成
+- **做法**: `session.save_handler=redis`
+- **阻塞**: 硬阻塞于 #8
 
 ---
 
 ## 进度追踪
 
-| 编号 | 事项 | 状态 | 日期 |
-|------|------|:----:|------|
-| 1 | OPcache 调优 | ✅ | 2026-06-21 |
-| 2 | 静态资源缓存 | ✅ | 2026-06-21 |
-| 3 | DB 连接复用 | ✅ | |
-| 4 | 关键索引 | ✅ | SQL 已就绪，待执行 |
-| 4.5 | MAX(id)+1→AUTO | ✅ | 2026-06-21 |
-| 5 | MyISAM→InnoDB | ✅ | 2026-06-21 |
-| 6 | PHP 8.2 升级 | ✅ | 2026-06-21 |
-| 7 | OPcache (PHP8) | ✅ | 2026-06-21 |
-| 8 | INI→Redis | ⬜ | |
-| 9 | Session→Redis | ⬜ | |
+| 编号 | 事项 | 状态 |
+|------|------|:--:|
+| 1~7 | P0~P2 全部 | ✅ |
+| 8 | INI→Redis | ✅ |
+| 9 | Session→Redis | ⬜ |
+| 10 | PHP 8.2 Warning 清理 | 🔧 |
 
 ---
 
-## 阻塞依赖分析
-
-### 依赖关系图
+## 剩余阻塞
 
 ```
-第〇层（无依赖，可并行）
-┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐
-│ #1 OPcache │  │#2 静态资源│  │#3 DB复用 │  │#4 关键索引│  │#4.5 MAX+1│
-└─────┬─────┘  └──────────┘  └──────────┘  └────┬─────┘  └────┬─────┘
-      │                                         │              │
-      │                                   硬阻塞 │◄─────────────┘
-      │                                         ▼
-第一层                              ┌──────────┐
-      │                             │ #5 InnoDB │ ← 硬阻塞于 #4.5 + 软阻塞于 #4
-      │                             └────┬─────┘
-      │                                  │
-      │                                  ▼
-      │                             ┌──────────┐
-      │                             │ #6 PHP8  │ ← 软阻塞于 #5
-      │                             └────┬─────┘
-第二层                                 │
-      │                                ▼
-      │                           ┌──────────┐
-      │                           │#7 OPcache│ ← 硬阻塞于 #6
-      │                           └──────────┘
-      │
-      │                              ┌──────────┐
-      └── 替代关系 ───────────────► │ #8 Redis │ ← 软阻塞于 #5 + #4
-                                      └────┬─────┘
-第三层                                     │
-                                          ▼
-                                    ┌──────────┐
-                                    │#9 Session│ ← 硬阻塞于 #8
-                                    └──────────┘
+#9 Session→Redis 无阻塞依赖（Redis 环境已由 #8 就绪）
 ```
 
-### 硬阻塞（不做前置无法开始）
-
-| 阻塞项 | 被谁阻塞 | 原因 |
-|--------|:--------:|------|
-| #5 InnoDB | #4.5 MAX+1修复 | 未修复前切 InnoDB 并发下必现主键冲突 |
-| #7 OPcache(PHP8) | #6 PHP8 | 镜像没切到 PHP8，配置无效 |
-| #9 Session→Redis | #8 INI→Redis | Redis 容器和扩展由 #8 引入 |
-
-### 软阻塞（推荐顺序，非强制）
-
-| 后续项 | 推荐先做 | 原因 |
-|--------|:--------:|------|
-| #5 InnoDB | #4 索引 | InnoDB 全表扫描比 MyISAM 慢，先有索引再切 |
-| #8 INI→Redis | #4 索引 | cache miss 落 DB 时缺索引放大延迟 |
-| #6 PHP8 | #5 InnoDB | 升级前确保存储层稳定，减少变量 |
-
-### 阻塞热力图
-
-```
-#1   ████████░░  就绪（无阻塞）  ✅ 已完成
-#2   ████████░░  就绪（无阻塞）  ✅ 已完成
-#3   ████████░░  就绪（无阻塞）  ✅ 已完成
-#4   ████████░░  就绪（无阻塞）  ✅ 已完成
-#4.5 ████████░░  就绪（无阻塞）  ✅ 已完成
-#5   ██████░░░░  硬阻塞于 #4.5（当前阻塞级）
-#6   ██████░░░░  软阻塞于 #5
-#7   ████░░░░░░  硬阻塞于 #6
-#8   ████░░░░░░  软阻塞于 #4 + #5
-#9   ██░░░░░░░░  硬阻塞于 #8
-```
-
-### 结论
-
-- **零阻塞立即可做**：#3 #4 #4.5 三项可并行推进
-- **新增硬阻塞链**：#4.5 阻塞 #5（这是之前未发现的关键路径），#5 阻塞 #6
-- **实施顺序**：#4(索引) + #4.5(MAX修复) 并行 → #5(InnoDB) → #6(PHP8)
-- **关键风险节点**：#4.5 MAX+1修复 —— 涉及 20+ 文件的核心写入流程，是 InnoDB 迁移的先决条件
-
----
-
-## MAX(id)+1 模式切换分析
-
-### 现状：20+ 文件使用 `SELECT MAX(id)+1` 手动生成主键
-
-MyISAM 表级锁下这个模式勉强可用（请求串行化），InnoDB 行级锁下并发必现 `Duplicate entry`。
-
-### 切换方案：移除手动 ID → 依赖 AUTO_INCREMENT → lastInsertId() 获取
-
-### 会不会引入新 bug？
-
-#### 场景一：多表写入依赖（xxsql.php 玩家创建）— 🔴 需精确处理
-
-```
-当前：MAX(uid)+1 → INSERT o_user_list(uid=$maxidd) → wjid = uid + 10000000 → 插入多表
-改后：INSERT o_user_list(不传uid) → uid = lastInsertId() → wjid = uid + 10000000 → 插入多表
-```
-
-**风险点**：
-- `o_user_list.uid` 已定义 AUTO_INCREMENT，但代码绕过它显式传值
-- 先 `ALTER TABLE o_user_list AUTO_INCREMENT = (SELECT MAX(uid)+1)` 确保计数器正确
-- `wjid = uid + 10000000` 数学关系保持不变 ✓
-- 需确认 `wrappers.php` 中 `mysql_insert_id()` 走 Medoo 的 `$db->id()` 而非 PHP 原生
-
-#### 场景二：多表写入依赖（jlbp.php 创建帮派）— 🟡 需重排顺序
-
-```
-当前：MAX(bpid)+1 → 用 bpid 插入 all_bp → 用 bpid 更新 all_zt → 用 bpid 插入 bp
-改后：INSERT all_bp(不传bpid) → bpid = lastInsertId() → 更新 all_zt → 插入 bp
-```
-- `all_bp.bpid` 需确认是 AUTO_INCREMENT，若不是需先 ALTER
-- 操作顺序从"先算id再写"变为"先写再拿id再写其他"，功能等价 ✓
-
-#### 场景三：单表写入（register.php 等 ~15 个文件）— 🟢 最安全
-
-```
-当前：MAX(id)+1 → INSERT ... VALUES ($maxidd, ...)
-改后：INSERT ... VALUES (不传id)  → lastInsertId()
-```
-- 最简改造，只需删掉 MAX 查询 + 移除显式传 ID
-- 无并发问题 ✓
-
-#### 场景四：gmgz.php 已有 bug — 🔴 趁改造修复
-
-`$maxidd = $maxid + 1;` 出现在第 698 和 700 行两次，id 被多加了 1。
-切 AUTO_INCREMENT 自然消除此 bug ✓
-
-#### 场景五：AUTO_INCREMENT 计数器过期 — 🟡 需前置处理
-
-部分表定义了 AUTO_INCREMENT 但代码绕过它显式传 ID。计数器值可能 < MAX(id)+1。
-**必须先执行** `ALTER TABLE xxx AUTO_INCREMENT = (SELECT MAX(id)+1 FROM xxx)` 确保不冲突。
-
-#### 结论：不会引入新 bug，但需精确处理 4 个高危文件
-
-| 风险 | 文件 | 改造要点 |
-|:----:|------|------|
-| 🔴 | `xxsql.php` | `o_user_list.uid` 已有 AUTO_INCREMENT ✓，无需 ALTER |
-| 🔴 | `jlbp.php` | `all_bp.bpid` **没有** AUTO_INCREMENT ❌，需先 ALTER 再加 |
-| 🔴 | `gmfz.php` | `all_houres.id` **没有** AUTO_INCREMENT ❌，需先 ALTER 再加（3处） |
-| 🔴 | `gmgz.php` | `all_gzhoures.id` **没有** AUTO_INCREMENT ❌，需先 ALTER 再加；顺带修复重复 `$maxid+1` bug |
-| 🟢 | register.php 等 15 个 | 删除 MAX 查询 + 移除显式传 ID 即可 |
-
-### 进一步检查结果
-
-#### 关键发现 #1：`mysql_insert_id()` 完全不存在！
-
-`wrappers.php` 仅定义了 `mysql_query` / `mysql_fetch_array` / `mysql_num_rows` / `mysql_error`。
-**整个项目中没有任何地方调用 `mysql_insert_id()`**——当前代码完全绕过了数据库自增机制。
-
-**必须在 `wrappers.php` 中新增**：
-```php
-if (!function_exists('mysql_insert_id')) {
-    function mysql_insert_id() {
-        return get_mysql_conn()->id();  // Medoo::id() 包装了 PDO::lastInsertId()
-    }
-}
-```
-`Medoo::id()` 调用 `$this->pdo->lastInsertId()`，连接级安全，无并发问题 ✓
-
-#### 关键发现 #2：大量表根本没有 AUTO_INCREMENT
-
-| 表 | 需要 AUTO_INCREMENT 的列 | 使用文件 |
-|------|------|------|
-| `all_bp` | `bpid` | `jlbp.php` 创建帮派 |
-| `all_houres` | `id` | `gmfz.php` 购买住宅（3处） |
-| `all_gzhoures` | `id` | `gmgz.php` 购买官宅 |
-| `all_user` | `id` | `gm09~gm19.php` 封号操作 |
-| `zem` (xxjyuser) | `id` | `gm02.php` 后台操作 |
-| `all_sdk` | `sdkid` | `gm58~gm61.php` 兑换码 |
-| `all_qggz` | `id` | `qggz.php` 抢购规则 |
-| `all_pay` | `id` | `dd.php` 充值订单 |
-| `all_hdph01/02/03` | `id` | 活动排行 |
-| `all_yd01~04` | `id` | 活动记录 |
-| `all_xjhb` | `id` | 现金红包 |
-| `all_moneyjc` | `id` | 金豆奖池 |
-| `all_hbmoneyjc` | `id` | 红包奖池 |
-| `all_cz` | `id` | 充值记录 |
-| `all_qd` | `id` | 签到记录 |
-| `all_jc` | `id` | 竞技场 |
-
-**合计至少 16 张表需要先 `ALTER ... ADD AUTO_INCREMENT`** 才能切换。
-
-**已有 AUTO_INCREMENT 可立即切换**：
-| 表 | 列 | 使用文件 |
-|------|------|------|
-| `o_user_list` (两个库) | `uid` ✅ | `xxsql.php`, `register.php` |
-| `all_phb` | `id` ✅ | `gm37.php` 排行榜刷新 |
-| `gmuser` (xxjyuser) | `uid` ✅ | 管理员注册 |
-
-#### 关键发现 #3：双数据库连接安全
-
-- `xxjyuser`（家园）和 `xyy`（游戏）在同一 MySQL 服务器，通过**不同请求入口**隔离
-- `DB` 类是进程级单例，同一请求内只有一个连接，不会跨库混淆
-- `wrappers.php` 中 `mysql_query($sql, $conn)` 忽略 `$conn` 参数 → 当前恰好无影响（单连接场景）
-
-#### 更新后的实施依赖
-
-```
-第〇层
-  #4 索引  ←→  #4.5 MAX修复（可并行）
-    │             │
-    │         ┌────┴────┐
-    │      先 ALTER 16张表   wrappers.php 加 mysql_insert_id()
-    │      再加 AUTO_INCREMENT  业务代码删 MAX 查询 + 用 lastInsertId()
-    │             │
-    └─────┬───────┘
-          ▼
-      #5 InnoDB 迁移
-```
-
+- **#9 无前置阻塞**，可随时开始

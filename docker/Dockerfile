@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libonig-dev \
     && docker-php-ext-install pdo_mysql curl bcmath mbstring opcache \
     && docker-php-ext-enable curl \
+    && pecl install redis && docker-php-ext-enable redis \
     && a2enmod rewrite deflate expires \
     && rm -rf /var/lib/apt/lists/*
 
@@ -60,6 +61,8 @@ RUN { \
 # PHP 性能配置
 COPY docker/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY docker/gzip.ini /usr/local/etc/php/conf.d/gzip.ini
+# TODO #10: Warning 调试（生产环境注释掉此行）
+COPY docker/warn_debug.ini /usr/local/etc/php/conf.d/warn_debug.ini
 
 # 容器初始化脚本（sed 修复 Windows CRLF）
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
