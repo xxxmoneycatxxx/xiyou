@@ -38,7 +38,7 @@ $aa1=calc($guaiwu['防御']+100,$ggp,'mul');
 
 $aa2=calc($guaiwu['防御']+100,$aa1,'add');
 
-$aa3=calc($wjxx1['max攻击'],$aa2,'sub');
+$aa3=calc(($wjxx1['max攻击'] ?? 0),$aa2,'sub');
 
 $aa4=calc($aa3,$shxs,'mul');
 if($aa4>=1){

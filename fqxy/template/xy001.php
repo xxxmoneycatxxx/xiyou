@@ -197,10 +197,10 @@ if ($zsspd == 1) {
             $yl = 0;
         }
 
-        $phb1 = $wjxx1['血'];
-        $phb2 = $wjxx1['max攻击'];
-        $phb3 = $wjxx1['max魔攻'];
-        $phb4 = $wjxx1['max防御'];
+        $phb1 = $wjxx1['血'] ?? 0;
+        $phb2 = $wjxx1['max攻击'] ?? 0;
+        $phb3 = $wjxx1['max魔攻'] ?? 0;
+        $phb4 = $wjxx1['max防御'] ?? 0;
 
         $phb5 = $wjdj;
         $phb6 = $yl;

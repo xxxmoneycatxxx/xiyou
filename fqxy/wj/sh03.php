@@ -11,7 +11,7 @@ if ($gg1>0) {
 $ggp=$gg1/300;	
 $aa1=calc($guaiwu['攻击']+100,$ggp,'mul');
 $aa2=calc($guaiwu['攻击']+100,$aa1,'add');
-$aa3=calc($aa2,$wjxx1['max防御'],'sub');
+$aa3=calc($aa2,($wjxx1['max防御'] ?? 0),'sub');
 $aa4=calc($aa3,$shxs,'mul');
 if($aa4>=1){
 

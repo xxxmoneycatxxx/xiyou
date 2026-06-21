@@ -158,12 +158,12 @@ if($zsspd==1){
     echo "<font color=black>----------</font>"."<br>";
     echo "<font color=red>自己:</font>"."<br>";
     if($cmdd==348||$cmdd==249&&$mppppd!=1){
-        echo "<font color=black>体力:(".$wjxx['红']."/".$wjxx1['血'].")-".$wjsh."</font>"."<br>";
+        echo "<font color=black>体力:(".$wjxx['红']."/".($wjxx1['血'] ?? 0).")-".$wjsh."</font>"."<br>";
     } else{
-        echo "<font color=black>体力:(".$wjxx['红']."/".$wjxx1['血'].")</font>"."<br>";
+        echo "<font color=black>体力:(".$wjxx['红']."/".($wjxx1['血'] ?? 0).")</font>"."<br>";
     }
 
-    echo "<font color=black>内力:(".$wjxx['蓝']."/".$wjxx1['蓝'].")</font>"."<br>";
+    echo "<font color=black>内力:(".$wjxx['蓝']."/".($wjxx1['蓝'] ?? 0).")</font>"."<br>";
 
 
 
