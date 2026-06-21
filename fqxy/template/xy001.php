@@ -210,7 +210,7 @@ if ($zsspd == 1) {
         $q2 = "all_phb";
         $sql1 = mysql_query("select wjid from $q2 where wjid=$wjid");
         $info1 = @mysql_fetch_array($sql1);
-        $phwjid = $info1['wjid'];
+        $phwjid = is_array($info1) ? $info1['wjid'] : '';
         if ($phwjid == "") {
             $q2 = "all_phb";
             $q2 = "all_phb";

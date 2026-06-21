@@ -63,6 +63,16 @@ if(file_exists($file)){
 
 	$m=count($zbidx,0)-1;
 	$i=0;
+	$zbhp=0;
+	$zbgj=0;
+	$zbmg=0;
+	$zbfy=0;
+	$zbbg=0;
+	$zblg=0;
+	$zbhg=0;
+	$zbbf=0;
+	$zblf=0;
+	$zbhf=0;
 
 	for($d=0;$d<$m;$d++){
 		$i=$i+1;
@@ -182,6 +192,11 @@ if(file_exists($file)){
 	foreach(array_keys($txid) as $key){
 		$keytxid[]=$txid[$key];
 	}
+	$txhp=0;
+	$txgj=0;
+	$txfy=0;
+	$txmg=0;
+
 	for($d=0;$d<$m;$d++){
 		$i=$i+1;
 		$npcc=$keytxid[$i];
@@ -340,6 +355,16 @@ if(file_exists($file)){
 		$keyxpid[]=$xpid[$key];
 	}
 	$i=0;
+	$xphpsx=0;
+	$xpgjsx=0;
+	$xpmgsx=0;
+	$xpfysx=0;
+	$xpbgsx=0;
+	$xphgsx=0;
+	$xplgsx=0;
+	$xpbfsx=0;
+	$xphfsx=0;
+	$xplfsx=0;
 
 	for($d=0;$d<$m;$d++){
 
