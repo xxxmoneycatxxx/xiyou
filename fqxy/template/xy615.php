@@ -57,8 +57,7 @@ $m=count($zbid,0)-1;
 $ym=$zbid['初始'];
 
 
-$km=0;
-$i=0;
+$i=-1;
 
 
 
@@ -113,6 +112,7 @@ $keyzbfl[]=$zbfl[$key];
 //将ini值存入数组方便使用
 
 
+$czbmz1=$czbmz2=$czbmz3=$czbmz4=$czbmz5=$czbmz6=$czbmz7=$czbmz8=$czbmz9=$czbmz10='';
 for($d=0;$d<=$m;$d++){
 $i=$i+1;
 
