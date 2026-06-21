@@ -28,7 +28,7 @@ CREATE TABLE `gmuser` (
   `username` varchar(25) NOT NULL,
   `password` varchar(64) NOT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +53,7 @@ CREATE TABLE `o_user_list` (
   `ma` text NOT NULL,
   `aqm` text NOT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +67,7 @@ CREATE TABLE `zem` (
   `id` int(11) NOT NULL,
   `zem` text NOT NULL,
   `sy` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

@@ -7,7 +7,7 @@
 ## 运行环境
 
 - PHP 7.4（需 `pdo_mysql` `curl` `bcmath` `mbstring` 扩展）
-- MySQL 5.7+（MariaDB 亦可，InnoDB/MyISAM 不做要求）
+- MySQL 5.7+（MariaDB 亦可，默认 InnoDB）
 - Apache（需 `mod_rewrite`）
 - 无需 Composer
 
@@ -916,7 +916,7 @@ xy.php           ← 主引擎：认证、防刷、cmd 范围分发
 
 #### 数据设计细节
 - **银两用 TEXT 类型**：支持超大数值（文字 MUD 数值膨胀的经典做法）
-- **所有表均为 MyISAM**：无事务，无外键，追求简单和高并发的读写速度
+- **所有表均为 InnoDB**：支持事务和行级锁，多表写入原子性，崩溃自动恢复
 - **初始角色**：新建角色赠送 88888 银两，背包 500、仓库 1000、挂售 2000，技能 jnid=15(某个基础技能) 和 jnid=1，等级 1
 
 ---
@@ -969,7 +969,7 @@ xiyou/
 ├── docker/                      # Docker 部署
 │   ├── Dockerfile               #   镜像定义（php:7.4-apache + bcmath/mbstring）
 │   ├── docker-compose.yml       #   服务编排（MySQL 5.7 + Apache）
-│   └── entrypoint.sh            #   容器启动脚本（导表 + 权限）
+│   └── entrypoint.sh            #   容器启动脚本（导表 + AUTO_INCREMENT 对齐 + 索引 + 权限）
 ├── docker_deploy.ps1            #   一键部署脚本（Windows PowerShell）
 ├── .dockerignore                #   Docker build 排除规则
 ├── config/                      # 家园配置
@@ -1016,7 +1016,10 @@ xiyou/
 ├── sql/                         # 总站数据库连接 + CURL 验证（服务端）
 ├── data/                        # SQL 文件
 │   ├── xxjyuser.sql             # 家园库（1 表）
-│   └── xyy.sql                  # 分区库（74 表）
+│   ├── xyy.sql                  # 分区库（74 表）
+│   ├── auto_increment.sql       # AUTO_INCREMENT 计数器对齐
+│   ├── add_indexes.sql          # 索引优化
+│   └── migrate_to_innodb.sql    # MyISAM → InnoDB 迁移脚本
 └── images/                      # 文档用图
 ```
 
@@ -1031,7 +1034,7 @@ xiyou/
 | **模板** | PHP 直出 HTML，无模板引擎，业务逻辑与视图混写 |
 | **路由** | 手工 if/elseif 链，cmd 值分段 |
 | **缓存** | 自研 INI 文件缓存，写操作即时同步落盘 |
-| **数据库** | MyISAM 引擎，无事务无外键，银两用 TEXT 防止溢出 |
+| **数据库** | InnoDB 引擎，行级锁+事务，银两用 TEXT 防止溢出 |
 | **跨服** | CURL + token + hash_equals + 来源 URL 校验 |
 | **安全** | cmd 白名单范围校验、100ms 防过快刷新、session 持久化 |
 | **兼容** | `wrappers.php` 将 `mysql_query()` 映射到 PDO，保证旧代码平滑运行 |
@@ -1044,7 +1047,7 @@ xiyou/
 1. **不要轻易重构 cmd 路由**：700+ 个 cmd 值分散在大量模板的超链接中，牵一发而动全身。
 2. **INI 缓存是单点依赖**：`iniFile` 类被几乎所有游戏页面引用，修改其行为前需要充分评估影响。注意代码实际读写的是 `fqxy/acher/` 目录（不是 `ache/`）。
 3. **`mysql_*` 兼容层的局限**：`wrappers.php` 只覆盖了部分函数，新功能请直接使用 Medoo。
-4. **MyISAM 无事务**：涉及多表更新的操作需要自行处理失败回滚逻辑。
+4. **InnoDB 事务**：涉及多表更新的操作可使用事务保证原子性，但旧代码为 auto-commit 模式，需显式开启。
 5. **地图数据双源**：PHP 文件硬编码和 map 数据库表并存，修改地图时需确认同步。
 6. **银两字段是 TEXT**：做数值计算时需要先 `(int)` 强转。
 
@@ -1061,6 +1064,8 @@ xiyou/
 - **新增 Docker 部署支持**（一键部署，含 MySQL 5.7 + php:7.4-apache）
 - **安装 bcmath / mbstring 扩展**（原版依赖的函数需这两个扩展）
 - **修复 INI 缓存目录权限问题**（`acher/` 目录需 www-data 可写）
+- **消除 MAX(id)+1 并发竞态**：uid 等主键改为 AUTO_INCREMENT，容器启动自动对齐计数器
+- **MyISAM → InnoDB 全量迁移**：行级锁替代表级锁，支持事务，崩溃自动恢复（#5）
 - 更多详见 [Commits](https://github.com/zither/xiyou/commits/master)
 
 ---

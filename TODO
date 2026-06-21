@@ -71,7 +71,7 @@
   WHERE TABLE_SCHEMA IN ('xxjyuser', 'xyy') AND ENGINE = 'MyISAM';
   ```
   生成脚本 → 低峰期执行 → 验证
-- [ ] 完成
+- [x] 完成（2026-06-21 模拟测试通过，全量落实）
 
 ---
 
@@ -126,7 +126,7 @@
 | 3 | DB 连接复用 | ✅ | |
 | 4 | 关键索引 | ✅ | SQL 已就绪，待执行 |
 | 4.5 | MAX(id)+1→AUTO | ✅ | 2026-06-21 |
-| 5 | MyISAM→InnoDB | ⬜ | |
+| 5 | MyISAM→InnoDB | ✅ | 2026-06-21 |
 | 6 | PHP 8.2 升级 | ⬜ | |
 | 7 | OPcache (PHP8) | ⬜ | |
 | 8 | INI→Redis | ⬜ | |

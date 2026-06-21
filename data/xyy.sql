@@ -26,7 +26,7 @@ CREATE TABLE `all_boss` (
   `bossid` int(11) NOT NULL,
   `bossmz` text NOT NULL,
   `bosstime` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +62,7 @@ CREATE TABLE `all_bp` (
   `bpsw` int(11) NOT NULL,
   `bpjy` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '帮派经验',
   `bprs` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '帮派人数'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,7 +78,7 @@ CREATE TABLE `all_cz` (
   `czje` int(11) NOT NULL COMMENT '充值金额',
   `cztime` datetime NOT NULL COMMENT '充值时间',
   `czfl` int(11) NOT NULL COMMENT '充值方式'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +96,7 @@ CREATE TABLE `all_gzhoures` (
   `fzmz` text NOT NULL,
   `fzfl` int(11) NOT NULL,
   `fzgm` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,7 +110,7 @@ CREATE TABLE `all_hbmoney` (
   `wjid` int(11) NOT NULL,
   `wjmz` text NOT NULL,
   `money` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +123,7 @@ DROP TABLE IF EXISTS `all_hbmoneyjc`;
 CREATE TABLE `all_hbmoneyjc` (
   `id` int(11) NOT NULL,
   `money` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,7 +139,7 @@ CREATE TABLE `all_hdph01` (
   `wjmz` text NOT NULL,
   `vip` int(11) NOT NULL,
   `ds01` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +155,7 @@ CREATE TABLE `all_hdph02` (
   `wjmz` text NOT NULL,
   `vip` int(11) NOT NULL,
   `ds01` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -171,7 +171,7 @@ CREATE TABLE `all_hdph03` (
   `wjmz` text NOT NULL,
   `vip` int(11) NOT NULL,
   `ds01` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,7 +189,7 @@ CREATE TABLE `all_houres` (
   `fzmz` text NOT NULL,
   `fzfl` int(11) NOT NULL,
   `fzgm` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,7 +204,7 @@ CREATE TABLE `all_ip` (
   `iptime` datetime NOT NULL,
   `wjid` int(11) NOT NULL,
   `wjname` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +218,7 @@ CREATE TABLE `all_jc` (
   `id` int(11) NOT NULL,
   `xlid` int(11) NOT NULL,
   `jc` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -272,7 +272,7 @@ CREATE TABLE `all_money` (
   `wjid` int(11) NOT NULL,
   `wjmz` text NOT NULL,
   `money` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,7 +285,7 @@ DROP TABLE IF EXISTS `all_moneyjc`;
 CREATE TABLE `all_moneyjc` (
   `id` int(11) NOT NULL,
   `money` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,7 +301,7 @@ CREATE TABLE `all_pay` (
   `paywjid` int(11) NOT NULL,
   `price` text NOT NULL,
   `payzf` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -325,7 +325,7 @@ CREATE TABLE `all_phb` (
   `phb7` bigint(20) unsigned NOT NULL COMMENT '金豆榜',
   `phb8` bigint(20) unsigned NOT NULL COMMENT '充值榜',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -346,7 +346,7 @@ CREATE TABLE `all_pm` (
   `pmwpjg` text NOT NULL COMMENT '拍卖物品价格',
   `pmsjc` int(11) NOT NULL DEFAULT 0 COMMENT '拍卖时间搓',
   `pmwpfl` int(11) NOT NULL DEFAULT 0 COMMENT '拍卖物品分类'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -367,7 +367,7 @@ CREATE TABLE `all_qd` (
   `qd3` int(11) NOT NULL COMMENT '签到3',
   `qd4` int(11) NOT NULL COMMENT '签到4',
   `qd5` int(11) NOT NULL COMMENT '签到5'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -383,7 +383,7 @@ CREATE TABLE `all_qggz` (
   `qgmz` text NOT NULL,
   `wjid` int(11) NOT NULL,
   `qgjg` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -418,7 +418,7 @@ CREATE TABLE `all_sdk` (
   `sdktime` datetime NOT NULL,
   `sdkfl` int(11) NOT NULL,
   `sdksy` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -436,7 +436,7 @@ CREATE TABLE `all_user` (
   `utime` int(11) NOT NULL,
   `fl` int(11) NOT NULL,
   `yj` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -453,7 +453,7 @@ CREATE TABLE `all_xjhb` (
   `wjje` int(11) NOT NULL,
   `zh1` text NOT NULL,
   `zh2` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -473,7 +473,7 @@ CREATE TABLE `all_yd01` (
   `dy01_time` datetime NOT NULL,
   `yd01` int(11) NOT NULL COMMENT '免费',
   `yd02` int(11) NOT NULL COMMENT '收费'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -493,7 +493,7 @@ CREATE TABLE `all_yd02` (
   `dy01_time` datetime NOT NULL,
   `yd01` int(11) NOT NULL COMMENT '免费',
   `yd02` int(11) NOT NULL COMMENT '收费'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -513,7 +513,7 @@ CREATE TABLE `all_yd03` (
   `dy01_time` datetime NOT NULL,
   `yd01` int(11) NOT NULL COMMENT '免费',
   `yd02` int(11) NOT NULL COMMENT '收费'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -533,7 +533,7 @@ CREATE TABLE `all_yd04` (
   `dy01_time` datetime NOT NULL,
   `yd01` int(11) NOT NULL COMMENT '免费',
   `yd02` int(11) NOT NULL COMMENT '收费'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -547,7 +547,7 @@ CREATE TABLE `all_yl` (
   `wjid` int(11) NOT NULL COMMENT '玩家id',
   `bbyl` text NOT NULL COMMENT '背包银两',
   `ckyl` text NOT NULL COMMENT '仓库银两'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -562,7 +562,7 @@ CREATE TABLE `all_ylck` (
   `yl01` text NOT NULL COMMENT '银两',
   `yl02` text NOT NULL COMMENT '金豆',
   `yl03` text NOT NULL COMMENT '金带'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -593,7 +593,7 @@ CREATE TABLE `all_zt` (
   `ckrl` int(11) NOT NULL COMMENT '仓库容量',
   `emz` int(11) NOT NULL COMMENT '恶名值',
   `lh` int(11) NOT NULL COMMENT '靓号'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -661,7 +661,7 @@ CREATE TABLE `ckwp` (
   `wpsl` int(11) NOT NULL DEFAULT 0 COMMENT '仓库物品数量',
   `wpfl` int(11) NOT NULL DEFAULT 0 COMMENT '仓库物品分类',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='仓库物品';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='仓库物品';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -688,7 +688,7 @@ CREATE TABLE `ckzb` (
   `zbxq5` int(11) NOT NULL DEFAULT 0 COMMENT '仓库镶嵌5',
   `zbpd` int(11) NOT NULL DEFAULT 0 COMMENT '仓库装备佩戴',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='仓库装备';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='仓库装备';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -709,7 +709,7 @@ CREATE TABLE `cw` (
   `cwxb` int(11) NOT NULL DEFAULT 0 COMMENT '宠物品质',
   `cwcz` int(11) NOT NULL DEFAULT 0 COMMENT '宠物出战',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='宠物';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='宠物';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -737,7 +737,7 @@ CREATE TABLE `cwzbb` (
   `zbfl` int(11) NOT NULL DEFAULT 0 COMMENT '装备分类',
   `cwid` text NOT NULL COMMENT '宠物ID',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -753,7 +753,7 @@ CREATE TABLE `dyxx` (
   `wpid` int(11) NOT NULL DEFAULT 0 COMMENT '丹药ID',
   `sycs` int(11) NOT NULL DEFAULT 0 COMMENT '丹药使用次数',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -771,7 +771,7 @@ CREATE TABLE `fb` (
   `wc` int(11) NOT NULL DEFAULT 0 COMMENT '副本完成',
   `cs` int(11) NOT NULL DEFAULT 0 COMMENT '副本次数',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -788,7 +788,7 @@ CREATE TABLE `gsqt` (
   `wpsl` int(11) NOT NULL DEFAULT 0 COMMENT '挂售其他数量',
   `gsjg` text NOT NULL COMMENT '挂售价格',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -805,7 +805,7 @@ CREATE TABLE `gswp` (
   `wpsl` int(11) NOT NULL DEFAULT 0 COMMENT '挂售物品数量',
   `gsjg` text NOT NULL COMMENT '挂售价格',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -833,7 +833,7 @@ CREATE TABLE `gszb` (
   `zbpd` int(11) NOT NULL DEFAULT 0 COMMENT '挂售装备佩戴',
   `gsjg` text NOT NULL COMMENT '挂售价格',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -853,7 +853,7 @@ CREATE TABLE `gz01` (
   `czzid` int(11) NOT NULL,
   `zlsj` char(8) NOT NULL DEFAULT '' COMMENT '占领时间',
   `czwz` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '夺杖后重置位置'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -874,7 +874,7 @@ CREATE TABLE `gz03` (
   `cjsj` char(8) NOT NULL DEFAULT '' COMMENT '参加时间',
   `zlq` int(11) NOT NULL DEFAULT 0,
   `rlq` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '日领取'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -897,7 +897,7 @@ CREATE TABLE `gz04` (
   `rlq` int(11) NOT NULL DEFAULT 0 COMMENT '日领取',
   `czwz` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '夺杖后重置战场位置',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -910,7 +910,7 @@ DROP TABLE IF EXISTS `gz05`;
 CREATE TABLE `gz05` (
   `id` int(11) NOT NULL,
   `gztime` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -943,7 +943,7 @@ CREATE TABLE `hd` (
   `hdtime` datetime NOT NULL COMMENT '活动时间',
   `hdcs` int(11) NOT NULL DEFAULT 0 COMMENT '活动次数',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -978,7 +978,7 @@ CREATE TABLE `hy` (
   `hymz` text NOT NULL COMMENT '好友名字',
   `hyfl` int(11) NOT NULL DEFAULT 0 COMMENT '好友分类',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -994,7 +994,7 @@ CREATE TABLE `jfdj` (
   `jfid` int(10) unsigned NOT NULL DEFAULT 0,
   `jfdj` int(11) NOT NULL DEFAULT 0 COMMENT '解封等级',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1011,7 +1011,7 @@ CREATE TABLE `jj` (
   `jjdj` int(11) NOT NULL DEFAULT 0 COMMENT '家具等级',
   `jjbf` int(11) NOT NULL DEFAULT 0 COMMENT '家具摆放',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1027,7 +1027,7 @@ CREATE TABLE `jnn` (
   `jnid` int(11) NOT NULL DEFAULT 0 COMMENT '技能id',
   `jndj` int(11) NOT NULL DEFAULT 0 COMMENT '技能等级',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1080,7 +1080,7 @@ CREATE TABLE `o_user_list` (
   `f` int(11) NOT NULL DEFAULT 0 COMMENT '分',
   `m` int(11) NOT NULL DEFAULT 0 COMMENT '秒',
   PRIMARY KEY (`uid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1112,7 +1112,7 @@ CREATE TABLE `sw` (
   `swid` int(11) NOT NULL DEFAULT 0 COMMENT '声望ID',
   `swzz` int(11) NOT NULL DEFAULT 0 COMMENT '声望值',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1128,7 +1128,7 @@ CREATE TABLE `tx` (
   `txid` int(11) NOT NULL DEFAULT 0 COMMENT '头衔ID',
   `txxs` int(11) NOT NULL DEFAULT 0 COMMENT '头衔显示',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1172,7 +1172,7 @@ CREATE TABLE `wp` (
   `wpsl` int(11) NOT NULL DEFAULT 0 COMMENT '物品数量',
   `wpfl` int(11) NOT NULL DEFAULT 0 COMMENT '物品分类',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1194,7 +1194,7 @@ CREATE TABLE `wpp` (
   `f` int(11) NOT NULL DEFAULT 0 COMMENT '分',
   `m` int(11) NOT NULL DEFAULT 0 COMMENT '秒',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1231,7 +1231,7 @@ CREATE TABLE `xl` (
   `xlid` int(11) NOT NULL DEFAULT 0 COMMENT '修炼id',
   `xldj` int(11) NOT NULL DEFAULT 0 COMMENT '修炼等级',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1248,7 +1248,7 @@ CREATE TABLE `xp` (
   `xpid` int(11) NOT NULL DEFAULT 0 COMMENT '星盘id',
   `xpkq` int(11) NOT NULL DEFAULT 0 COMMENT '星盘开启',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1262,7 +1262,7 @@ CREATE TABLE `xtbl` (
   `id` int(11) NOT NULL,
   `bl1` int(11) NOT NULL,
   `bl2` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1282,7 +1282,7 @@ CREATE TABLE `yxrw` (
   `ysg` int(11) NOT NULL DEFAULT 0 COMMENT '要杀怪',
   `rwfl` int(11) NOT NULL DEFAULT 0 COMMENT '任务分类',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1309,7 +1309,7 @@ CREATE TABLE `zb` (
   `zbxq5` int(11) NOT NULL DEFAULT 0 COMMENT '镶嵌5',
   `zbpd` int(11) NOT NULL DEFAULT 0 COMMENT '装备佩戴',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='装备';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='装备';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1336,7 +1336,7 @@ CREATE TABLE `zbb` (
   `zbxq5` int(11) NOT NULL DEFAULT 0 COMMENT '镶嵌5',
   `zbfl` int(11) NOT NULL DEFAULT 0 COMMENT '装备分类',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1357,7 +1357,7 @@ CREATE TABLE `zf` (
   `f` int(11) NOT NULL DEFAULT 0 COMMENT '分',
   `m` int(11) NOT NULL DEFAULT 0 COMMENT '秒',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1374,7 +1374,7 @@ CREATE TABLE `zgvip` (
   `zgviptime` datetime NOT NULL COMMENT '尊贵vip时间',
   `xs` int(11) NOT NULL DEFAULT 0 COMMENT '显示',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
