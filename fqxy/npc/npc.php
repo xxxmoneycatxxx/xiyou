@@ -10482,6 +10482,7 @@ $npc[]=0;
 echo "<a href='xy.php?uid=$wjid&&cmd=$cmid&&sid=$a1'><font color=blue>一键提交</font></a>"."<br>";
 */
 } elseif ($npcc==1202) {//
+	$npcc1 ??= 0;
 	$npcc=$npcc1;
 	$npcname="〖采花〗百花仙子";
 	echo "<font color=red>$npcname</font>"."<br>";
