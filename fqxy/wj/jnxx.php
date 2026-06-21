@@ -1,5 +1,6 @@
 <?php
 
+$jnfor ??= 0;
 $jnfor=$jnfor+1;
 if($jnfor==1){
     //获取返回战斗页面

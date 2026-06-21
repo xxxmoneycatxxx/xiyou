@@ -39,6 +39,7 @@ if($zsspd==1){
             }
         } else{
             $cwcz2=1;
+            $cwidd=0;
         }
         //查询是否有出战宠物
         include("./ini/npc_ini.php");
