@@ -99,6 +99,7 @@ $npjy=1;//经验
 //爆装爆物爆经验代码
 
 //得到经验
+$npjy ??= 0;
 if ($npjy>0) {
 $jy=$npjy;//设置限制使用得到的经验
 //调用zf.ini是否存在
@@ -150,6 +151,7 @@ include("./pz/ini_pzz023.php");//调用ini缓存位置
 
 
 // 消除掉落类型报错
+$wpdz1 ??= [];
 if (empty($wpdz1) && !is_array($wpdz1)) {
     $wpdz1 = [];
 }
