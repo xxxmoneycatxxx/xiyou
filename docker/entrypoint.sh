@@ -33,6 +33,8 @@ if [ "$(mysql -h"$MYSQL_HOST" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD
     "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='xyy' AND table_name='all_zt'")" -eq 0 ]; then
     echo "  导入 xyy ..."
     mysql -h"$MYSQL_HOST" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" xyy < /var/www/html/data/xyy.sql
+    echo "  添加关键索引..."
+    mysql -h"$MYSQL_HOST" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" xyy < /var/www/html/data/add_indexes.sql
 fi
 echo "  数据库完成"
 
