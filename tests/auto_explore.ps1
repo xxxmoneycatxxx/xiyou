@@ -221,7 +221,7 @@ foreach ($cmd in $allCmds) {
                     $msg = if ($msg.Length -gt 100) { $msg.Substring(0,97) + '...' } else { $msg }
                     $Results += [PSCustomObject]@{ cmd=$cmd; type='PHP_WARN'; msg=$msg; status=$statusCode; ms=$elapsed }
                     # 换行打印（不盖掉进度条）
-                    Write-Host "`r  ⚠ $(if($Warned -le 999){' '})$Warned | cmd=$cmd $msg" -ForegroundColor Yellow
+                    Write-Host "`r  WARN $Warned | cmd=$cmd $msg" -ForegroundColor Yellow
                 }
             }
         }
@@ -248,10 +248,10 @@ foreach ($cmd in $allCmds) {
         if ($remaining -gt 120) { $eta = " ETA $([math]::Floor($remaining/60))m" }
         elseif ($remaining -gt 0) { $eta = " ETA ${remaining}s" }
     }
-    # 绘制进度条 30 格
+    # 绘制进度条 30 格 (纯 ASCII 兼容编码)
     $barW = 30
     $done = [math]::Floor($Tested / $Total * $barW)
-    $bar  = ("█" * $done) + ("░" * ($barW - $done))
+    $bar  = ("=" * $done) + ("-" * ($barW - $done))
     # 速率（请求/秒）
     $rpsStr = ''
     if ($Tested -gt 5) {
